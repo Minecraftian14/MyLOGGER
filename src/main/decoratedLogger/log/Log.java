@@ -45,6 +45,7 @@ public class Log {
 
         class_to_method.putIfAbsent(class_name, new HashSet<>());
         class_to_method.get(class_name).add(method_name);
+
     }
 
     private static String[] replaceTabs(String[] messages) {
@@ -61,11 +62,9 @@ public class Log {
 
     public static void writeToDisk(String path) {
         if (path.equals("")) path = System.getProperty("user.dir") + File.separator + "logs_" + new Date().getTime();
-        new File(path).mkdirs();
 
         try {
             File file = new File(path + File.separator + "class_to_method.data");
-            file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(class_to_method);
@@ -73,7 +72,6 @@ public class Log {
             fos.close();
 
             File file2 = new File(path + File.separator + "method_to_log.data");
-            file2.createNewFile();
             fos = new FileOutputStream(file2);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(method_to_log);
