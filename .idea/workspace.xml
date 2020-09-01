@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="MyLOGGER:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bf704b35-3b34-4984-9774-de46bcf3f247" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/MyLOGGER_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaFXApplication" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1bIQAvDwl7miNF5a2ZBdGTmGVZ2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last.edited.regexp" value="logs_" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/production/MyLOGGER/main/decoratedLogger/gui" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\JAVA\MyLOGGER\out\production\MyLOGGER\main\decoratedLogger\gui" />
+      <recent name="D:\Projects\JAVA\MyLOGGER\src\main" />
+      <recent name="D:\Projects\JAVA\MyLOGGER\src\main\web\tests" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.DLTest">
+    <configuration name="DLTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.decoratedLogger.DLTest" />
+      <module name="MyLOGGER" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.decoratedLogger.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileLogger" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.htmlfileLogger.log.FileLogger" />
+      <module name="MyLOGGER" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.htmlfileLogger.log.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LogViewer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.decoratedLogger.gui.LogViewer" />
+      <module name="MyLOGGER" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\Java\javafx-sdk-11.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.swing,javafx.web" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.decoratedLogger.gui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Neo_Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.bankedLogger.Neo_Test" />
+      <module name="MyLOGGER" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.bankedLogger.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Surround" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.boxUtilities.Surround" />
+      <module name="MyLOGGER" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.boxUtilities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.DLTest" />
+      <item itemvalue="Application.FileLogger" />
+      <item itemvalue="Application.LogViewer" />
+      <item itemvalue="Application.Neo_Test" />
+      <item itemvalue="Application.Surround" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DLTest" />
+        <item itemvalue="Application.Neo_Test" />
+        <item itemvalue="Application.Surround" />
+        <item itemvalue="Application.LogViewer" />
+        <item itemvalue="Application.FileLogger" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bf704b35-3b34-4984-9774-de46bcf3f247" name="Default Changelist" comment="" />
+      <created>1588316987989</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1588316987989</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Bi">
+      <created>1596282828281</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1596282828281</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Bi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bi" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="233" y="2" width="859" height="677" key="#Live_Templates" timestamp="1591077642424">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="2" width="859" height="677" key="#Live_Templates/0.0.1280.680@0.0.1280.680" timestamp="1591077642424" />
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591276099692">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1591276099692" />
+    <state x="538" y="222" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590825823782">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="538" y="222" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1590825823782" />
+    <state x="416" y="47" key="#com.intellij.ide.util.MemberChooser" timestamp="1591262499774">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="416" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1591262499774" />
+    <state x="443" y="232" width="394" height="221" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1591347775350">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="443" y="232" width="394" height="221" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1280.680@0.0.1280.680" timestamp="1591347775350" />
+    <state x="270" y="0" key="CommitChangelistDialog2" timestamp="1596282826060">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="270" y="0" key="CommitChangelistDialog2/0.0.1280.689@0.0.1280.689" timestamp="1596282826060" />
+    <state x="78" y="77" width="1125" height="527" key="DiffContextDialog" timestamp="1591281065119">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="78" y="77" width="1125" height="527" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1591281065119" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1590834172542" />
+    <state x="458" y="129" key="FileChooserDialogImpl" timestamp="1591196189861">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="458" y="129" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1591196189861" />
+    <state x="516" y="243" key="Github.ShareDialog" timestamp="1596282529630">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="516" y="243" key="Github.ShareDialog/0.0.1280.689@0.0.1280.689" timestamp="1596282529630" />
+    <state x="448" y="43" key="Github.UntrackedFilesDialog" timestamp="1596282557606">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="448" y="43" key="Github.UntrackedFilesDialog/0.0.1280.689@0.0.1280.689" timestamp="1596282557606" />
+    <state width="1237" height="52" key="GridCell.Tab.0.bottom" timestamp="1598964254149">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="159" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1593079379857" />
+    <state width="1237" height="52" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1598964254149" />
+    <state width="1493" height="131" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590836161931" />
+    <state width="1237" height="52" key="GridCell.Tab.0.center" timestamp="1598964254149">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="159" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1593079379857" />
+    <state width="1237" height="52" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1598964254149" />
+    <state width="1493" height="131" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590836161931" />
+    <state width="1237" height="52" key="GridCell.Tab.0.left" timestamp="1598964254148">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="159" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1593079379856" />
+    <state width="1237" height="52" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1598964254148" />
+    <state width="1493" height="131" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590836161931" />
+    <state width="1237" height="52" key="GridCell.Tab.0.right" timestamp="1598964254149">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state width="1237" height="159" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1593079379857" />
+    <state width="1237" height="52" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1598964254149" />
+    <state width="1493" height="131" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590836161931" />
+    <state x="208" y="0" key="SettingsEditor" timestamp="1591196193705">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="208" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1591196193705" />
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1590742231037" />
+    <state x="398" y="197" key="com.intellij.ide.util.TipDialog" timestamp="1592545579042">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="398" y="197" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1592545579042" />
+    <state x="477" y="239" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590737782474" />
+    <state x="310" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1593078738593">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="310" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1280.680@0.0.1280.680" timestamp="1593078738593" />
+    <state x="284" y="67" width="715" height="546" key="find.popup" timestamp="1591196113148">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="284" y="67" width="715" height="546" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1591196113147" />
+    <state width="344" height="332" key="javadoc.popup.new" timestamp="1593078724469">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="344" height="332" key="javadoc.popup.new/0.0.1280.680@0.0.1280.680" timestamp="1593078724469" />
+    <state x="91" y="0" key="new project wizard" timestamp="1596282671320">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="91" y="0" key="new project wizard/0.0.1280.689@0.0.1280.689" timestamp="1596282671320" />
+    <state x="398" y="0" key="refactoring.ChangeSignatureDialog" timestamp="1591079178265">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="398" y="0" key="refactoring.ChangeSignatureDialog/0.0.1280.680@0.0.1280.680" timestamp="1591079178265" />
+    <state x="477" y="37" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1590835636437" />
+    <state x="354" y="154" key="run.anything.popup" timestamp="1591275402774">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="354" y="154" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1591275402774" />
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1590835778508" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1591445854817">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1591445854817" />
+  </component>
+</project>

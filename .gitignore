@@ -2,6 +2,6 @@
 /out/
 /src/main/htmlfileLogger
 /logs_*
-/.idea
+
 *.iml
 /Html_Test
