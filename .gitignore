@@ -1,7 +1,7 @@
 # Project exclude paths
 /out/
-/src/main/htmlfileLogger
+/src/main/htmlfileLogger/
 /logs_*
-
+/.idea/
 *.iml
-/Html_Test
+/Html_Test/

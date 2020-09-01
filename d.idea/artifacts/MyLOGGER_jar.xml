@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="MyLOGGER:jar">
-    <output-path>D:/Tools/Libraries</output-path>
-    <root id="archive" name="MyLOGGER.jar">
-      <element id="module-output" name="MyLOGGER" />
-    </root>
-  </artifact>
-</component>
