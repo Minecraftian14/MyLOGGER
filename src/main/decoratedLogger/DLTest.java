@@ -1,5 +1,6 @@
 package main.decoratedLogger;
 
+import main.decoratedLogger.gui.LogViewer;
 import main.decoratedLogger.log.Decoration;
 import main.decoratedLogger.log.Log;
 
@@ -26,7 +27,9 @@ public class DLTest {
         new inner_DLTest();
         new outer_DLTest();
 
-//        Log.writeToDisk("");
+        Log.writeToDisk("");
+        LogViewer.main(new String[]{});
+
     }
 
     public DLTest() {

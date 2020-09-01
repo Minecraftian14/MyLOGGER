@@ -64,7 +64,9 @@ public class Log {
         if (path.equals("")) path = System.getProperty("user.dir") + File.separator + "logs_" + new Date().getTime();
 
         try {
+            new File(path).mkdirs();
             File file = new File(path + File.separator + "class_to_method.data");
+            file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(class_to_method);
