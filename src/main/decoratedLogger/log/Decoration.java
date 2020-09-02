@@ -64,8 +64,8 @@ public class Decoration {
             if (code.contains("_") && format_for_console.indexOf(ANSI.UNDERLINED) == -1)
                 format_for_console.append(ANSI.UNDERLINED);
 
-            decorates_for_console[i] = s -> format_for_console.toString() + s
-                    + (code.contains(":") ? code.substring(code.indexOf(":") + 1) : "") + ANSI.RESET
+            decorates_for_console[i] = s -> format_for_console.toString() + s + ANSI.RESET
+                    + (code.contains(":") ? code.substring(code.indexOf(":") + 1) : "")
                     + (code.contains("n") ? "\n" : "");
 
             String format_for_web = "*";
