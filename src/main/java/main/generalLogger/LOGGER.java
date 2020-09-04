@@ -119,7 +119,7 @@ public class LOGGER {
 
     public static void main(String[] args) throws InterruptedException {
         isAudioAllowed = true;
-        general("Hello There, Welcome To My LOGGER!");
+        general("Hello There", "Welcome To My LOGGER!");
         error("Hello There, Welcome To My LOGGER!");
         info("Hello There, Welcome To My LOGGER!");
         notice("Hello There, Welcome To My LOGGER!");
