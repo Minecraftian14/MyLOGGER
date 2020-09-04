@@ -3,8 +3,6 @@ package main.decoratedLogger.log;
 import main.utlities.ConsoleColors.ANSI;
 import main.utlities.RandomColour;
 
-import java.util.List;
-
 import static main.utlities.ConsoleColors.ANSI.map;
 import static main.utlities.Html.Wrap.*;
 
@@ -91,12 +89,15 @@ public class Decoration {
         }
     }
 
+    static String[] a = new String[]{map.get("0"), map.get("W"), map.get("R"), map.get("G"), map.get("B"), map.get("Y"), map.get("M"), map.get("C")};
+    static String[] b = new String[]{map.get("0B"), map.get("WB"), map.get("RB"), map.get("GB"), map.get("BB"), map.get("YB"), map.get("MB"), map.get("CB")};
+
     public static Decoration getRandomDecoration() {
         RandomColour c = new RandomColour();
 
         int ind = (int) (8 * Math.random());
-        String c1 = List.of(map.get("0"), map.get("W"), map.get("R"), map.get("G"), map.get("B"), map.get("Y"), map.get("M"), map.get("C")).get(ind);
-        String c2 = List.of(map.get("0B"), map.get("WB"), map.get("RB"), map.get("GB"), map.get("BB"), map.get("YB"), map.get("MB"), map.get("CB")).get(ind);
+        String c1 = a[ind];
+        String c2 = b[ind];
 
         return new Decoration(c1 + "b[" + c.yieldHex() + "]: ",
                 c2 + "[" + c.getBright().yieldHex() + "]: ",
