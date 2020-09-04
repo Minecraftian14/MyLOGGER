@@ -18,6 +18,7 @@ public class LOGGER {
     public static String infoColor = ConsoleColors.GREEN_BOLD;
     public static String noticeColor = ConsoleColors.YELLOW_UNDERLINED;
     public static String statusColor = ConsoleColors.PURPLE_BOLD_BRIGHT;
+    public static String spacer = " ";
 
     public static void general(String... messages) {
         if (isGeneralAllowed)
@@ -101,7 +102,7 @@ public class LOGGER {
     }
 
     public static void print(String message, String color) {
-        System.out.print(color + message + ConsoleColors.RESET);
+        System.out.print(color + message + ConsoleColors.RESET + spacer);
     }
 
     public static void printEnd() {
