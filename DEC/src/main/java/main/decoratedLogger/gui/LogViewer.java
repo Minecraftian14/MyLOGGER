@@ -59,7 +59,7 @@ public class LogViewer extends Application {
         sub_scenes = new Scene[class_to_method.size()];
         for (int i = 0; i < class_to_method.size(); i++) {
             sub_scenes[i] = new Scene(sub_roots[i] = new Group(), window.getWidth(), window.getHeight());
-            sub_scenes[i].getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+//            sub_scenes[i].getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         }
 
         addButtons();
@@ -138,7 +138,7 @@ public class LogViewer extends Application {
 
     @Override
     public void start(Stage stage) {
-        main_scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+//        main_scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
         addTabPanes();
 

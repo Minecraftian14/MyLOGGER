@@ -124,9 +124,9 @@ public class LOGGER {
         info("Hello There, Welcome To My LOGGER!");
         notice("Hello There, Welcome To My LOGGER!");
         status(100, "Hello");
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         status(100, "World");
-        // beep();
+        beep();
     }
 
 }

@@ -13,24 +13,22 @@ public class Decoration {
     Decorate[] decorates_for_web;
 
     /**
-     * b -> bold
-     * i -> italics
-     * _ -> underlined
-     * h -> highlighted
-     * s -> small
-     * - -> striked
-     * . -> subscript
-     * ' -> superscript
-     * n -> newline, more the number of n, more new lines
-     * t -> tab, more the number of t, more the tabs
+     * b -> bold <br />
+     * i -> italics <br />
+     * _ -> underlined <br />
+     * h -> highlighted <br />
+     * s -> small <br />
+     * - -> striked <br />
+     * . -> subscript <br />
+     * ' -> superscript <br />
+     * n -> newline, more the number of n, more new lines <br />
+     * t -> tab, more the number of t, more the tabs <br />
      * <p>
-     * [237abf] | [1f4] -> colour in html
+     * [237abf] | [1f4] -> colour in html <br />
      * ANSI code -> colour in console
      * <p>
-     * :expr -> expr to be used as separator.
-     * <strong>Please use it in the end!!!</strong>
-     *
-     * @param codes
+     * :expr -> expr to be used as separator. <br />
+     * <b>Please use it in the end!!!</b>
      */
     public Decoration(String... codes) {
 

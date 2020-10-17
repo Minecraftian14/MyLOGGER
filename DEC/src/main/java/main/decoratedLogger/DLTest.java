@@ -4,24 +4,27 @@ import main.decoratedLogger.gui.LogViewer;
 import main.decoratedLogger.log.Decoration;
 import main.decoratedLogger.log.Log;
 
+import static main.utlities.ConsoleColors.ANSI.GREEN;
+import static main.utlities.ConsoleColors.ANSI.RED;
+
 public class DLTest {
 
     public static void main(String[] args) {
-//        Log.put("init", new Decoration("_[0f0]", "[0f0]"));
-//
-//        Log.put("func_a", new Decoration("b[f00]", "n[f00]"));
-//        Log.put("func_b", new Decoration("s[ff0]", "n[ff0]"));
-//        Log.put("func_c", new Decoration(".[f0f]", "n[f0f]"));
-//
-//        Log.put("hello", new Decoration("b[f00]"));
-//
-//        Log.put("sian_a", new Decoration("'[f00]", "n[f00]"));
-//        Log.put("sian_b", new Decoration("h", "[ff0]n"));
-//        Log.put("sian_c", new Decoration("-[f0f]", "n[f0f]"));
-//
-//        Log.put("meth_a", new Decoration("n[f00]", "n[f00]"));
-//        Log.put("meth_b", new Decoration("n[ff0]: Hello ", "n[ff0]"));
-//        Log.put("meth_c", new Decoration("n[f0f]", "n[f0f]"));
+        Log.put("init", new Decoration("_[0f0]", "nn[0f0]"));
+
+        Log.put("func_a", new Decoration(RED + "b[f00]: ", GREEN + "in[0f0]"));
+        Log.put("func_b", new Decoration("s[ff0]", "n[ff0]"));
+        Log.put("func_c", new Decoration(".[f0f]", "n[f0f]"));
+
+        Log.put("hello", new Decoration("b[f00]"));
+
+        Log.put("sian_a", new Decoration("'[f00]", "n[f00]"));
+        Log.put("sian_b", new Decoration("h", "[ff0]n"));
+        Log.put("sian_c", new Decoration("-[f0f]", "n[f0f]"));
+
+        Log.put("meth_a", new Decoration("n[f00]", "n[f00]"));
+        Log.put("meth_b", new Decoration("n[ff0]: Hello ", "n[ff0]"));
+        Log.put("meth_c", new Decoration("n[f0f]", "n[f0f]"));
 
         new DLTest();
         new inner_DLTest();
