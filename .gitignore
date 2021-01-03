@@ -2,8 +2,6 @@
 /out/
 /logs_*
 /Html_Test/
-/decorate/
 /src/main/java/com/mcxiv/logger/util/MultiKeyMap.java
 /src/main/java/com/mcxiv/logger/tools/Html.java
 /src/main/java/com/mcxiv/logger/boxUtilities/
-/main/
