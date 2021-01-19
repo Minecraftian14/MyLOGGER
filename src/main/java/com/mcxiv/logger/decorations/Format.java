@@ -67,7 +67,11 @@ import java.lang.annotation.Target;
  *     <li><p><b>'</b> - makes superscripted text</p></li> <br />
  *
  *     <li><p><b>n</b> - creates a new line after the input</p></li>
+ *     <li><p><b>~</b> - makes the last decoration be reused when inputs length exceeds decorations length</p></li>
  *     <li><p><b>t</b> - creates a tab space before the input</p></li>
+ *
+ *     <li><p><b>%30s</b> - formats a string, right aligned, to fit in 30 char length</p></li>
+ *     <li><p><b>%-30s</b> - formats a string, left aligned, to fit in 30 char length</p></li>
  * </ul>
  *
  * <p>
@@ -86,20 +90,22 @@ import java.lang.annotation.Target;
  *         A hex value (0-F) representing a value between Black and White (inclusivly) with 16 divisions.
  *         In {@code C} they are obtained using {@code C.hexToGray} <br />
  *         eg: #0 -> Black color <br />
- *             #8 -> Grey color <br />
+ *             {@literal @}8 -> Grey background color <br />
+ *             {@literal @}e -> Light grey background color <br />
  *             #F -> White color <br />
  *         Note: Value obtained from C.hexToGray will also have to be converted to a font color or background
  *         color using {@code C.getFontColor} and {@code C.getBackColor} respectively.
  *     </p></li>
  *     <li><p>
- *         <b>$RGB</b> - RGB 3-digit Values <br />
+ *         <b>#RGB</b> - RGB 3-digit Values <br />
  *         these simple refer to a 3 digit hex value (000-FFF) to define a color using RED, GREEN,
  *         and BLUE values as a single digit hex. <br />
- *         eg: $F00 -> Red font color.
- *             $FF0 -> Yellow Color
+ *         eg: #F00 -> Red font color. <br />
+ *             {@literal @}F00 -> Red background color. <br />
+ *             #FF0 -> Yellow Color <br />
  *     </p></li>
  *     <li><p>
- *         <b>$RRGGBB</b> - RGB 6-digit Values <br />
+ *         <b>#RRGGBB or @RRGGBB</b> - RGB 6-digit Values <br />
  *         Normal hex values <br />
  *     </p></li>
  * </ul>

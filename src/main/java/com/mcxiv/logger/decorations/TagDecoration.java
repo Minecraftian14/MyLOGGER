@@ -119,7 +119,15 @@ public class TagDecoration extends Decoration {
 
             // Parsing other formatting chars
 
-            format.append(colorcd).append(pre).append("%s").append(suf).append("[FFFFFF]").append(sufsuf);
+            last_one_repeats = content.contains("~");
+
+            format.append(colorcd).append(pre);
+
+            if ((m = re_formatting.matcher(content)).find()) format.append(m.group(1));
+            else format.append("%s");
+
+            format.append(suf).append("[FFFFFF]").append(sufsuf);
+
             for (int j = 0; j < content.length(); j++)
                 if (content.charAt(j) == 'n') format.append('\n');
 

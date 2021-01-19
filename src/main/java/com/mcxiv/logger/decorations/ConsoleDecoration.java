@@ -58,6 +58,18 @@ public class ConsoleDecoration extends Decoration {
                     colorcd += C.getFontColor(C.hexToGray(Integer.parseInt(m.group(1) + m.group(1), 16)));
                     content = content.replace(m.group(), "");
 
+                } else if ((m = re_6Bcolor.matcher(content)).find()) {
+                    colorcd += C.getBackColor(C.hex6ToColor(m.group(1)));
+                    content = content.replace(m.group(), "");
+
+                } else if ((m = re_3Bcolor.matcher(content)).find()) {
+                    colorcd += C.getBackColor(C.hex3ToColor(m.group(1)));
+                    content = content.replace(m.group(), "");
+
+                } else if ((m = re_1Bcolor.matcher(content)).find()) {
+                    colorcd += C.getBackColor(C.hexToGray(Integer.parseInt(m.group(1) + m.group(1), 16)));
+                    content = content.replace(m.group(), "");
+
                 }
 
             }
@@ -70,8 +82,15 @@ public class ConsoleDecoration extends Decoration {
 
             if (content.contains("b")) format.append(C.FB);
             if (content.contains("u")) format.append(C.FU);
+            last_one_repeats = content.contains("~");
 
-            format.append(colorcd).append(pre).append("%s").append(suf).append(C.RS).append(sufsuf);
+            format.append(colorcd).append(pre);
+
+            if ((m = re_formatting.matcher(content)).find()) format.append(m.group(1));
+            else format.append("%s");
+
+            format.append(suf).append(C.RS).append(sufsuf);
+
             for (int j = 0; j < content.length(); j++)
                 if (content.charAt(j) == 'n') format.append('\n');
 

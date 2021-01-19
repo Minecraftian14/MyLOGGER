@@ -105,7 +105,7 @@ public class C {
     }
 
     public static int hexToGray(int g) {
-        return 232 + (int) (g / 11.08);
+        return 232 + g / 10;
     }
 
     public static String getBackColor(int i) {

@@ -3,7 +3,7 @@ package com.mcxiv.logger.formatted;
 import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.util.ByteConsumer;
-import com.mcxiv.logger.util.StringConsumer;
+import com.mcxiv.logger.util.StringsConsumer;
 
 import java.io.OutputStream;
 import java.lang.reflect.Constructor;
@@ -23,7 +23,7 @@ class Logger_AnnotationCompiler extends Logger_StreamDependencyAdder {
         super(consumer);
     }
 
-    public Logger_AnnotationCompiler(StringConsumer consumer) {
+    public Logger_AnnotationCompiler(StringsConsumer consumer) {
         super(consumer);
     }
 
@@ -63,9 +63,14 @@ class Logger_AnnotationCompiler extends Logger_StreamDependencyAdder {
     @Override
     public void prt(Object... obj) {
         Decoration decoration = getDecoration();
-        StringBuilder builder = new StringBuilder();
-        for (Object o : obj) builder.append(o);
-        writer.consume(decoration.decorate(builder.toString()));
+        String[] stf = new String[obj.length];
+        for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();
+        writer.consume(decoration.decorate(stf));
     }
 
+    @Override
+    public StringsConsumer prtf(String... format) {
+        Decoration decoration = yieldDecorator(format);
+        return msg -> writer.consume(decoration.decorate(msg));
+    }
 }

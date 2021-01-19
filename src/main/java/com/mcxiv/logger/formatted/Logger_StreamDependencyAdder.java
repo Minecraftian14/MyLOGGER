@@ -1,36 +1,38 @@
 package com.mcxiv.logger.formatted;
 
 import com.mcxiv.logger.util.ByteConsumer;
-import com.mcxiv.logger.util.StringConsumer;
+import com.mcxiv.logger.util.StringsConsumer;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 
-abstract class Logger_StreamDependencyAdder extends FLog {
+abstract class Logger_StreamDependencyAdder extends Logger_LevelDependencyAdder {
 
-    protected StringConsumer writer;
+    protected StringsConsumer writer;
 
     public Logger_StreamDependencyAdder(OutputStream stream) {
         super();
         final PrintStream sw = new PrintStream(stream);
-        writer = sw::print;
+        writer = st -> {
+            for (String s : st) sw.print(s);
+        };
     }
 
     public Logger_StreamDependencyAdder() {
         super();
-        writer = System.out::print;
+        writer = st -> {
+            for (String s : st) System.out.print(s);
+        };
     }
 
     public Logger_StreamDependencyAdder(ByteConsumer consumer) {
         super();
-        writer = st -> {
-            for (byte b : st.getBytes()) consumer.consume(b);
+        writer = sts -> {
+            for (String st : sts) for (byte b : st.getBytes()) consumer.consume(b);
         };
     }
 
-    public Logger_StreamDependencyAdder(StringConsumer consumer) {
+    public Logger_StreamDependencyAdder(StringsConsumer consumer) {
         super();
         writer = consumer;
     }

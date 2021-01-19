@@ -9,6 +9,7 @@ import static com.mcxiv.logger.tools.C.map;
 public abstract class Decoration {
 
     Decorate[] decorates;
+    boolean last_one_repeats = false;
 
     public Decoration(String... value) {
     }
@@ -19,10 +20,15 @@ public abstract class Decoration {
     static Pattern re_suf = Pattern.compile("[:]([^:]*)[:][:]");
     static Pattern re_sufsuf = Pattern.compile("[:][:]([^:x]*)$");
 
+    static Pattern re_formatting = Pattern.compile("([%][0-9-]*[s])");
+
     static Pattern re_Ccolor = Pattern.compile("[$]((?:" + map.keySet().stream().sorted((a, b) -> b.length() - a.length()).reduce("", (a, b) -> a.equals("") ? b : a + ")|(?:" + b) + "))");
     static Pattern re_6color = Pattern.compile("[#]([A-Fa-f0-9]{6})");
     static Pattern re_3color = Pattern.compile("[#]([A-Fa-f0-9]{3})");
     static Pattern re_1color = Pattern.compile("[#]([A-Fa-f0-9])");
+    static Pattern re_6Bcolor = Pattern.compile("[@]([A-Fa-f0-9]{6})");
+    static Pattern re_3Bcolor = Pattern.compile("[@]([A-Fa-f0-9]{3})");
+    static Pattern re_1Bcolor = Pattern.compile("[@]([A-Fa-f0-9])");
 
     static String[] a = new String[]{map.get("BK"), map.get("W"), map.get("R"), map.get("G"), map.get("B"), map.get("Y"), map.get("M"), map.get("C")};
 
@@ -53,6 +59,10 @@ public abstract class Decoration {
 
         for (int i = 0; i < Math.min(input.length, decorates.length); i++)
             input[i] = decorates[i].decorate(input[i]);
+
+        if (last_one_repeats && decorates.length < input.length)
+            for (int i = decorates.length; i < input.length; i++)
+                input[i] = decorates[decorates.length - 1].decorate(input[i]);
 
         for (String msg : input) builder.append(msg);
         return builder.toString();
