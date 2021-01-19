@@ -15,10 +15,10 @@ public class Logger_AnnotationCompilerTest {
     }
 
     @Test
-    @Format({":#FF1493: ::", "::- :#82En:", "::  :#4B0082:"})
+    @Format({":#FF1493b: ::", "::- :#82En:", "::  :$M:"})
     public void test_ABitComplicatedFormatting() {
         FLog log = FLog.getNew();
-        log.prt("Some Nice TITLE", "Some sub-title", "And some content");
+        log.prt("Text Space One", "some more text", "And well, even more text...");
     }
 
     @Test
