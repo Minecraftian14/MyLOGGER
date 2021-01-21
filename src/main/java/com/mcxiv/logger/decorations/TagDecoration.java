@@ -1,12 +1,9 @@
 package com.mcxiv.logger.decorations;
 
-import com.mcxiv.logger.tools.C;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class TagDecoration extends Decoration {
@@ -47,11 +44,11 @@ public class TagDecoration extends Decoration {
         map.put("YBBG", "[@FFFF88]");
         map.put("MBBG", "[@FF88FF]");
         map.put("CBBG", "[@88FFFF]");
-        
+
         map.put("FB", "");
         map.put("FU", "[UNDERLINE]");
         map.put("FR", "");
-        map.put("RS", "[NORMAL][FFFFFF][@000000]");
+        map.put("RS", "[RESET]");
 
     }
 
@@ -143,9 +140,12 @@ public class TagDecoration extends Decoration {
             // Parsing other formatting chars
 
             if (content.contains("T")) format.append(LocalDateTime.now().toString());
-//            if (content.contains("b")) format.append(C.FB);
-            if (content.contains("-")) format.append("[STRIKE]");
+//          if (content.contains("b")) format.append(C.FB);
             if (content.contains("u")) format.append("[UNDERLINE]");
+
+            if (content.contains("-"))
+                if (!content.contains("%") || content.indexOf("-") < content.indexOf("%"))
+                    format.append("[STRIKE]");
             if (content.contains("~")) {
                 last_one_repeats = true;
                 repeater_index = i;

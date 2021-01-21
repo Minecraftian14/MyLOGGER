@@ -53,18 +53,19 @@ public abstract class Decoration {
 
         RandomColor c = new RandomColor();
 
+        String[] codes = new String[]{
+                ":#" + c.yieldHex() + ": ::",
+                ":#" + c.getBright().yieldHex() + ": ::",
+                ":#" + c.getDark().yieldHex() + ": ::",
+                ":#" + c.getBright().yieldHex() + ": ::"
+        };
+
         switch (DECORATION_CLASS) {
             case "com.mcxiv.logger.decorations.ConsoleDecoration":
-                return new ConsoleDecoration(":#" + c.yieldHex() + ": ::",
-                        ":#" + c.getBright().yieldHex() + "]: ::",
-                        ":#" + c.getDark().yieldHex() + "]: ::",
-                        ":#" + c.getBright().yieldHex() + "]");
+                return new ConsoleDecoration(codes);
 
             case "com.mcxiv.logger.decorations.TagDecoration":
-                return new TagDecoration(":#" + c.yieldHex() + ": ::",
-                        ":#" + c.getBright().yieldHex() + "]: ::",
-                        ":#" + c.getDark().yieldHex() + "]: ::",
-                        ":#" + c.getBright().yieldHex() + "]");
+                return new TagDecoration(codes);
 
             default:
                 return new EmptyDecoration();

@@ -13,32 +13,36 @@ abstract class Logger_LevelDependencyAdder extends FLog {
     }
 
     @Override
-    public FLog vital() {
-        return LogLevel.VITAL.accepted() ? this : FLog.getEmptyVessel();
+    public FLog provide() {
+        return this;
     }
 
     @Override
-    public FLog error() {
-        return LogLevel.ERROR.accepted() ? this : FLog.getEmptyVessel();
+    public FLog provideEmpty() {
+        return EMPTY_VESSEL;
     }
 
-    @Override
-    public FLog warn() {
-        return LogLevel.WARN.accepted() ? this : FLog.getEmptyVessel();
-    }
-
-    @Override
-    public FLog notice() {
-        return LogLevel.NOTICE.accepted() ? this : FLog.getEmptyVessel();
-    }
-
-    @Override
-    public FLog debug() {
-        return LogLevel.DEBUG.accepted() ? this : FLog.getEmptyVessel();
-    }
-
-    @Override
-    public FLog general() {
-        return LogLevel.ALL.accepted() ? this : FLog.getEmptyVessel();
-    }
+    private static final FLog EMPTY_VESSEL = new FLog() {
+        @Override
+        public FLog provide() {
+            return null;
+        }
+        @Override
+        public FLog provideEmpty() {
+            return null;
+        }
+        @Override
+        public void prt(String... msg) {
+        }
+        @Override
+        public void prt(Object... obj) {
+        }
+        @Override
+        public void raw(String raw) {
+        }
+        @Override
+        public StringsConsumer prtf(String... format) {
+            return null;
+        }
+    };
 }

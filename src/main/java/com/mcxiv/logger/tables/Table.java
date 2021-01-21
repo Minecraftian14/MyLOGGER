@@ -2,11 +2,14 @@ package com.mcxiv.logger.tables;
 
 public interface Table {
 
-    static Table stripped() {
+    static TableAdaptor stripped() {
         return new StrippedTable();
     }
-    static Table box() {
+    static TableAdaptor box() {
         return new BoxTable();
+    }
+    static TableAdaptor empty() {
+        return new EmptyTable();
     }
 
     static String[] form(Object... obj) {

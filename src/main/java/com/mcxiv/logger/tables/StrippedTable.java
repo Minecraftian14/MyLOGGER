@@ -5,7 +5,7 @@ import com.mcxiv.logger.decorations.Decoration;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class StrippedTable implements Table {
+class StrippedTable extends TableAdaptor {
 
     ArrayList<Integer> rowWidth;
     ArrayList<String[]> rows;

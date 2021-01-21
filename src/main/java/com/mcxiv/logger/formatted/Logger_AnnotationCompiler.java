@@ -86,6 +86,11 @@ class Logger_AnnotationCompiler extends Logger_StreamDependencyAdder {
     }
 
     @Override
+    public void raw(String raw) {
+        writer.consume(raw);
+    }
+
+    @Override
     public StringsConsumer prtf(String... format) {
         Decoration decoration = Decoration.getDecoration(format);
         return msg -> writer.consume(decoration.decorate(msg));

@@ -42,7 +42,7 @@ public class Logger_LevelDependencyAdderTest {
                 "totally comfortable if you wish to skip ahead."
         );
 
-        LogLevel.WARN.activate();
+        LogLevel.NOTICE.activate();
 
         log.notice().prt("2", "Senseless Art", "Valuable Shit",
                 "The main theory behind Senseless Art is the",

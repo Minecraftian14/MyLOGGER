@@ -19,10 +19,4 @@ class Surround {
 
     }
 
-
-
-//    public static void main(String[] args) {
-//        System.out.println(getDoubleBorder("Hello World!"));
-//    }
-
 }

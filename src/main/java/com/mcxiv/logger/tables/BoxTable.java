@@ -6,7 +6,7 @@ import com.mcxiv.logger.decorations.Decoration;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class BoxTable implements Table {
+class BoxTable extends TableAdaptor {
 
     ArrayList<Integer> rowWidth;
     ArrayList<String[]> rows;
