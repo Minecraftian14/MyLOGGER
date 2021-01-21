@@ -28,7 +28,7 @@ public class TagDecoration extends Decoration {
         map.put("BG", "[88FF88]");
         map.put("BB", "[8888FF]");
         map.put("BY", "[FFFF88]");
-        map.put("BM", "[FF88]FF");
+        map.put("BM", "[FF88FF]");
         map.put("BC", "[88FFFF]");
 
         map.put("BKBG", "[@000000]");
@@ -45,13 +45,13 @@ public class TagDecoration extends Decoration {
         map.put("GBBG", "[@88FF88]");
         map.put("BBBG", "[@8888FF]");
         map.put("YBBG", "[@FFFF88]");
-        map.put("MBBG", "[@FF88]FF");
+        map.put("MBBG", "[@FF88FF]");
         map.put("CBBG", "[@88FFFF]");
         
         map.put("FB", "");
         map.put("FU", "[UNDERLINE]");
         map.put("FR", "");
-        map.put("RS", "[NORMAL][FFFFFF][@BBBBBB]");
+        map.put("RS", "[NORMAL][FFFFFF][@000000]");
 
     }
 
