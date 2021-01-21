@@ -151,7 +151,7 @@ public class TagDecoration extends Decoration {
                 repeater_index = i;
             }
 
-            format.append(colorcd).append(pre);
+            format.append(colorcd.toUpperCase()).append(pre);
 
             if ((m = re_formatting.matcher(content)).find()) format.append(m.group(1));
             else format.append("%s");
