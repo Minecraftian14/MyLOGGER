@@ -2,7 +2,6 @@ package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.boxUtilities.Box;
 import com.mcxiv.logger.decorations.Decoration;
-import com.mcxiv.logger.tools.Environment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,9 +18,9 @@ class BoxTable implements Table {
     Decoration headFormat = null;
     Decoration rowFormat = null;
 
-    static Decoration TITLE_FORMAT = Environment.getDecoration(Box.DP + ":: :b: ::" + Box.DP);
-    static Decoration HEAD_FORMAT = Environment.getDecoration(Box.DP + ":: :b: ::" + Box.DP, ":: :b~: ::" + Box.DP);
-    static Decoration ROW_FORMAT = Environment.getDecoration(Box.DP + ":: : : ::" + Box.DP, ":: :~: ::" + Box.DP);
+    static Decoration TITLE_FORMAT = Decoration.getDecoration(Box.DP + ":: :b: ::" + Box.DP);
+    static Decoration HEAD_FORMAT = Decoration.getDecoration(Box.DP + ":: :b: ::" + Box.DP, ":: :b~: ::" + Box.DP);
+    static Decoration ROW_FORMAT = Decoration.getDecoration(Box.DP + ":: : : ::" + Box.DP, ":: :~: ::" + Box.DP);
 
     public BoxTable() {
         rowWidth = new ArrayList<>();
@@ -36,13 +35,13 @@ class BoxTable implements Table {
      */
     @Override
     public Table format(String... codes) {
-        rowFormat = Environment.getDecoration(codes[0], codes[1]);
+        rowFormat = Decoration.getDecoration(codes[0], codes[1]);
         return this;
     }
 
     @Override
     public Table formatTitle(String code) {
-        titleFormat = Environment.getDecoration(code);
+        titleFormat = Decoration.getDecoration(code);
         return this;
     }
 
@@ -54,7 +53,7 @@ class BoxTable implements Table {
      */
     @Override
     public Table formatHead(String... codes) {
-        headFormat = Environment.getDecoration(codes[0]);
+        headFormat = Decoration.getDecoration(codes[0]);
         return this;
     }
 

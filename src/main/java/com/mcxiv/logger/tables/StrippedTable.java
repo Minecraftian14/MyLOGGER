@@ -1,7 +1,6 @@
 package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.decorations.Decoration;
-import com.mcxiv.logger.tools.Environment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,11 +19,11 @@ class StrippedTable implements Table {
     Decoration rowFormat1 = null;
     Decoration rowFormat2 = null;
 
-    static Decoration TITLE_FORMAT = Environment.getDecoration(":@eb:");
-    static Decoration HEAD_FORMAT1 = Environment.getDecoration(":@bb:");
-    static Decoration HEAD_FORMAT2 = Environment.getDecoration(":@cb:");
-    static Decoration ROW_FORMAT1 = Environment.getDecoration(":@d:");
-    static Decoration ROW_FORMAT2 = Environment.getDecoration(":@e:");
+    static Decoration TITLE_FORMAT = Decoration.getDecoration(":@eb:");
+    static Decoration HEAD_FORMAT1 = Decoration.getDecoration(":@bb:");
+    static Decoration HEAD_FORMAT2 = Decoration.getDecoration(":@cb:");
+    static Decoration ROW_FORMAT1 = Decoration.getDecoration(":@d:");
+    static Decoration ROW_FORMAT2 = Decoration.getDecoration(":@e:");
 
     public StrippedTable() {
         rowWidth = new ArrayList<>();
@@ -39,14 +38,14 @@ class StrippedTable implements Table {
      */
     @Override
     public Table format(String... codes) {
-        rowFormat1 = Environment.getDecoration(codes[0]);
-        rowFormat2 = Environment.getDecoration(codes[1]);
+        rowFormat1 = Decoration.getDecoration(codes[0]);
+        rowFormat2 = Decoration.getDecoration(codes[1]);
         return this;
     }
 
     @Override
     public Table formatTitle(String code) {
-        titleFormat = Environment.getDecoration(code);
+        titleFormat = Decoration.getDecoration(code);
         return this;
     }
 
@@ -58,8 +57,8 @@ class StrippedTable implements Table {
      */
     @Override
     public Table formatHead(String... codes) {
-        headFormat1 = Environment.getDecoration(codes[0]);
-        headFormat2 = Environment.getDecoration(codes[1]);
+        headFormat1 = Decoration.getDecoration(codes[0]);
+        headFormat2 = Decoration.getDecoration(codes[1]);
         return this;
     }
 
@@ -173,13 +172,15 @@ class StrippedTable implements Table {
 
             // calculating count of all the 'double percentage', ie, %%
             int persc = 0;
-            for (int i = 0; i < title.length(); i++) if(title.substring(i).startsWith("%%")) {
-                persc++;
-                i++;
-            }
+            for (int i = 0; i < title.length(); i++)
+                if (title.substring(i).startsWith("%%")) {
+                    persc++;
+                    i++;
+                }
 
-            StringBuilder form = new StringBuilder(String.format(" %-" + (w-2) + "s ", title));
-            for (int i = 0; i < persc ; i++) form .append(" "); // adding in all the spaces required to fill up the space deducted by conversion of %% to % when format is used.
+            StringBuilder form = new StringBuilder(String.format(" %-" + (w - 2) + "s ", title));
+            for (int i = 0; i < persc; i++)
+                form.append(" "); // adding in all the spaces required to fill up the space deducted by conversion of %% to % when format is used.
 
             head_form_sb.append(titleFormat.decorate(form.toString())).append("\n");
         }
