@@ -1,8 +1,10 @@
 package com.mcxiv.logger.formatted;
 
 
+import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.decorations.TagDecoration;
+import com.mcxiv.logger.tools.C;
 import org.junit.Test;
 
 public class Logger_AnnotationCompilerTest {
@@ -15,6 +17,34 @@ public class Logger_AnnotationCompilerTest {
     }
 
     @Test
+    @Format(":: :#F6BT:")
+    public void test_FormattingWithDefaultTime() {
+        FLog log = FLog.getNew();
+        log.prt("Some Task Report!");
+    }
+
+    @Test
+    @Format({"::  :@e%-5s:", ":< ss;SSS >:", ":: :@e%-7s:", ":: :%4s:  ::", ":@e%5sn: ::"})
+    public void test_FormattingWithCustomTime() throws InterruptedException {
+        FLog log = FLog.getNew();
+
+        log.prtf(":: :@cb: ::", "::  :@db:  ::", ":: :@cb: ::", ":: :@db: ::", ":: :@cbn: ::")
+                .consume("S.No.", "Time", "Status", "Reach", "Vard");
+
+        for (int i = 0; i < 10; i++) {
+            long tn = System.currentTimeMillis();
+
+            boolean fact = Math.random() > 0.5;
+            Thread.sleep(1000 + (fact ? 1 : -1));
+
+            tn = System.currentTimeMillis() - tn;
+
+            log.prt(i, "", (fact?C.G:C.R)+(tn > 0 && fact), tn, tn-100);
+        }
+
+    }
+
+    @Test
     @Format({":#FF1493b: ::", "::- :#82En:", "::  :$M:"})
     public void test_ABitComplicatedFormatting() {
         FLog log = FLog.getNew();
@@ -24,6 +54,7 @@ public class Logger_AnnotationCompilerTest {
     @Test
     @Format({"\n:: :@ff4$Bbu: ::", ":: :@ff9#FF1493b%-18s: ::", ":: :@ffd#82En%-27s: ::", "::    :~@e#4B0082%-47s: ::\n"})
     public void test_NICEFormatting() {
+
         FLog log = FLog.getNew();
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
@@ -93,7 +124,8 @@ public class Logger_AnnotationCompilerTest {
     @Format({":$B:", ":: :$GBG$R: ::", ":#ff00ff:"})
     public void test2() {
         FLog log = new Logger_AnnotationCompiler();
-        log.setDecorator(TagDecoration::new);
+        Decoration.setDecoration(TagDecoration::new);
+//        Decoration.setDecoration(TagDecoration.class);
         log.prt("Hey!", "So", "How", "Do", "You", "Do", "?");
     }
 

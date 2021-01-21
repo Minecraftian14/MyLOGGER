@@ -2,14 +2,14 @@ package com.mcxiv.logger.decorations;
 
 import com.mcxiv.logger.tools.C;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class TagDecoration extends Decoration {
-
-    static Pattern re_Scolor = Pattern.compile("([\\[][A-Fa-f0-9]{6,8}[]])");
 
     private static final HashMap<String, String> map = new HashMap<>();
 
@@ -30,26 +30,28 @@ public class TagDecoration extends Decoration {
         map.put("BY", "[FFFF88]");
         map.put("BM", "[FF88]FF");
         map.put("BC", "[88FFFF]");
-        map.put("BKBG", "");
-        map.put("WBG", "");
-        map.put("RBG", "");
-        map.put("GBG", "");
-        map.put("BBG", "");
-        map.put("YBG", "");
-        map.put("MBG", "");
-        map.put("CBG", "");
-        map.put("BKBBG", "");
-        map.put("WBBG", "");
-        map.put("RBBG", "");
-        map.put("GBBG", "");
-        map.put("BBBG", "");
-        map.put("YBBG", "");
-        map.put("MBBG", "");
-        map.put("CBBG", "");
+
+        map.put("BKBG", "[@000000]");
+        map.put("WBG", "[@FFFFFF]");
+        map.put("RBG", "[@FF0000]");
+        map.put("GBG", "[@00FF00]");
+        map.put("BBG", "[@0000FF]");
+        map.put("YBG", "[@FFFF00]");
+        map.put("MBG", "[@FF00FF]");
+        map.put("CBG", "[@00FFFF]");
+        map.put("BKBBG", "[@888888]");
+        map.put("WBBG", "[@F0F0F0]");
+        map.put("RBBG", "[@FF8888]");
+        map.put("GBBG", "[@88FF88]");
+        map.put("BBBG", "[@8888FF]");
+        map.put("YBBG", "[@FFFF88]");
+        map.put("MBBG", "[@FF88]FF");
+        map.put("CBBG", "[@88FFFF]");
+        
         map.put("FB", "");
-        map.put("FU", "");
+        map.put("FU", "[UNDERLINE]");
         map.put("FR", "");
-        map.put("RS", "[FFFFFF]");
+        map.put("RS", "[NORMAL][FFFFFF][@BBBBBB]");
 
     }
 
@@ -81,7 +83,9 @@ public class TagDecoration extends Decoration {
 
             StringBuilder format = new StringBuilder(prepre);
 
+
             // Parsing Color type to code
+
 
             String colorcd = "";
 
@@ -105,6 +109,20 @@ public class TagDecoration extends Decoration {
                     colorcd += "[" + buf + buf + buf + buf + buf + buf + "]";
                     content = content.replace(m.group(), "");
 
+                } else if ((m = re_6Bcolor.matcher(content)).find()) {
+                    colorcd += "[@" + m.group(1) + "]";
+                    content = content.replace(m.group(), "");
+
+                } else if ((m = re_3Bcolor.matcher(content)).find()) {
+                    String buf = m.group(1);
+                    colorcd += "[@" + buf.charAt(0) + buf.charAt(0) + buf.charAt(1) + buf.charAt(1) + buf.charAt(2) + buf.charAt(2) + "]";
+                    content = content.replace(m.group(), "");
+
+                } else if ((m = re_1Bcolor.matcher(content)).find()) {
+                    String buf = m.group(1);
+                    colorcd += "[@" + buf + buf + buf + buf + buf + buf + "]";
+                    content = content.replace(m.group(), "");
+
                 } else if ((m = re_Scolor.matcher(content)).find()) {
                     colorcd += m.group(1);
                     content = content.replace(m.group(), "");
@@ -114,24 +132,37 @@ public class TagDecoration extends Decoration {
             }
 
 
-            //
+            // Parsing Time Formatting
+
+            if ((m = re_timeFormat.matcher(content)).find()) {
+                format.append(LocalDateTime.now().format(DateTimeFormatter.ofPattern(m.group(1).replace(';', ':'))));
+                content = content.replace(m.group(), "");
+            }
 
 
             // Parsing other formatting chars
 
-            last_one_repeats = content.contains("~");
+            if (content.contains("T")) format.append(LocalDateTime.now().toString());
+//            if (content.contains("b")) format.append(C.FB);
+            if (content.contains("-")) format.append("[STRIKE]");
+            if (content.contains("u")) format.append("[UNDERLINE]");
+            if (content.contains("~")) {
+                last_one_repeats = true;
+                repeater_index = i;
+            }
 
             format.append(colorcd).append(pre);
 
             if ((m = re_formatting.matcher(content)).find()) format.append(m.group(1));
             else format.append("%s");
 
-            format.append(suf).append("[FFFFFF]").append(sufsuf);
+            format.append(suf).append(map.get("RS")).append(sufsuf);
 
             for (int j = 0; j < content.length(); j++)
                 if (content.charAt(j) == 'n') format.append('\n');
 
             final String form = format.toString();
+
             decorates[i] = s -> String.format(form, s);
 
         }

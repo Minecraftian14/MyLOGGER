@@ -6,7 +6,7 @@ import com.mcxiv.logger.util.StringsConsumer;
 
 import java.io.OutputStream;
 
-public abstract class FLog extends Logger_DecorationManager implements LogLevel.LogLevelAdaptor<FLog> {
+public abstract class FLog implements LogLevel.LogLevelAdaptor<FLog>, Logger_MethodCollection {
 
     private static FLog emptyVessel = new FLog() {
         @Override

@@ -2,6 +2,8 @@ package com.mcxiv.logger.decorations;
 
 import com.mcxiv.logger.tools.C;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 
 public class ConsoleDecoration extends Decoration {
@@ -75,14 +77,23 @@ public class ConsoleDecoration extends Decoration {
             }
 
 
-            //
+            // Parsing Time Formatting
+
+            if ((m = re_timeFormat.matcher(content)).find()) {
+                format.append(LocalDateTime.now().format(DateTimeFormatter.ofPattern(m.group(1).replace(';', ':'))));
+                content = content.replace(m.group(), "");
+            }
 
 
             // Parsing other formatting chars
 
+            if (content.contains("T")) format.append(LocalDateTime.now().toString());
             if (content.contains("b")) format.append(C.FB);
             if (content.contains("u")) format.append(C.FU);
-            last_one_repeats = content.contains("~");
+            if (content.contains("~")) {
+                last_one_repeats = true;
+                repeater_index = i;
+            }
 
             format.append(colorcd).append(pre);
 
@@ -95,6 +106,7 @@ public class ConsoleDecoration extends Decoration {
                 if (content.charAt(j) == 'n') format.append('\n');
 
             final String form = format.toString();
+
             decorates[i] = s -> String.format(form, s);
 
         }
