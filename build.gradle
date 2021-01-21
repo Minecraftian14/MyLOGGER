@@ -8,7 +8,7 @@ java {
 }
 
 group 'com.mcxiv.logger'
-version 'V2'
+version 'V3'
 
 repositories {
     mavenCentral()
