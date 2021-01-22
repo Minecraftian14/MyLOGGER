@@ -37,6 +37,15 @@ public class TableTest {
                 .row("", "Only", "Even", "Values")
                 .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
                 .create());
+
+        System.out.print(Table.empty()
+                .title("Hello")
+                .head("S.No.", "Number 1", "Number 2", "Answer")
+                .row("!", "A", "B", "A x B")
+                .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
+                .row("", "Only", "Even", "Values")
+                .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
+                .create());
     }
 
     @Test

@@ -45,6 +45,18 @@ public class Logger_AnnotationCompilerTest {
     }
 
     @Test
+    @Format({":Tn:", ":<hh;mm>n:", ":< mm;ss >n:"})
+    public void timeFormats() {
+        FLog log = FLog.getNew();
+
+        log.prt("");
+        log.prt("","");
+        log.prt("","","");
+
+
+    }
+
+    @Test
     @Format({":#FF1493b: ::", "::- :#82En:", "::  :$M:"})
     public void test_ABitComplicatedFormatting() {
         FLog log = FLog.getNew();
