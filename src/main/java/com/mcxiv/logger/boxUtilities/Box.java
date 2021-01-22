@@ -27,7 +27,10 @@ public class Box {
     public static final String L_DC = "\u2560";
     public static final String A_DC = "\u256C";
 
-
+    // Blocks
+    public static final String B_F = "\u2588";
+    public static final String B_H = "\u258B";
+    public static final String B_T = "\u258E";
 
 
 }

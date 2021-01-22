@@ -6,6 +6,31 @@ public class RandomColor {
 
     int r, g, b;
 
+
+    /**
+     * A collection of random colors between 0-215 inclusive
+     */
+    static String[] colors = new String[216];
+
+    static {
+        for (int i = 0; i < 216; i++)
+            colors[i] = C.getFontColor(16 + i);
+        for (int i = 0; i < colors.length; i++) {
+            int index = (int) (Math.random() * colors.length);
+            String temp = colors[i];
+            colors[i] = colors[index];
+            colors[index] = temp;
+        }
+    }
+
+    public static String getRandom() {
+        return colors[(int) (colors.length * Math.random())];
+    }
+
+    public static String getRandomAt(int i) {
+        return colors[i];
+    }
+
     public RandomColor() {
         r = (int) (255 * Math.random());
         g = (int) (255 * Math.random());

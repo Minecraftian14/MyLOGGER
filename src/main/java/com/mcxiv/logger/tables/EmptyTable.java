@@ -1,7 +1,6 @@
 package com.mcxiv.logger.tables;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class EmptyTable extends TableAdaptor {
 
@@ -55,66 +54,6 @@ class EmptyTable extends TableAdaptor {
         for (int i = 0; i < msg.length; i++)
             if (rowWidth.get(i) < msg[i].length())
                 rowWidth.set(i, msg[i].length());
-        return this;
-    }
-
-    @Override
-    public Table iter(int a, int b, Iterator... its) {
-
-        for (int i = a; i < b; i++) { // for each row
-
-            String[] msg = new String[its.length]; // every cell
-
-            for (int j = 0; j < msg.length; j++)
-                msg[j] = its[j].consume(i).toString(); // for each cell; jth cell on ith row
-
-            rows.add(msg);
-
-            for (int j = 0; j < its.length; j++) // for each cell/column updating row width
-                if (rowWidth.get(j) < msg[j].length())
-                    rowWidth.set(j, msg[j].length());
-
-        }
-        return this;
-    }
-
-    @Override
-    public Table iter(int a, int b, int c, Iterator... its) {
-
-        for (int i = a; i < b; i += c) { // for each row
-
-            String[] msg = new String[its.length]; // every cell
-
-            for (int j = 0; j < msg.length; j++)
-                msg[j] = its[j].consume(i).toString(); // for each cell; jth cell on ith row
-
-            rows.add(msg);
-
-            for (int j = 0; j < its.length; j++) // for each cell/column updating row width
-                if (rowWidth.get(j) < msg[j].length())
-                    rowWidth.set(j, msg[j].length());
-
-        }
-        return this;
-    }
-
-    @Override
-    public <T> Table bunch(T[] main, int groupSize, GroupIterator<T>... its) {
-        for (int i = 0; i < main.length; i += groupSize) { // For every bunch <-> For each row
-
-            String[] msg = new String[its.length]; // every cell
-
-            for (int j = 0; j < its.length; j++) // for each cell
-                msg[j] = its[j].consume(i / groupSize, Arrays.copyOfRange(main, i, i + groupSize)).toString();
-
-            rows.add(msg);
-
-            for (int j = 0; j < its.length; j++) // for each cell/column updating row width
-                if (rowWidth.get(j) < msg[j].length())
-                    rowWidth.set(j, msg[j].length());
-
-        }
-
         return this;
     }
 

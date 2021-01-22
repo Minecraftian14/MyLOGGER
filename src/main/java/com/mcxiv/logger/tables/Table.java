@@ -1,13 +1,18 @@
 package com.mcxiv.logger.tables;
 
+import com.mcxiv.logger.util.GroupIterator;
+import com.mcxiv.logger.util.Iterator;
+
 public interface Table {
 
     static TableAdaptor stripped() {
-        return new StrippedTable();
+        return new StripesTable();
     }
+
     static TableAdaptor box() {
         return new BoxTable();
     }
+
     static TableAdaptor empty() {
         return new EmptyTable();
     }
@@ -24,6 +29,8 @@ public interface Table {
 
     Table row(String... msg);
 
+    Table iter(int b, Iterator... its);
+
     Table iter(int a, int b, Iterator... its);
 
     Table iter(int a, int b, int c, Iterator... its);
@@ -37,13 +44,5 @@ public interface Table {
     Table formatHead(String... codes);
 
     String create();
-
-    interface Iterator {
-        Object consume(int i);
-    }
-
-    interface GroupIterator<T> {
-        Object consume(int groupIndex, T[] group);
-    }
 
 }

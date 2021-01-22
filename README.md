@@ -1,5 +1,7 @@
 # MyLOGGER
 
+![Collage](images/collage.png)
+
 A simple _logging_ tool to make **console outputs** look prettier...
 
 For instructions on using the logger, writing a "Formatting Code"
