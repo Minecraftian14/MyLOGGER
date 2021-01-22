@@ -4,10 +4,19 @@ package com.mcxiv.logger.formatted;
 import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.decorations.TagDecoration;
-import com.mcxiv.logger.tools.C;
 import org.junit.Test;
 
 public class Logger_AnnotationCompilerTest {
+
+    @Test
+    public void demoGenerator() {
+        FLog log = FLog.getNew();
+        log.prtf("").consume("\n\n\n");
+        log.prtf("").consume("No Formatting");
+        log.prtf("").consume("\n");
+        log.prtf(":: :@d#0a0afabu: ::", "  :: > :@e#0a0%-30s:").consume("Example", "String Formatting");
+        log.prtf("").consume("\n\n\n");
+    }
 
     @Test
     @Format(":#FF69B4:")
@@ -24,23 +33,18 @@ public class Logger_AnnotationCompilerTest {
     }
 
     @Test
-    @Format({"::  :@e%-5s:", ":< ss;SSS >:", ":: :@e%-7s:", ":: :%4s:  ::", ":@e%5sn: ::"})
+    @Format({":<ss;SSS>:", " -:: :n:"})
     public void test_FormattingWithCustomTime() throws InterruptedException {
         FLog log = FLog.getNew();
 
-        log.prtf(":: :@cb: ::", "::  :@db:  ::", ":: :@cb: ::", ":: :@db: ::", ":: :@cbn: ::")
-                .consume("S.No.", "Time", "Status", "Reach", "Vard");
-
-        for (int i = 0; i < 10; i++) {
-            long tn = System.currentTimeMillis();
-
-            boolean fact = Math.random() > 0.5;
-            Thread.sleep(1000 + (fact ? 1 : -1));
-
-            tn = System.currentTimeMillis() - tn;
-
-            log.prt(i, "", (fact?C.G:C.R)+(tn > 0 && fact), tn, tn-100);
-        }
+        log.prt("", "Yo!");
+        Thread.sleep(999);
+        log.prt("", "Yo!");
+        Thread.sleep(999);
+        log.prt("", "Yo!");
+        Thread.sleep(999);
+        log.prt("", "Yo!");
+        Thread.sleep(999);
 
     }
 
@@ -50,8 +54,8 @@ public class Logger_AnnotationCompilerTest {
         FLog log = FLog.getNew();
 
         log.prt("");
-        log.prt("","");
-        log.prt("","","");
+        log.prt("", "");
+        log.prt("", "", "");
 
 
     }

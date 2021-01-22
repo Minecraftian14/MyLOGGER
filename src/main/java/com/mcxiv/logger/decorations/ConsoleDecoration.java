@@ -79,10 +79,8 @@ public class ConsoleDecoration extends Decoration {
 
             // Parsing Time Formatting
 
-            if ((m = re_timeFormat.matcher(content)).find()) {
-                format.append(LocalDateTime.now().format(DateTimeFormatter.ofPattern(m.group(1).replace(';', ':'))));
-                content = content.replace(m.group(), "");
-            }
+            DateTimeFormatter timeFormatter = ((m = re_timeFormat.matcher(content)).find()) ? DateTimeFormatter.ofPattern(m.group(1).replace(';', ':')) : null;
+            if (timeFormatter != null) content = content.replace(m.group(), "");
 
 
             // Parsing other formatting chars
@@ -107,7 +105,10 @@ public class ConsoleDecoration extends Decoration {
 
             final String form = format.toString();
 
-            decorates[i] = s -> String.format(form, s);
+            if (timeFormatter != null)
+                decorates[i] = s -> LocalDateTime.now().format(timeFormatter) + String.format(form, s);
+            else
+                decorates[i] = s -> String.format(form, s);
 
         }
     }
