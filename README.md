@@ -2,6 +2,13 @@
 
 A simple _logging_ tool to make **console outputs** look prettier...
 
+For instructions on using the logger, writing a "Formatting Code"
+and examples of `@Format` annotation,
+[click this link](WRITING_A_FORMAT_FOR_DECORATION.md)
+
+For instructions on using Tables and examples, 
+[click this link](TABLES_EXAMPLES.md)
+
 ## Setup
 
 #### Download
