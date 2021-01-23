@@ -4,6 +4,7 @@ import com.mcxiv.logger.tools.C;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 
 public class ConsoleDecoration extends Decoration {
@@ -79,13 +80,13 @@ public class ConsoleDecoration extends Decoration {
 
             // Parsing Time Formatting
 
-            DateTimeFormatter timeFormatter = ((m = re_timeFormat.matcher(content)).find()) ? DateTimeFormatter.ofPattern(m.group(1).replace(';', ':')) : null;
-            if (timeFormatter != null) content = content.replace(m.group(), "");
+            Supplier<String> timeFormatter = timeConsumerResolver(content);
+
+            if ((m = re_timeFormat.matcher(content)).find()) content = content.replace(m.group(), "");
 
 
             // Parsing other formatting chars
 
-            if (content.contains("T")) format.append(LocalDateTime.now().toString());
             if (content.contains("b")) format.append(C.FB);
             if (content.contains("u")) format.append(C.FU);
             if (content.contains("~")) {
@@ -103,14 +104,61 @@ public class ConsoleDecoration extends Decoration {
             for (int j = 0; j < content.length(); j++)
                 if (content.charAt(j) == 'n') format.append('\n');
 
+
             final String form = format.toString();
 
+
             if (timeFormatter != null)
-                decorates[i] = s -> LocalDateTime.now().format(timeFormatter) + String.format(form, s);
+                decorates[i] = s -> timeFormatter.get() + String.format(form, s);
             else
                 decorates[i] = s -> String.format(form, s);
 
+
+            if ((m = re_centerFormatting.matcher(content)).find()) {
+
+                int len = Integer.parseInt(m.group(1));
+
+                final Decorate new_d = decorates[i];
+
+                decorates[i] = s -> new_d.decorate(Decoration.center(len, s));
+
+            }
+
+
+            if ((m = re_wordWrap.matcher(content)).find()) {
+
+                int spc = Integer.parseInt(m.group(1));
+
+                final Decorate new_d = decorates[i];
+
+                decorates[i] = s -> {
+                    StringBuilder builder = new StringBuilder();
+
+                    int key = 0, lastkey = -1;
+                    while (key + spc < s.length() && (key = s.lastIndexOf(" ", key + spc)) != -1) {
+                        builder.append(new_d.decorate(s.substring(lastkey + 1, key))).append("\n");
+                        lastkey = key;
+                    }
+
+                    return builder.toString();
+                };
+            }
+
         }
+    }
+
+    private Supplier<String> timeConsumerResolver(String content) {
+
+        if (content.contains("T"))
+            return () -> LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+
+        Matcher m = re_timeFormat.matcher(content);
+        if (m.find()) {
+            String form = m.group(1).replace(';', ':');
+            return () -> LocalDateTime.now().format(DateTimeFormatter.ofPattern(form));
+        }
+
+        return null;
     }
 
 }
