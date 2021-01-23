@@ -2,11 +2,8 @@ package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.boxUtilities.Box;
 import com.mcxiv.logger.decorations.Decoration;
-import com.mcxiv.logger.util.GroupIterator;
-import com.mcxiv.logger.util.Iterator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class BoxTable extends TableAdaptor {
 
@@ -99,9 +96,9 @@ class BoxTable extends TableAdaptor {
         // If there is a title specified, append it to header matching the table width.
         if (title != null) {
 
-            table.append(Box.TR_DC);
+            table.append(Box.TL_DC);
             for (int i = 0; i < w - 2; i++) table.append(Box.DB);
-            table.append(Box.TL_DC).append("\n");
+            table.append(Box.TR_DC).append("\n");
 
             // calculating count of all the 'double percentage', ie, %%
             int persc = 0;
@@ -118,20 +115,20 @@ class BoxTable extends TableAdaptor {
 
             table.append(titleFormat.decorate(form.toString())).append("\n");
 
-            table.append(Box.L_DC);
+            table.append(Box.R_DC);
             for (int i = 0; i < rowWidth.size(); i++) {
                 for (int j = 0; j < rowWidth.get(i) + 2; j++) table.append(Box.DB);
                 if (i != rowWidth.size() - 1) table.append(Box.B_DC);
             }
-            table.append(Box.R_DC).append("\n");
+            table.append(Box.L_DC).append("\n");
 
         } else {
-            table.append(Box.TR_DC);
+            table.append(Box.TL_DC);
             for (int i = 0; i < rowWidth.size(); i++) {
                 for (int j = 0; j < rowWidth.get(i) + 2; j++) table.append(Box.DB);
                 if (i != rowWidth.size() - 1) table.append(Box.B_DC);
             }
-            table.append(Box.TL_DC).append("\n");
+            table.append(Box.TR_DC).append("\n");
         }
 
         // Adjusting each header element to fit it's respective row width.
@@ -141,12 +138,12 @@ class BoxTable extends TableAdaptor {
         // filling in values of header into head form
         table.append(headFormat.decorate(header)).append("\n");
 
-        table.append(Box.L_DC);
+        table.append(Box.R_DC);
         for (int i = 0; i < rowWidth.size(); i++) {
             for (int j = 0; j < rowWidth.get(i) + 2; j++) table.append(Box.DB);
             if (i != rowWidth.size() - 1) table.append(Box.A_DC);
         }
-        table.append(Box.R_DC).append("\n");
+        table.append(Box.L_DC).append("\n");
 
         // Adjusting each row element to fit it's respective row width.
         for (String[] row : rows)
@@ -156,12 +153,12 @@ class BoxTable extends TableAdaptor {
         // for every row {filling in values of that row into row form and then appending it after header}
         for (String[] row : rows) table.append(rowFormat.decorate(row)).append("\n");
 
-        table.append(Box.BR_DC);
+        table.append(Box.BL_DC);
         for (int i = 0; i < rowWidth.size(); i++) {
             for (int j = 0; j < rowWidth.get(i) + 2; j++) table.append(Box.DB);
             if (i != rowWidth.size() - 1) table.append(Box.T_DC);
         }
-        table.append(Box.BL_DC).append("\n");
+        table.append(Box.BR_DC).append("\n");
 
         return table.toString();
     }

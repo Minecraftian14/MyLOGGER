@@ -12,6 +12,10 @@ public class Plot {
             return new SimpleBarGraph();
         }
 
+        static BarGraph box() {
+            return new BoxBarGraph();
+        }
+
         BarGraph title(String title);
 
         BarGraph XLabel(String... names);

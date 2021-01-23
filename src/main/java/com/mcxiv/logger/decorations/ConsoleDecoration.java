@@ -144,6 +144,28 @@ public class ConsoleDecoration extends Decoration {
                 };
             }
 
+
+            if ((m = re_splitter.matcher(content)).find()) {
+
+                char c = m.group(1).charAt(0);
+
+                final Decorate new_d = decorates[i];
+
+                decorates[i] = s -> {
+                    StringBuilder builder = new StringBuilder();
+
+                    int last = 0;
+                    for (int j = 0; j < s.length(); j++) {
+                        if (s.charAt(j) == c) {
+                            builder.append(new_d.decorate(s.substring(last, j)));
+                            last = j + 1;
+                        }
+                    }
+
+                    return builder.toString();
+                };
+            }
+
         }
     }
 

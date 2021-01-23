@@ -4,6 +4,8 @@ import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.tools.LogLevel;
 import org.junit.Test;
 
+import java.util.UnknownFormatConversionException;
+
 public class TableTest {
 
     @Test
@@ -135,4 +137,21 @@ public class TableTest {
         return avg / g.length;
     }
 
+
+    @Test
+    public void TabulationTest() {
+
+        FLog log = FLog.getNew();
+
+        try {
+            log.prt(String.format("%*s", "Hey"));
+        } catch (UnknownFormatConversionException e) {
+
+            Table.tabulate(log, e);
+
+//            e.printStackTrace();
+
+        }
+
+    }
 }

@@ -39,6 +39,7 @@ public abstract class Decoration {
     static Pattern re_centerFormatting = Pattern.compile("[%][*]([0-9]+)[s]");
     static Pattern re_timeFormat = Pattern.compile("[<]([\\w /;]+)[>]");
     static Pattern re_wordWrap = Pattern.compile("[w]([0-9]+)[w]");
+    static Pattern re_splitter = Pattern.compile("[x]([^/a])[x]");
 
     static Pattern re_Ccolor = Pattern.compile("[$]((?:" + map.keySet().stream().sorted((a, b) -> b.length() - a.length()).reduce("", (a, b) -> a.equals("") ? b : a + ")|(?:" + b) + "))");
     static Pattern re_6color = Pattern.compile("[#]([A-Fa-f0-9]{6})");

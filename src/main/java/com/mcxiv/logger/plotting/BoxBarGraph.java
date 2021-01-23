@@ -6,7 +6,7 @@ import com.mcxiv.logger.tools.C;
 import com.mcxiv.logger.tools.RandomColor;
 import com.mcxiv.logger.util.Iterator;
 
-class SimpleBarGraph implements Plot.BarGraph {
+class BoxBarGraph implements Plot.BarGraph {
 
     String title = null;
     String[] xLabels = null;
@@ -14,7 +14,7 @@ class SimpleBarGraph implements Plot.BarGraph {
     int[] values = null;
 
     double scale = 0.1;
-    String bar = Box.B_F ;
+    String bar = Box.B_F;
 
     @Override
     public Plot.BarGraph title(String title) {
@@ -107,26 +107,53 @@ class SimpleBarGraph implements Plot.BarGraph {
         // Else they are not much modified.
         // Also, apply an intend and respective bar colors.
         String form = "    %s%s" + C.RS + " %-" + longestXLabel + "s";
-
         for (int i = 0; i < Math.min(charHeight, xLabels.length); i++) {
             String value = "";
 
             for (int j = 0; j < Math.ceil(xLabels.length / (float) charHeight); j++) {
                 int k = j * charHeight + i;
-                if (k >= xLabels.length) continue;
-                value += String.format(form, RandomColor.getRandomAt(k), bar, xLabels[k]);
+                if (k >= xLabels.length)
+                    value += String.format(form, "", String.format("%" + bar.length() + "s", ""), "");
+                else
+                    value += String.format(form, RandomColor.getRandomAt(k), bar, xLabels[k]);
             }
 
             xLabels[i] = value;
         }
 
+        longestXLabel = (int) (Math.ceil(xLabels.length / (float) charHeight)) * (6 + longestXLabel); // 4 of pad + 1 of bar + 1 of pad
 
         //
 
 
         StringBuilder builder = new StringBuilder();
 
-        form = " %" + longestYLabel + "s \u2528 ";
+        if (title != null) { // centering the title about x axis and putting it.
+            builder.append("\n").append(Box.TL_DC);
+            for (int i = 0; i < longestYLabel + values.length * bar.length() + longestXLabel + (bar.length() - 1) * 3 + 6; i++)  // Beam until top border's and x label's separator's meeting
+                builder.append(Box.DB);
+            builder.append(Box.TR_DC).append("\n").append(Box.DP);
+            for (int i = 0; i < longestYLabel + 2; i++)
+                builder.append(" ");
+            builder.append(C.FB).append(Decoration.center(values.length * bar.length() + 3, title)).append(C.RS);
+            for (int i = 0; i < longestXLabel + (bar.length() - 1) * 3 + 1; i++)  // Beam until top border's and x label's separator's meeting
+                builder.append(" ");
+            builder.append(Box.DP).append("\n");
+        }
+
+        builder.append(title == null ? Box.TL_DC : Box.R_DC);                                  // Top Left Corner
+        for (int i = 0; i < longestYLabel + 1; i++)                 // Beam until top border's and y axis's meeting
+            builder.append(Box.DB);
+        builder.append("\u2564");                                   // Double Beam to Single Pillar down connector
+        for (int i = 0; i < values.length * bar.length() + 2; i++)  // Beam until top border's and x label's separator's meeting
+            builder.append(Box.DB);
+        builder.append(Box.B_DC);                                   // Double Beam to Double Pillar down connector
+        for (int i = 0; i < longestXLabel + (bar.length() - 1) * 3 + 1; i++)                 // Double Beam to end connector
+            builder.append(Box.DB);
+        builder.append(title == null ? Box.TR_DC : Box.L_DC).append("\n");                     // Top Right Corner
+
+
+        form = Box.DP + "%" + longestYLabel + "s \u2524 ";
 
         // Note that these operations are evaluated row wise.
         for (int dh = 0; dh < charHeight; dh++) { // for each row
@@ -143,26 +170,27 @@ class SimpleBarGraph implements Plot.BarGraph {
                     builder.append(RandomColor.getRandomAt(dw)).append(bar);
                 else for (int i = 0; i < bar.length(); i++) builder.append(" ");
             }
+            builder.append(" ").append(C.RS).append(Box.DP);
 
             // Putting in xLabels if they are present.
             if (xLabels != null && dh < xLabels.length)
                 builder.append(xLabels[dh]);
 
-            builder.append("\n").append(C.RS);
+            builder.append(" ").append(Box.DP).append("\n").append(C.RS);
         }
 
-        for (int i = 0; i < longestYLabel + 2; i++) // applying space in order to match up with the ylabels width and padding
-            builder.append(" ");
-        builder.append("\u2517");  // applying a bottom left corner
-        for (int i = 0; i < values.length * bar.length() + 2; i++) // applying x axis
-            builder.append("\u2501");
 
-        if (title != null) { // centering the title about x axis and putting it.
-            builder.append("\n");
-            for (int i = 0; i < longestYLabel + 2; i++)
-                builder.append(" ");
-            builder.append(C.FB).append(Decoration.center(values.length * bar.length() + 3, title)).append(C.RS);
-        }
+        builder.append(Box.BL_DC);                                              // Bottom Left Corner
+        for (int i = 0; i < longestYLabel + 1; i++)                             // filling up Double Beam to cover ylabels
+            builder.append(Box.DB);
+        builder.append("\u2567");                                               // putting a Double Beam to Single Pillar up connector
+        for (int i = 0; i < values.length * bar.length() + 2; i++)              // applying x axis
+            builder.append(Box.DB);
+        builder.append(Box.T_DC);                                               // putting a Double Beam to Double Pillar up connector
+        for (int i = 0; i < longestXLabel + (bar.length() - 1) * 3 + 1; i++)    // filling up Double Beam to cover xlabels
+            builder.append(Box.DB);
+        builder.append(Box.BR_DC);                                              // Bottom Right Corner
+
 
         return builder.toString();
     }

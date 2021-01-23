@@ -2,6 +2,7 @@ package com.mcxiv.logger.util;
 
 import com.mcxiv.logger.tools.C;
 import org.junit.Test;
+import org.junit.runners.Parameterized;
 
 import java.io.IOException;
 import java.util.function.BiConsumer;
@@ -113,5 +114,13 @@ public class CTest {
 
     }
 
+    @Test
+    public void lengthTest() {
 
+        String val = C.B+ C.RBG + "abcdef" + C.RS;
+
+        System.out.println(val);
+        System.out.println(val.length());
+        System.out.println(C.length(val));
+    }
 }

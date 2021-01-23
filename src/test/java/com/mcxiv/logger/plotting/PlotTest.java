@@ -18,13 +18,26 @@ public class PlotTest {
 
         log.raw(Plot.BarGraph.simple()
                         .title("Simple Test")
-                        .XLabel(0, 20, i -> "Title Name " + i)
+//                        .XLabel(0, 20, i -> "Title Name " + i)
                         .bar(0, 20, i -> (int) (100 * Math.random()))
 //                .XLabel("1","2","3","4","5","6","4","5","6","4","5","6")
 //                .bar(10, 20, 70, 90, 50, 60, 20, 70, 90, 50, 60, 20, 70, 90, 50, 60, 20, 70, 90, 50, 60)
                         .charHeight(13)
-                        .setBarType("0")
                         .create()
+        );
+    }
+
+    @Test
+    public void box() {
+        FLog log = FLog.getNew();
+
+        log.raw(Plot.BarGraph.box()
+                .title("Simple Test")
+//                .XLabel(0, 20, i -> "Title Name " + i)
+                .YLabel(0, 4, i -> "M.Height " + i)
+                .bar(0, 20, i -> (int) (100 * Math.random()))
+                .setBarType("(*)")
+                .create()
         );
     }
 
@@ -37,7 +50,7 @@ public class PlotTest {
         FLog log = FLog.getNew();
 
         log.raw(Plot.image(i.getWidth(), i.getHeight(), (x, y) -> new Plot.ColorBox() {
-            Color c = new Color(i.getRGB(x, y));
+            final Color c = new Color(i.getRGB(x, y));
 
             @Override
             public int R() {

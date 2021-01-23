@@ -105,7 +105,7 @@ public class C {
     }
 
     public static int hexToGray(int g) {
-        return 232 + g / 10;
+        return 232 + (int) (g / 10.7);
     }
 
     public static String getBackColor(int i) {
@@ -114,12 +114,12 @@ public class C {
 
     public static int hex3ToColor(String color) {
         if (color.length() != 3) throw new NumberFormatException(color + " should be 3 char long!");
-        return hexTo216(Integer.parseInt(color.charAt(0)+"0", 16),Integer.parseInt(color.charAt(1)+"0", 16),Integer.parseInt(color.charAt(2)+"0", 16));
+        return hexTo216(Integer.parseInt(color.charAt(0) + "0", 16), Integer.parseInt(color.charAt(1) + "0", 16), Integer.parseInt(color.charAt(2) + "0", 16));
     }
 
     public static int hex6ToColor(String color) {
         if (color.length() != 6) throw new NumberFormatException(color + " should be 6 char long!");
-        return hexTo216(Integer.parseInt(color.substring(0, 2), 16),Integer.parseInt(color.substring(2, 4), 16),Integer.parseInt(color.substring(4, 6), 16));
+        return hexTo216(Integer.parseInt(color.substring(0, 2), 16), Integer.parseInt(color.substring(2, 4), 16), Integer.parseInt(color.substring(4, 6), 16));
     }
 
     // public static List<String> list = List.of(BLACK, WHITE, RED, GREEN, BLUE, YELLOW, MAJENTA, CYAN, BRIGHT_BLACK, BRIGHT_WHITE, BRIGHT_RED, BRIGHT_GREEN, BRIGHT_BLUE, BRIGHT_YELLOW, BRIGHT_MAJENTA, BRIGHT_CYAN, BLACK_BACKGROUND, WHITE_BACKGROUND, RED_BACKGROUND, GREEN_BACKGROUND, BLUE_BACKGROUND, YELLOW_BACKGROUND, MAJENTA_BACKGROUND, CYAN_BACKGROUND, BLACK_BRIGHT_BACKGROUND, WHITE_BRIGHT_BACKGROUND, RED_BRIGHT_BACKGROUND, GREEN_BRIGHT_BACKGROUND, BLUE_BRIGHT_BACKGROUND, YELLOW_BRIGHT_BACKGROUND, MAJENTA_BRIGHT_BACKGROUND, CYAN_BRIGHT_BACKGROUND, BOLD, UNDERLINED, REVERSED);
@@ -167,4 +167,19 @@ public class C {
 //        System.out.println("[$]((?:" + map.keySet().stream().reduce("", (a, b) -> a.equals("") ? b : a + ")|(?:" + b) + "))");
     }
 
+    public static int length(String s) {
+        int ls = 0;
+
+        main:for (int i = 0; i < s.length(); i++) {
+            for (String col : map.values()) {
+                if (s.substring(i).startsWith(col)) {
+                    i += col.length();
+                    continue main;
+                }
+            }
+            ls++;
+        }
+
+        return ls;
+    }
 }
