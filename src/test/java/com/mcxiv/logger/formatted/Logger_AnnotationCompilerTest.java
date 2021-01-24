@@ -70,7 +70,7 @@ public class Logger_AnnotationCompilerTest {
     }
 
     @Test
-    @Format({"\n:: :@ff4$Bbu: ::", ":: :@ff9#FF1493b%-18s: ::", ":: :@ffd#82En%-27s: ::", "::    :w47w@e#4B0082%-47s: ::"})
+    @Format({"\n:: :@ff4$Bb u: ::", ":: :@ff9#FF1493b%-18s: ::", ":: :@ffd#82En%-27s: ::", "::    :w47w@e#4B0082%-47s: ::"})
     public void test_NICEFormatting() {
 
         FLog log = FLog.getNew();

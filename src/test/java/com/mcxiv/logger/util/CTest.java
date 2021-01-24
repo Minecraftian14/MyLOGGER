@@ -144,7 +144,9 @@ public class CTest {
     @Test
     public void ExtraterriostrialCodeTest() {
 //        System.out.println("\u001b[52;5;45m Hello\nWorld");
-        System.out.println(" \u001b[52;5;45;4m  Hello\nWorld");
+        System.out.println(" \u001b[51m  Hello  \u001b[0m\n  \u001b[51m   World \n  0 ");
+        System.out.println(" \u001b[52m  Hello  \u001b[0m\n  \u001b[52m   World");
+
         for (int i = 0; i < 255; i++)
             System.out.printf("%3d \u001b[%dm Hello %s\n", i, i, C.RS);
     }
@@ -153,6 +155,6 @@ public class CTest {
     public void Um() {
         System.out.println("Hello");
         System.out.println("\u001b[1AWorld");
-        
+        // output -> World         in terminal
     }
 }

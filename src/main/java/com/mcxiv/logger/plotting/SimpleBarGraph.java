@@ -47,13 +47,13 @@ class SimpleBarGraph implements Plot.BarGraph {
     }
 
     @Override
-    public Plot.BarGraph bar(int... values) {
+    public Plot.BarGraph values(int... values) {
         this.values = values;
         return this;
     }
 
     @Override
-    public Plot.BarGraph bar(int a, int b, Iterator its) {
+    public Plot.BarGraph values(int a, int b, Iterator its) {
         values = new int[b - a];
         for (int i = a, k = 0; i < b; i++, k++)
             values[k] = (int) its.consume(i);

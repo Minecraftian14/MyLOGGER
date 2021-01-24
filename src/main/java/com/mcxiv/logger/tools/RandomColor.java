@@ -30,8 +30,9 @@ public class RandomColor {
     }
 
     public static String getRandomAt(int i) {
-        i = 0xff000000 | i;
-        return ConsoleDecoration.hexToFont((i >> 16) & 0xFF, (i >> 8) & 0xFF, i & 0xFF);
+//        i = 0xff000000 | i;
+//        return ConsoleDecoration.hexToFont((i >> 16) & 0xFF, (i >> 8) & 0xFF, i & 0xFF);
+        return colors[i];
     }
 
     public RandomColor() {

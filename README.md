@@ -4,12 +4,21 @@
 
 A simple _logging_ tool to make **console outputs** look prettier...
 
-For instructions on using the logger, writing a "Formatting Code"
-and examples of `@Format` annotation,
-[![](https://img.shields.io/badge/Logger-Examples-orange)](WRITING_A_FORMAT_FOR_DECORATION.md)
+For instructions on writing a "Formatting Code",
+[![](https://img.shields.io/badge/Logger-Instructions-yellow)](WRITING_A_FORMAT_FOR_DECORATION.md)
+
+For examples of `@Format` annotation,
+[![](https://img.shields.io/badge/Logger-Examples-orange)](LOGGER_EXAMPLES.md)
 
 For instructions on using Tables and examples, 
 [![](https://img.shields.io/badge/Tables-Examples-green)](TABLES_EXAMPLES.md)
+
+For examples of plotint data, 
+[![](https://img.shields.io/badge/Plotting-Examples-red)](PLOTTING.md)
+
+For console specific compatibility,
+[![](https://img.shields.io/badge/Console-Compatibility-purple)](SUPPORT.md) 
+
 
 [![](https://jitpack.io/v/Minecraftian14/MyLOGGER.svg)](https://jitpack.io/#Minecraftian14/MyLOGGER)
 [![](https://img.shields.io/discord/740954840259362826?color=7289da&label=Discord)](https://discord.gg/UgMH9c98mg)

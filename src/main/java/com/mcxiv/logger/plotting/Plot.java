@@ -2,7 +2,6 @@ package com.mcxiv.logger.plotting;
 
 import com.mcxiv.logger.boxUtilities.Box;
 import com.mcxiv.logger.decorations.ConsoleDecoration;
-import com.mcxiv.logger.tools.C;
 import com.mcxiv.logger.util.Iterator;
 
 public class Plot {
@@ -27,9 +26,9 @@ public class Plot {
 
         BarGraph YLabel(int a, int b, Iterator its);
 
-        BarGraph bar(int... values);
+        BarGraph values(int... values);
 
-        BarGraph bar(int a, int b, Iterator its);
+        BarGraph values(int a, int b, Iterator its);
 
         BarGraph charHeight(int h);
 
@@ -42,15 +41,13 @@ public class Plot {
     }
 
 
-    public static String image(int w, int h, ColorFunction color) {
+    public static String image(int w, int h, IntFunction r, IntFunction g, IntFunction b) {
 
         StringBuilder builder = new StringBuilder();
 
         for (int j = 0; j < h; j += 2) {
             for (int i = 0; i < w; i++) {
-//                builder.append(C.getFontColor(C.hexTo216(color.at(i, j).R(), color.at(i, j).G(), color.at(i, j).B())));
-//                builder.append(C.hexTo24bitFont(color.at(i, j).R(), color.at(i, j).G(), color.at(i, j).B()));
-                builder.append(ConsoleDecoration.hexToFont(color.at(i, j).R(), color.at(i, j).G(), color.at(i, j).B()));
+                builder.append(ConsoleDecoration.hexToFont(r.get(i, j), g.get(i, j), b.get(i, j)));
                 builder.append(Box.B_F);
             }
             builder.append("\n");
@@ -59,22 +56,14 @@ public class Plot {
         return builder.toString();
     }
 
-    public static String image(int w, int h, int new_w, int new_h, ColorFunction color) {
+    public static String image(int w, int h, int new_w, int new_h, IntFunction r, IntFunction g, IntFunction b) {
         double scalex = w / (double) new_w;
         double scaley = h / (double) new_h;
-        return image(new_w, new_h, (x, y) -> color.at((int) (x * scalex), (int) (y * scaley)));
+        return image(new_w, new_h, (x, y) -> r.get((int) (x * scalex), (int) (y * scaley)), (x, y) -> g.get((int) (x * scalex), (int) (y * scaley)), (x, y) -> b.get((int) (x * scalex), (int) (y * scaley)));
     }
 
-    public interface ColorFunction {
-        ColorBox at(int x, int y);
-    }
-
-    public interface ColorBox {
-        int R();
-
-        int G();
-
-        int B();
+    public interface IntFunction {
+        int get(int x, int y);
     }
 
 }
