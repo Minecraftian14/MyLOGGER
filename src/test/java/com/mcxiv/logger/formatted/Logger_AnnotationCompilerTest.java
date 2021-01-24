@@ -3,8 +3,11 @@ package com.mcxiv.logger.formatted;
 
 import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.decorations.Format;
+import com.mcxiv.logger.decorations.RawFileDecoration;
 import com.mcxiv.logger.decorations.TagDecoration;
 import org.junit.Test;
+
+import java.io.File;
 
 public class Logger_AnnotationCompilerTest {
 
@@ -74,6 +77,8 @@ public class Logger_AnnotationCompilerTest {
     public void test_NICEFormatting() {
 
         FLog log = FLog.getNew();
+
+//        Decoration.setDecoration(strings -> new RawFileDecoration(new File("src/test/resources/log.txt"), strings));
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +

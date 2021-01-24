@@ -26,7 +26,7 @@ public abstract class Decoration {
     boolean last_one_repeats = false;
     int repeater_index = -1;
 
-    public Decoration(String... value) {
+    public Decoration(String... codes) {
     }
 
     static Pattern re_prepre = Pattern.compile("^([^:]*)[:][:]");

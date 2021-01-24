@@ -11,7 +11,7 @@ For examples of `@Format` annotation,
 [![](https://img.shields.io/badge/Logger-Examples-orange)](LOGGER_EXAMPLES.md)
 
 For instructions on using Tables and examples, 
-[![](https://img.shields.io/badge/Tables-Examples-green)](TABLES_EXAMPLES.md)
+[![](https://img.shields.io/badge/Tables-Examples-green)](TABLE_EXAMPLES.md)
 
 For examples of plotint data, 
 [![](https://img.shields.io/badge/Plotting-Examples-red)](PLOTTING.md)
