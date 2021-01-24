@@ -1,6 +1,7 @@
 package com.mcxiv.logger.plotting;
 
 import com.mcxiv.logger.boxUtilities.Box;
+import com.mcxiv.logger.decorations.ConsoleDecoration;
 import com.mcxiv.logger.tools.C;
 import com.mcxiv.logger.util.Iterator;
 
@@ -47,7 +48,9 @@ public class Plot {
 
         for (int j = 0; j < h; j += 2) {
             for (int i = 0; i < w; i++) {
-                builder.append(C.getFontColor(C.hexTo216(color.at(i, j).R(), color.at(i, j).G(), color.at(i, j).B())));
+//                builder.append(C.getFontColor(C.hexTo216(color.at(i, j).R(), color.at(i, j).G(), color.at(i, j).B())));
+//                builder.append(C.hexTo24bitFont(color.at(i, j).R(), color.at(i, j).G(), color.at(i, j).B()));
+                builder.append(ConsoleDecoration.hexToFont(color.at(i, j).R(), color.at(i, j).G(), color.at(i, j).B()));
                 builder.append(Box.B_F);
             }
             builder.append("\n");

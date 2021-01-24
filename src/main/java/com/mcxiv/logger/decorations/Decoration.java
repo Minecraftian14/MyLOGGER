@@ -48,9 +48,9 @@ public abstract class Decoration {
     static Pattern re_6Bcolor = Pattern.compile("[@]([A-Fa-f0-9]{6})");
     static Pattern re_3Bcolor = Pattern.compile("[@]([A-Fa-f0-9]{3})");
     static Pattern re_1Bcolor = Pattern.compile("[@]([A-Fa-f0-9])");
-    static Pattern re_Scolor = Pattern.compile("([\\[][@]?[A-Fa-f0-9]{6,8}[]])");
+    static Pattern re_Scolor = Pattern.compile("([\\[]([A-Fa-f0-9]{6,8})[]])");
+    static Pattern re_SBcolor = Pattern.compile("([\\[][@]([A-Fa-f0-9]{6,8})[]])");
 
-    static String[] a = new String[]{map.get("BK"), map.get("W"), map.get("R"), map.get("G"), map.get("B"), map.get("Y"), map.get("M"), map.get("C")};
 
     public static Decoration getRandomDecoration() {
 

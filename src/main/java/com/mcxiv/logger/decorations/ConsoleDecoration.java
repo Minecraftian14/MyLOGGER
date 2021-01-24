@@ -1,5 +1,7 @@
 package com.mcxiv.logger.decorations;
 
+import com.mcxiv.logger.decorations.DecorationCommonResolvers.FormattingCodeSplitter;
+import com.mcxiv.logger.decorations.DecorationCommonResolvers.TimeResolver;
 import com.mcxiv.logger.tools.C;
 
 import java.time.LocalDateTime;
@@ -9,6 +11,22 @@ import java.util.regex.Matcher;
 
 public class ConsoleDecoration extends Decoration {
 
+    public static final int NONE = 0;
+    public static final int BLACK = 1;
+    public static final int WHITE = 2;
+    public static final int BIT_3 = 3;
+    public static final int BIT_4 = 4;
+    public static final int BIT_8 = 5;
+    public static final int TRUE_COLOR_BIT_24 = 6;
+
+    private static int STATE = TRUE_COLOR_BIT_24;
+
+    public static void setColorMode(int mode) {
+        if (mode < 0 || mode > TRUE_COLOR_BIT_24)
+            throw new IllegalArgumentException("Only modes accepted are integers from 0 to 6 inclusive.");
+        STATE = mode;
+    }
+
     public ConsoleDecoration(String... codes) {
 
         decorates = new Decorate[codes.length];
@@ -16,93 +34,103 @@ public class ConsoleDecoration extends Decoration {
         for (int i = 0; i < codes.length; i++) {
             String code = codes[i];
 
-            // Extracting different parts of input
 
+            //
+
+
+            // Splitting up the formatting code to separate parts.
+            FormattingCodeSplitter sp = new FormattingCodeSplitter(code);
+
+            // And some basic initialisation.
+            StringBuilder format = new StringBuilder(sp.prepre);
             Matcher m;
 
-            m = re_prepre.matcher(code);
-            String prepre = m.find() ? m.group(1) : "";
 
-            m = re_pre.matcher(code);
-            String pre = m.find() ? m.group(1) : "";
-
-            m = re_content.matcher(code);
-            String content = m.find() ? m.group(1) : "";
-
-            m = re_suf.matcher(code);
-            String suf = m.find() ? m.group(1) : "";
-
-            m = re_sufsuf.matcher(code);
-            String sufsuf = m.find() ? m.group(1) : "";
-
-            StringBuilder format = new StringBuilder(prepre);
+            //
 
 
             // Parsing Color type to code
 
-
             String colorcd = "";
 
-            for (int r = 0; r < 2; r++) {
+            // Pickin' a color from 16x2 color set, half for fonts, half for bgs
+            // Ran twice as to catch "possible" 2 inputs, one for font, one for bg
+            if ((m = re_Ccolor.matcher(sp.content)).find()) {
+                colorcd += C.map.get(m.group(1));
+                sp.content = sp.content.replace(m.group(), "");
 
-                if ((m = re_Ccolor.matcher(content)).find()) {
-                    colorcd += C.map.get(m.group(1));
-                    content = content.replace(m.group(), "");
+            } if ((m = re_Ccolor.matcher(sp.content)).find()) {
+                colorcd += C.map.get(m.group(1));
+                sp.content = sp.content.replace(m.group(), "");
+            }
 
-                } else if ((m = re_6color.matcher(content)).find()) {
-                    colorcd += C.getFontColor(C.hex6ToColor(m.group(1)));
-                    content = content.replace(m.group(), "");
+            // Font Color
+            if ((m = re_6color.matcher(sp.content)).find()) {
+                colorcd += C.hex.split6d(m.group(1), ConsoleDecoration::hexToFont);
+                sp.content = sp.content.replace(m.group(), "");
 
-                } else if ((m = re_3color.matcher(content)).find()) {
-                    colorcd += C.getFontColor(C.hex3ToColor(m.group(1)));
-                    content = content.replace(m.group(), "");
+            } else if ((m = re_3color.matcher(sp.content)).find()) {
+                colorcd += C.hex.split3d(m.group(1), ConsoleDecoration::hexToFont);
+                sp.content = sp.content.replace(m.group(), "");
 
-                } else if ((m = re_1color.matcher(content)).find()) {
-                    colorcd += C.getFontColor(C.hexToGray(Integer.parseInt(m.group(1) + m.group(1), 16)));
-                    content = content.replace(m.group(), "");
+            } else if ((m = re_1color.matcher(sp.content)).find()) {
+                colorcd += C.hex.split1d(m.group(1), ConsoleDecoration::hexToFont);
+                sp.content = sp.content.replace(m.group(), "");
 
-                } else if ((m = re_6Bcolor.matcher(content)).find()) {
-                    colorcd += C.getBackColor(C.hex6ToColor(m.group(1)));
-                    content = content.replace(m.group(), "");
+            } else if ((m = re_Scolor.matcher(sp.content)).find()) {
+                colorcd += C.hex.split6d(m.group(1), ConsoleDecoration::hexToFont);
+                sp.content = sp.content.replace(m.group(), "");
+            }
 
-                } else if ((m = re_3Bcolor.matcher(content)).find()) {
-                    colorcd += C.getBackColor(C.hex3ToColor(m.group(1)));
-                    content = content.replace(m.group(), "");
+            // Background Color
+            if ((m = re_6Bcolor.matcher(sp.content)).find()) {
+                colorcd += C.hex.split6d(m.group(1), ConsoleDecoration::hexToBack);
+                sp.content = sp.content.replace(m.group(), "");
 
-                } else if ((m = re_1Bcolor.matcher(content)).find()) {
-                    colorcd += C.getBackColor(C.hexToGray(Integer.parseInt(m.group(1) + m.group(1), 16)));
-                    content = content.replace(m.group(), "");
+            } else if ((m = re_3Bcolor.matcher(sp.content)).find()) {
+                colorcd += C.hex.split3d(m.group(1), ConsoleDecoration::hexToBack);
+                sp.content = sp.content.replace(m.group(), "");
 
-                }
+            } else if ((m = re_1Bcolor.matcher(sp.content)).find()) {
+                colorcd += C.hex.split1d(m.group(1), ConsoleDecoration::hexToBack);
+                sp.content = sp.content.replace(m.group(), "");
 
+            } else if ((m = re_SBcolor.matcher(sp.content)).find()) {
+                colorcd += C.hex.split6d(m.group(1), ConsoleDecoration::hexToBack);
+                sp.content = sp.content.replace(m.group(), "");
             }
 
 
+            //
+
+
             // Parsing Time Formatting
+            TimeResolver timeResolver = new TimeResolver(sp.content);
+            Supplier<String> timeFormatter = timeResolver.getTime();
+            sp.content = timeResolver.content;
 
-            Supplier<String> timeFormatter = timeConsumerResolver(content);
 
-            if ((m = re_timeFormat.matcher(content)).find()) content = content.replace(m.group(), "");
+            //
 
 
             // Parsing other formatting chars
 
-            if (content.contains("b")) format.append(C.FB);
-            if (content.contains("u")) format.append(C.FU);
-            if (content.contains("~")) {
+            if (sp.content.contains("b")) format.append(C.FB);
+            if (sp.content.contains("u")) format.append(C.FU);
+            if (sp.content.contains("~")) {
                 last_one_repeats = true;
                 repeater_index = i;
             }
 
-            format.append(colorcd).append(pre);
+            format.append(colorcd).append(sp.pre);
 
-            if ((m = re_formatting.matcher(content)).find()) format.append(m.group(1));
+            if ((m = re_formatting.matcher(sp.content)).find()) format.append(m.group(1));
             else format.append("%s");
 
-            format.append(suf).append(C.RS).append(sufsuf);
+            format.append(sp.suf).append(C.RS).append(sp.sufsuf);
 
-            for (int j = 0; j < content.length(); j++)
-                if (content.charAt(j) == 'n') format.append('\n');
+            for (int j = 0; j < sp.content.length(); j++)
+                if (sp.content.charAt(j) == 'n') format.append('\n');
 
 
             final String form = format.toString();
@@ -114,7 +142,7 @@ public class ConsoleDecoration extends Decoration {
                 decorates[i] = s -> String.format(form, s);
 
 
-            if ((m = re_centerFormatting.matcher(content)).find()) {
+            if ((m = re_centerFormatting.matcher(sp.content)).find()) {
 
                 int len = Integer.parseInt(m.group(1));
 
@@ -125,7 +153,7 @@ public class ConsoleDecoration extends Decoration {
             }
 
 
-            if ((m = re_wordWrap.matcher(content)).find()) {
+            if ((m = re_wordWrap.matcher(sp.content)).find()) {
 
                 int spc = Integer.parseInt(m.group(1));
 
@@ -145,7 +173,7 @@ public class ConsoleDecoration extends Decoration {
             }
 
 
-            if ((m = re_splitter.matcher(content)).find()) {
+            if ((m = re_splitter.matcher(sp.content)).find()) {
 
                 char c = m.group(1).charAt(0);
 
@@ -169,18 +197,56 @@ public class ConsoleDecoration extends Decoration {
         }
     }
 
-    private Supplier<String> timeConsumerResolver(String content) {
 
-        if (content.contains("T"))
-            return () -> LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+    public static String hexToFont(int r, int g, int b) {
+        switch (STATE) {
+            default:
+            case NONE:
+                return "";
 
-        Matcher m = re_timeFormat.matcher(content);
-        if (m.find()) {
-            String form = m.group(1).replace(';', ':');
-            return () -> LocalDateTime.now().format(DateTimeFormatter.ofPattern(form));
+            case BLACK:
+                return C.BK;
+
+            case WHITE:
+                return C.W;
+
+            case BIT_3:
+                return C.hex.font.to3Bit(r, g, b);
+
+            case BIT_4:
+                return C.hex.font.to4Bit(r, g, b);
+
+            case BIT_8:
+                return C.hex.font.to8Bit(r, g, b);
+
+            case TRUE_COLOR_BIT_24:
+                return C.hex.font.to24Bit(r, g, b);
         }
-
-        return null;
     }
 
+    public static String hexToBack(int r, int g, int b) {
+        switch (STATE) {
+            default:
+            case NONE:
+                return "";
+
+            case BLACK:
+                return C.BKBG;
+
+            case WHITE:
+                return C.WBG;
+
+            case BIT_3:
+                return C.hex.back.to3Bit(r, g, b);
+
+            case BIT_4:
+                return C.hex.back.to4Bit(r, g, b);
+
+            case BIT_8:
+                return C.hex.back.to8Bit(r, g, b);
+
+            case TRUE_COLOR_BIT_24:
+                return C.hex.back.to24Bit(r, g, b);
+        }
+    }
 }

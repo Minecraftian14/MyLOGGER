@@ -2,7 +2,6 @@ package com.mcxiv.logger.util;
 
 import com.mcxiv.logger.tools.C;
 import org.junit.Test;
-import org.junit.runners.Parameterized;
 
 import java.io.IOException;
 import java.util.function.BiConsumer;
@@ -117,10 +116,43 @@ public class CTest {
     @Test
     public void lengthTest() {
 
-        String val = C.B+ C.RBG + "abcdef" + C.RS;
+        String val = C.B + C.RBG + "abcdef" + C.RS;
 
         System.out.println(val);
         System.out.println(val.length());
         System.out.println(C.length(val));
+    }
+
+
+    @Test
+    public void newHexConvTest() {
+        System.out.println(C.hex.font.to3Bit(255, 70, 70) + "Hello");
+        System.out.println(C.hex.font.to4Bit(255, 70, 70) + "Hello");
+        System.out.println(C.hex.font.to8Bit(255, 70, 70) + "Hello");
+        System.out.println(C.hex.font.to24Bit(255, 70, 70) + "Hello");
+
+        System.out.println(C.hex.font.to8Bit(255, 255, 255) + "Hello" + C.RS);
+
+        System.out.println(C.hex.split6d("#5f67e4ff", (a, b, c) -> a + " " + b + " " + c));
+        ;
+        System.out.println(C.hex.split6d("5f67e4ff", (a, b, c) -> a + " " + b + " " + c));
+        ;
+        System.out.println(C.hex.split6d("#5f67e4", C.hex.font::to24Bit) + "Hello");
+    }
+
+
+    @Test
+    public void ExtraterriostrialCodeTest() {
+//        System.out.println("\u001b[52;5;45m Hello\nWorld");
+        System.out.println(" \u001b[52;5;45;4m  Hello\nWorld");
+        for (int i = 0; i < 255; i++)
+            System.out.printf("%3d \u001b[%dm Hello %s\n", i, i, C.RS);
+    }
+
+    @Test
+    public void Um() {
+        System.out.println("Hello");
+        System.out.println("\u001b[1AWorld");
+        
     }
 }

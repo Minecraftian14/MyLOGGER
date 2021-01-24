@@ -1,6 +1,8 @@
 package com.mcxiv.logger.tools;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class C {
 
@@ -47,9 +49,29 @@ public class C {
     public static final String CYAN_BRIGHT_BACKGROUND = "\u001B[46;1m", CBBG = CYAN_BRIGHT_BACKGROUND;
     public static final String WHITE_BRIGHT_BACKGROUND = "\u001B[47;1m", WBBG = WHITE_BRIGHT_BACKGROUND;
 
-    public static final String BOLD = "\u001b[1m", FB = BOLD;
-    public static final String UNDERLINED = "\u001b[4m", FU = UNDERLINED;
-    public static final String REVERSED = "\u001b[7m", FR = REVERSED;  // Swap background and font color.
+    public static final String BOLD = "\u001b[1m", FB = BOLD; // Idea: Yes
+    public static final String FAINT = "\u001b[2m", FFa = FAINT;
+    public static final String ITALICS = "\u001b[3m", FI = ITALICS;
+    public static final String UNDERLINED = "\u001b[4m", FU = UNDERLINED; // Idea: Yes
+    public static final String BLINK_SLOW = "\u001b[5m", BlS = BLINK_SLOW;
+    public static final String BLINK_FAST = "\u001b[6m", BlF = BLINK_FAST;
+    public static final String REVERSED = "\u001b[7m", FR = REVERSED; // Idea: Yes
+    public static final String HIDE_START = "\u001b[8m", HdS = HIDE_START;
+    public static final String STRIKE = "\u001b[9m", FS = STRIKE; // Idea: Yes
+
+    public static final String FRAKTUR = "\u001b[20m", FFk = FRAKTUR;
+    public static final String UNDERLINED_THICK = "\u001b[21m", FUt = UNDERLINED_THICK; // Idea: Yes
+
+    public static final String BLINK_OFF = "\u001b[25m", BlO = BLINK_OFF;
+
+    public static final String HIDE_OFF = "\u001b[28m", HdO = HIDE_OFF;
+
+    public static final String FRAMED = "\u001b[51m", FFr = FRAMED; // Idea: Yes
+    public static final String CIRCLED = "\u001b[52m", FCr = CIRCLED; // Idea: Yes
+    public static final String OVERLINED = "\u001b[53m", FOv = OVERLINED;
+
+    public static final String SUPER_SCRIPT = "\u001b[73m", FSS = SUPER_SCRIPT;
+    public static final String SUB_SCRIPT = "\u001b[74m", FSs = SUB_SCRIPT;
 
     public static final String CLEAR_SCREEN_FROM_CURSOR_TILL_END = "\u001b[0J";
     public static final String CLEAR_SCREEN_FROM_CURSOR_TO_START = "\u001b[1J";
@@ -93,6 +115,76 @@ public class C {
         return "\u001b[" + row + ";" + col + "H";
     }
 
+
+    public static class hex {
+
+        public static class font {
+            public static String to3Bit(int r, int g, int b) {
+                return String.format("\u001B[%dm", 30 + (b / 128) * 4 + (g / 128) * 2 + r / 128);
+            }
+
+            public static String to4Bit(int r, int g, int b) {
+                return String.format("\u001B[%d%sm", 30 + (b / 128) * 4 + (g / 128) * 2 + r / 128, r + g + b > 384 ? ";1" : "");
+            }
+
+            public static String to8Bit(int r, int g, int b) {
+                return String.format("\u001b[38;5;%dm", 16 + (r / 51) * 36 + (g / 51) * 6 + b / 51);
+            }
+
+            public static String to24Bit(int r, int g, int b) {
+                return String.format("\u001b[38;2;%d;%d;%dm", r, g, b);
+            }
+        }
+
+        public static class back {
+            public static String to3Bit(int r, int g, int b) {
+                return String.format("\u001B[%dm", 40 + (b / 128) * 4 + (g / 128) * 2 + r / 128);
+            }
+
+            public static String to4Bit(int r, int g, int b) {
+                return String.format("\u001B[%d%sm", 40 + (b / 128) * 4 + (g / 128) * 2 + r / 128, r + g + b > 384 ? ";1" : "");
+            }
+
+            public static String to8Bit(int r, int g, int b) {
+                return String.format("\u001b[48;5;%dm", 16 + (r / 51) * 36 + (g / 51) * 6 + b / 51);
+            }
+
+            public static String to24Bit(int r, int g, int b) {
+                return String.format("\u001b[48;2;%d;%d;%dm", r, g, b);
+            }
+        }
+
+        static Pattern color6d = Pattern.compile("[#@]?([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})[a-fA-F0-9]{0,2}");
+
+        public static String split6d(String rgb, TriIntInputAdaptor method) {
+            Matcher m = color6d.matcher(rgb);
+            if (m.find() && m.groupCount() >= 3)
+                return method.act(Integer.parseInt(m.group(1), 16), Integer.parseInt(m.group(2), 16), Integer.parseInt(m.group(3), 16));
+            throw new IllegalArgumentException(method + " doesn't seem to be a color code...");
+        }
+
+        static Pattern color3d = Pattern.compile("[#@]?([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])[a-fA-F0-9]?");
+
+        public static String split3d(String rgb, TriIntInputAdaptor method) {
+            Matcher m = color3d.matcher(rgb);
+            if (m.find() && m.groupCount() >= 3)
+                return method.act(Integer.parseInt(m.group(1) + m.group(1), 16), Integer.parseInt(m.group(2) + m.group(2), 16), Integer.parseInt(m.group(3) + m.group(3), 16));
+            throw new IllegalArgumentException(method + " doesn't seem to be a color code...");
+        }
+
+        public static String split1d(String gr, TriIntInputAdaptor method) {
+            gr += gr;
+            return method.act(Integer.parseInt(gr, 16), Integer.parseInt(gr, 16), Integer.parseInt(gr, 16));
+        }
+
+        public interface TriIntInputAdaptor {
+            String act(int a, int b, int c);
+        }
+
+    }
+
+
+    /////// WILL BE DEPRECATED - TO BE REPLACED BY BETTER COMMANDS
     public static String getFontColor(int i) {
         return "\u001b[38;5;" + i + "m";
     }
@@ -102,6 +194,14 @@ public class C {
         g /= 42.6; // [0-256) -> [0-6)
         b /= 42.6; // [0-256) -> [0-6)
         return 16 + b + 6 * g + 36 * r;
+    }
+
+    public static String hexTo24bitFont(int r, int g, int b) {
+        return "\u001b[38;2;" + r + ";" + g + ";" + b + "m";
+    }
+
+    public static String hexTo24bitBack(int r, int g, int b) {
+        return "\u001b[48;2;" + r + ";" + g + ";" + b + "m";
     }
 
     public static int hexToGray(int g) {
@@ -121,6 +221,7 @@ public class C {
         if (color.length() != 6) throw new NumberFormatException(color + " should be 6 char long!");
         return hexTo216(Integer.parseInt(color.substring(0, 2), 16), Integer.parseInt(color.substring(2, 4), 16), Integer.parseInt(color.substring(4, 6), 16));
     }
+    //////////////////////////////////////////////////////////////
 
     // public static List<String> list = List.of(BLACK, WHITE, RED, GREEN, BLUE, YELLOW, MAJENTA, CYAN, BRIGHT_BLACK, BRIGHT_WHITE, BRIGHT_RED, BRIGHT_GREEN, BRIGHT_BLUE, BRIGHT_YELLOW, BRIGHT_MAJENTA, BRIGHT_CYAN, BLACK_BACKGROUND, WHITE_BACKGROUND, RED_BACKGROUND, GREEN_BACKGROUND, BLUE_BACKGROUND, YELLOW_BACKGROUND, MAJENTA_BACKGROUND, CYAN_BACKGROUND, BLACK_BRIGHT_BACKGROUND, WHITE_BRIGHT_BACKGROUND, RED_BRIGHT_BACKGROUND, GREEN_BRIGHT_BACKGROUND, BLUE_BRIGHT_BACKGROUND, YELLOW_BRIGHT_BACKGROUND, MAJENTA_BRIGHT_BACKGROUND, CYAN_BRIGHT_BACKGROUND, BOLD, UNDERLINED, REVERSED);
 
@@ -170,7 +271,8 @@ public class C {
     public static int length(String s) {
         int ls = 0;
 
-        main:for (int i = 0; i < s.length(); i++) {
+        main:
+        for (int i = 0; i < s.length(); i++) {
             for (String col : map.values()) {
                 if (s.substring(i).startsWith(col)) {
                     i += col.length();

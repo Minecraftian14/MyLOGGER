@@ -1,5 +1,7 @@
 package com.mcxiv.logger.tools;
 
+import com.mcxiv.logger.decorations.ConsoleDecoration;
+
 import java.awt.*;
 
 public class RandomColor {
@@ -24,11 +26,12 @@ public class RandomColor {
     }
 
     public static String getRandom() {
-        return colors[(int) (colors.length * Math.random())];
+        return ConsoleDecoration.hexToFont(((int) (256 * Math.random()) >> 16) & 0xFF, ((int) (256 * Math.random()) >> 8) & 0xFF, (int) (256 * Math.random()) & 0xFF);
     }
 
     public static String getRandomAt(int i) {
-        return colors[i];
+        i = 0xff000000 | i;
+        return ConsoleDecoration.hexToFont((i >> 16) & 0xFF, (i >> 8) & 0xFF, i & 0xFF);
     }
 
     public RandomColor() {

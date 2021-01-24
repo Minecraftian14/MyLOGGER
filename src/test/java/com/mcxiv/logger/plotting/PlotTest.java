@@ -1,5 +1,6 @@
 package com.mcxiv.logger.plotting;
 
+import com.mcxiv.logger.decorations.ConsoleDecoration;
 import com.mcxiv.logger.formatted.FLog;
 import org.junit.Test;
 
@@ -36,7 +37,7 @@ public class PlotTest {
 //                .XLabel(0, 20, i -> "Title Name " + i)
                 .YLabel(0, 4, i -> "M.Height " + i)
                 .bar(0, 20, i -> (int) (100 * Math.random()))
-                .setBarType("(*)")
+//                .setBarType("(*)")
                 .create()
         );
     }
@@ -48,6 +49,7 @@ public class PlotTest {
         BufferedImage i = ImageIO.read(new File("src/test/resources/NICE.png"));
 
         FLog log = FLog.getNew();
+        ConsoleDecoration.setColorMode(ConsoleDecoration.TRUE_COLOR_BIT_24);
 
         log.raw(Plot.image(i.getWidth(), i.getHeight(), (x, y) -> new Plot.ColorBox() {
             final Color c = new Color(i.getRGB(x, y));
