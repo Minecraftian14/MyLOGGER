@@ -1,7 +1,5 @@
 package com.mcxiv.logger.tools;
 
-import com.mcxiv.logger.Log;
-
 public enum LogLevel {
     OFF,
     VITAL,
@@ -21,19 +19,24 @@ public enum LogLevel {
     }
 
     public static void setLevel(LogLevel lvl) {
-        level=lvl;
+        level = lvl;
     }
 
     public void activate() {
-        level=this;
+        level = this;
     }
 
     public static interface LogLevelAdaptor<T> {
         T vital();
+
         T error();
+
         T warn();
+
         T notice();
+
         T debug();
+
         T general();
     }
 

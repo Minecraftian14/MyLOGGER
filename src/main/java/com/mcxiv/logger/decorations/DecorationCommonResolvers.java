@@ -1,7 +1,5 @@
 package com.mcxiv.logger.decorations;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Supplier;
@@ -30,9 +28,11 @@ public class DecorationCommonResolvers {
 
     public static class TimeResolver {
         String content;
+
         public TimeResolver(String content) {
             this.content = content;
         }
+
         public Supplier<String> getTime() {
             if (content.contains("T"))
                 return () -> LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);

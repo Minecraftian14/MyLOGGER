@@ -129,10 +129,10 @@ class StripesTable extends TableAdaptor {
             head_form_sb.append((i % 2 == 0 ? headFormat1 : headFormat2).decorate(" %" + rowWidth.get(i) + "s "));
 
         // filling in values of header into head form
-        StringBuilder table = new StringBuilder(String.format(head_form_sb.append("\n").toString(), header));
+        StringBuilder table = new StringBuilder(String.format(head_form_sb.append("\n").toString(), (Object[]) header));
 
         // for every row {filling in values of that row into row form and then appending it after header}
-        for (String[] row : rows) table.append(String.format(row_form, row));
+        for (String[] row : rows) table.append(String.format(row_form, (Object[]) row));
 
         return table.toString();
     }

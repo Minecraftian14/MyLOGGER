@@ -1,6 +1,5 @@
 package com.mcxiv.logger.formatted;
 
-import com.mcxiv.logger.Log;
 import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.tools.LogLevel;
 import org.junit.Test;

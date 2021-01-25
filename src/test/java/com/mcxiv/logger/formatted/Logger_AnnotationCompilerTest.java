@@ -78,6 +78,7 @@ public class Logger_AnnotationCompilerTest {
 
         FLog log = FLog.getNew();
 
+        RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
         Decoration.setDecoration(RawFileDecoration::new);
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
@@ -135,6 +136,8 @@ public class Logger_AnnotationCompilerTest {
     public void test_SufFix() {
         FLog log = FLog.getNew();
         log.prt("A Message Here");
+        log.raw("Yo");
+        log.raw("Yo");
     }
 
     @Test
