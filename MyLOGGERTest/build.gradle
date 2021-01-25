@@ -12,7 +12,12 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    compile fileTree(dir: 'libs', include: '*.jar')
+//    compile fileTree(dir: 'libs', include: '*.jar')
+
+    implementation 'com.github.Minecraftian14:MyLOGGER:V3'
+//    implementation 'com.github.Minecraftian14:MyLOGGER:f186d9c30e'
+//    implementation 'com.github.Minecraftian14:MyLOGGER:f186d9c30e'
+//    annotationProcessor 'com.github.Minecraftian14:MyLOGGER:f186d9c30e'
 
 //    annotationProcessor fileTree(dir: 'libs', include: '*.jar')
 }

@@ -10,41 +10,97 @@ import static com.mcxiv.logger.decorations.Decoration.*;
 public class DecorationCommonResolvers {
 
 
-    public static Supplier<String> timeResolver(String content) {
-
-        if (content.contains("T"))
-            return () -> LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
-
-        Matcher m = re_timeFormat.matcher(content);
-        if (m.find()) {
-            String form = m.group(1).replace(';', ':');
-            return () -> LocalDateTime.now().format(DateTimeFormatter.ofPattern(form));
-        }
-
-        return null;
-
+    public static Decorate CommonFormattingResolver(Matcher m, String content, Decorate decorate) {
+        decorate = CenterFormattingResolver(m, content, decorate);
+        decorate = WordWarpFormattingResolver(m, content, decorate);
+        decorate = SplittingFormattingResolver(m, content, decorate);
+        return decorate;
     }
 
+    public static Decorate CenterFormattingResolver(Matcher m, String content, Decorate decorate) {
+        if ((m = re_centerFormatting.matcher(content)).find()) {
+            int len = Integer.parseInt(m.group(1));
+            final Decorate new_d = decorate;
+            return s -> new_d.decorate(Decoration.center(len, s));
+        }
+        return decorate;
+    }
+
+    public static Decorate WordWarpFormattingResolver(Matcher m, String content, Decorate decorate) {
+        if ((m = re_wordWrap.matcher(content)).find()) {
+
+            int spc = Integer.parseInt(m.group(1));
+            final Decorate new_d = decorate;
+
+            return s -> {
+                StringBuilder builder = new StringBuilder();
+
+                int key = 0, lastkey = -1;
+                while (key + spc < s.length() && (key = s.lastIndexOf(" ", key + spc)) != -1) {
+                    builder.append(new_d.decorate(s.substring(lastkey + 1, key))).append("\n");
+                    lastkey = key;
+                }
+
+                return builder.toString();
+            };
+        }
+        return decorate;
+    }
+
+    public static Decorate SplittingFormattingResolver(Matcher m, String content, Decorate decorate) {
+        if ((m = re_splitter.matcher(content)).find()) {
+
+            char c = m.group(1).charAt(0);
+
+            final Decorate new_d = decorate;
+
+            return s -> {
+                StringBuilder builder = new StringBuilder();
+
+                int last = 0;
+                for (int j = 0; j < s.length(); j++) {
+                    if (s.charAt(j) == c) {
+                        builder.append(new_d.decorate(s.substring(last, j)));
+                        last = j + 1;
+                    }
+                }
+
+                return builder.toString();
+            };
+        }
+        return decorate;
+    }
 
     public static class TimeResolver {
         String content;
+        Supplier<String> supplier;
 
         public TimeResolver(String content) {
             this.content = content;
+            testTime();
         }
 
-        public Supplier<String> getTime() {
-            if (content.contains("T"))
-                return () -> LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+        public void testTime() {
+            if (content.contains("T")) {
+                supplier = () -> LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+                return;
+            }
 
             Matcher m = re_timeFormat.matcher(content);
             if (m.find()) {
                 String form = m.group(1).replace(';', ':');
                 content = content.replace(m.group(), "");
-                return () -> LocalDateTime.now().format(DateTimeFormatter.ofPattern(form));
+                supplier = () -> LocalDateTime.now().format(DateTimeFormatter.ofPattern(form));
+                return;
             }
 
-            return null;
+            supplier = null;
+        }
+
+        public Decorate TimeFormattingResolver(Decorate decorate) {
+            if (supplier != null)
+                return s -> supplier.get() + decorate.decorate(s);
+            else return decorate;
         }
     }
 

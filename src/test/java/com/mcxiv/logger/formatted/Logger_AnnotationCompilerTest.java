@@ -78,8 +78,8 @@ public class Logger_AnnotationCompilerTest {
 
         FLog log = FLog.getNew();
 
-        RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
-        Decoration.setDecoration(RawFileDecoration::new);
+//        RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
+//        Decoration.setDecoration(RawFileDecoration::new);
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +
@@ -165,7 +165,7 @@ public class Logger_AnnotationCompilerTest {
     @Format({":$B:", ":: :$GBG$R: ::", ":#ff00ff:"})
     public void test2() {
         FLog log = new Logger_AnnotationCompiler();
-        Decoration.setDecoration(TagDecoration::new);
+//        Decoration.setDecoration(TagDecoration::new);
 //        Decoration.setDecoration(TagDecoration.class);
         log.prt("Hey!", "So", "How", "Do", "You", "Do", "?");
     }

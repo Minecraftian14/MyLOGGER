@@ -1,7 +1,5 @@
 package com.mcxiv.logger.decorations;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 
@@ -59,111 +57,134 @@ public class TagDecoration extends Decoration {
         for (int i = 0; i < codes.length; i++) {
             String code = codes[i];
 
-            // Extracting different parts of input
 
+            //
+
+
+            // Splitting up the formatting code to separate parts.
+            DecorationCommonResolvers.FormattingCodeSplitter sp = new DecorationCommonResolvers.FormattingCodeSplitter(code);
+
+            // And some basic initialisation.
+            StringBuilder format = new StringBuilder(sp.prepre);
             Matcher m;
 
-            m = re_prepre.matcher(code);
-            String prepre = m.find() ? m.group(1) : "";
 
-            m = re_pre.matcher(code);
-            String pre = m.find() ? m.group(1) : "";
-
-            m = re_content.matcher(code);
-            String content = m.find() ? m.group(1) : "";
-
-            m = re_suf.matcher(code);
-            String suf = m.find() ? m.group(1) : "";
-
-            m = re_sufsuf.matcher(code);
-            String sufsuf = m.find() ? m.group(1) : "";
-
-            StringBuilder format = new StringBuilder(prepre);
+            //
 
 
             // Parsing Color type to code
-
-
             String colorcd = "";
 
-            for (int r = 0; r < 2; r++) {
-
-                if ((m = re_Ccolor.matcher(content)).find()) {
-                    colorcd += map.get(m.group(1));
-                    content = content.replace(m.group(), "");
-
-                } else if ((m = re_6color.matcher(content)).find()) {
-                    colorcd += "[" + m.group(1) + "]";
-                    content = content.replace(m.group(), "");
-
-                } else if ((m = re_3color.matcher(content)).find()) {
-                    String buf = m.group(1);
-                    colorcd += "[" + buf.charAt(0) + buf.charAt(0) + buf.charAt(1) + buf.charAt(1) + buf.charAt(2) + buf.charAt(2) + "]";
-                    content = content.replace(m.group(), "");
-
-                } else if ((m = re_1color.matcher(content)).find()) {
-                    String buf = m.group(1);
-                    colorcd += "[" + buf + buf + buf + buf + buf + buf + "]";
-                    content = content.replace(m.group(), "");
-
-                } else if ((m = re_6Bcolor.matcher(content)).find()) {
-                    colorcd += "[@" + m.group(1) + "]";
-                    content = content.replace(m.group(), "");
-
-                } else if ((m = re_3Bcolor.matcher(content)).find()) {
-                    String buf = m.group(1);
-                    colorcd += "[@" + buf.charAt(0) + buf.charAt(0) + buf.charAt(1) + buf.charAt(1) + buf.charAt(2) + buf.charAt(2) + "]";
-                    content = content.replace(m.group(), "");
-
-                } else if ((m = re_1Bcolor.matcher(content)).find()) {
-                    String buf = m.group(1);
-                    colorcd += "[@" + buf + buf + buf + buf + buf + buf + "]";
-                    content = content.replace(m.group(), "");
-
-                } else if ((m = re_Scolor.matcher(content)).find()) {
-                    colorcd += m.group(1);
-                    content = content.replace(m.group(), "");
-
-                }
+            // Pickin' a color from 16x2 color set, half for fonts, half for bgs
+            // Ran twice as to catch "possible" 2 inputs, one for font, one for bg
+            if ((m = re_Ccolor.matcher(sp.content)).find()) {
+                colorcd += map.get(m.group(1));
+                sp.content = sp.content.replace(m.group(), "");
 
             }
+
+            // Font Color
+            if ((m = re_6color.matcher(sp.content)).find()) {
+                colorcd += "[" + m.group(1) + "]";
+                sp.content = sp.content.replace(m.group(), "");
+
+            } else if ((m = re_3color.matcher(sp.content)).find()) {
+                String buf = m.group(1);
+                colorcd += "[" + buf.charAt(0) + buf.charAt(0) + buf.charAt(1) + buf.charAt(1) + buf.charAt(2) + buf.charAt(2) + "]";
+                sp.content = sp.content.replace(m.group(), "");
+
+            } else if ((m = re_1color.matcher(sp.content)).find()) {
+                String buf = m.group(1);
+                colorcd += "[" + buf + buf + buf + buf + buf + buf + "]";
+                sp.content = sp.content.replace(m.group(), "");
+
+            } else if ((m = re_Scolor.matcher(sp.content)).find()) {
+                colorcd += m.group(1);
+                sp.content = sp.content.replace(m.group(), "");
+            }
+
+            // Background Color
+            if ((m = re_6Bcolor.matcher(sp.content)).find()) {
+                colorcd += "[@" + m.group(1) + "]";
+                sp.content = sp.content.replace(m.group(), "");
+
+            } else if ((m = re_3Bcolor.matcher(sp.content)).find()) {
+                String buf = m.group(1);
+                colorcd += "[@" + buf.charAt(0) + buf.charAt(0) + buf.charAt(1) + buf.charAt(1) + buf.charAt(2) + buf.charAt(2) + "]";
+                sp.content = sp.content.replace(m.group(), "");
+
+            } else if ((m = re_1Bcolor.matcher(sp.content)).find()) {
+                String buf = m.group(1);
+                colorcd += "[@" + buf + buf + buf + buf + buf + buf + "]";
+                sp.content = sp.content.replace(m.group(), "");
+
+            } else if ((m = re_SBcolor.matcher(sp.content)).find()) {
+                colorcd += m.group(1);
+                sp.content = sp.content.replace(m.group(), "");
+            }
+
+
+            //
 
 
             // Parsing Time Formatting
+            DecorationCommonResolvers.TimeResolver timeResolver = new DecorationCommonResolvers.TimeResolver(sp.content);
+            sp.content = timeResolver.content;
 
-            if ((m = re_timeFormat.matcher(content)).find()) {
-                format.append(LocalDateTime.now().format(DateTimeFormatter.ofPattern(m.group(1).replace(';', ':'))));
-                content = content.replace(m.group(), "");
-            }
+
+            //
 
 
             // Parsing other formatting chars
 
-            if (content.contains("T")) format.append(LocalDateTime.now().toString());
-//          if (content.contains("b")) format.append(C.FB);
-            if (content.contains("u")) format.append("[UNDERLINE]");
+            if (sp.content.contains("u")) format.append("[UNDERLINE]");
 
-            if (content.contains("-"))
-                if (!content.contains("%") || content.indexOf("-") < content.indexOf("%"))
+            if (sp.content.contains("-"))
+                if (!sp.content.contains("%") || sp.content.indexOf("-") < sp.content.indexOf("%"))
                     format.append("[STRIKE]");
-            if (content.contains("~")) {
+            if (sp.content.contains("~")) {
                 last_one_repeats = true;
                 repeater_index = i;
             }
 
-            format.append(colorcd.toUpperCase()).append(pre);
 
-            if ((m = re_formatting.matcher(content)).find()) format.append(m.group(1));
+            //
+
+
+            // Finalising the static effects.
+
+            format.append(colorcd.toUpperCase()).append(sp.pre);
+
+            // If a specific formatting like '%25s' or '%-25s' is provided, use it, else put a simple '%s'
+            if ((m = re_formatting.matcher(sp.content)).find()) format.append(m.group(1));
             else format.append("%s");
 
-            format.append(suf).append(map.get("RS")).append(sufsuf);
+            format.append(sp.suf).append(map.get("RS")).append(sp.sufsuf);
 
-            for (int j = 0; j < content.length(); j++)
-                if (content.charAt(j) == 'n') format.append('\n');
+            // Apply as many tab-spaces as specified.
+            for (int j = 0; j < sp.content.length(); j++)
+                if (sp.content.charAt(j) == 't') format.insert(0, '\t');
 
+            // Apply as many new-lines as specified.
+            for (int j = 0; j < sp.content.length(); j++)
+                if (sp.content.charAt(j) == 'n') format.append('\n');
+
+
+            //
+
+
+            // Final 'form' to which the input is entered.
             final String form = format.toString();
 
             decorates[i] = s -> String.format(form, s);
+
+
+            // Applying Time if defined/specified.
+            decorates[i] = timeResolver.TimeFormattingResolver(decorates[i]);
+
+
+            // Applying Basic post Formatting
+            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i]);
 
         }
     }

@@ -71,7 +71,6 @@ public class RawFileDecoration extends Decoration {
 
             // Parsing Time Formatting
             DecorationCommonResolvers.TimeResolver timeResolver = new DecorationCommonResolvers.TimeResolver(sp.content);
-            Supplier<String> timeFormatter = timeResolver.getTime();
             sp.content = timeResolver.content;
 
 
@@ -99,6 +98,10 @@ public class RawFileDecoration extends Decoration {
 
             format.append(sp.suf).append(sp.sufsuf);
 
+            // Apply as many tab-spaces as specified.
+            for (int j = 0; j < sp.content.length(); j++)
+                if (sp.content.charAt(j) == 't') format.insert(0, '\t');
+
             // Apply as many new-lines as specified.
             for (int j = 0; j < sp.content.length(); j++)
                 if (sp.content.charAt(j) == 'n') format.append('\n');
@@ -110,64 +113,15 @@ public class RawFileDecoration extends Decoration {
             // Final 'form' to which the input is entered.
             final String form = format.toString();
 
+            decorates[i] = s -> String.format(form, s);
+
+
             // Applying Time if defined/specified.
-            if (timeFormatter != null)
-                decorates[i] = s -> timeFormatter.get() + String.format(form, s);
-            else
-                decorates[i] = s -> String.format(form, s);
+            decorates[i] = timeResolver.TimeFormattingResolver(decorates[i]);
 
-            // Applying center format if '%*25s' provided.
-            if ((m = re_centerFormatting.matcher(sp.content)).find()) {
 
-                int len = Integer.parseInt(m.group(1));
-
-                final Decorate new_d = decorates[i];
-
-                decorates[i] = s -> new_d.decorate(Decoration.center(len, s));
-
-            }
-
-            // Applying word Wrap
-            if ((m = re_wordWrap.matcher(sp.content)).find()) {
-
-                int spc = Integer.parseInt(m.group(1));
-
-                final Decorate new_d = decorates[i];
-
-                decorates[i] = s -> {
-                    StringBuilder builder = new StringBuilder();
-
-                    int key = 0, lastkey = -1;
-                    while (key + spc < s.length() && (key = s.lastIndexOf(" ", key + spc)) != -1) {
-                        builder.append(new_d.decorate(s.substring(lastkey + 1, key))).append("\n");
-                        lastkey = key;
-                    }
-
-                    return builder.toString();
-                };
-            }
-
-            // Applying splitter.
-            if ((m = re_splitter.matcher(sp.content)).find()) {
-
-                char c = m.group(1).charAt(0);
-
-                final Decorate new_d = decorates[i];
-
-                decorates[i] = s -> {
-                    StringBuilder builder = new StringBuilder();
-
-                    int last = 0;
-                    for (int j = 0; j < s.length(); j++) {
-                        if (s.charAt(j) == c) {
-                            builder.append(new_d.decorate(s.substring(last, j)));
-                            last = j + 1;
-                        }
-                    }
-
-                    return builder.toString();
-                };
-            }
+            // Applying Basic post Formatting
+            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i]);
 
         }
 
