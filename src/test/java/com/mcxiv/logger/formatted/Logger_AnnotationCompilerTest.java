@@ -78,7 +78,7 @@ public class Logger_AnnotationCompilerTest {
 
         FLog log = FLog.getNew();
 
-//        Decoration.setDecoration(strings -> new RawFileDecoration(new File("src/test/resources/log.txt"), strings));
+        Decoration.setDecoration(RawFileDecoration::new);
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +

@@ -5,6 +5,7 @@ import com.mcxiv.logger.tools.C;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -23,7 +24,21 @@ public class RawFileDecoration extends Decoration {
     FileWriter writer;
     StringBuilder buffer;
 
+
+    //
+
+
+    public RawFileDecoration(String... codes) {
+        this(resolveFile(), codes);
+    }
+
+    private static File resolveFile() {
+        new File("logs").mkdir();
+        return new File("logs/" + LocalDateTime.now().toString().replaceAll("[^a-zA-Z0-9]", ",") + ".txt");
+    }
+
     public RawFileDecoration(File file, String... codes) {
+        if (codes.length == 0) return;
         this.decoration = getPartnerDecoration.apply(codes);
 
         try {
