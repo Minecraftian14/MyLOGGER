@@ -73,7 +73,7 @@ input text.
 |Format Repeater   |~             |Yes    |Yes    |Yes    | To repeat the format for unmatched input strings. |
 |String Formatter  |%ns           |Yes    |Yes    |?      | To format a string to fit 'n' characters, right aligned if positive, left aligned if negative. Give in a * for center align. |
 |New Line          |n             |Yes    |Yes    |?      | To append a new line. |
-|Tab Space         |t             |No     |No     |?      | To prepend a tab space |
+|Tab Space         |t             |Yes    |Yes    |?      | To prepend a tab space |
 |Word Wrap         |wnw           |Yes    |Yes    |?      | Word Wrap input to fit a width of 'n' and apply the same format to each line. |
 |Splitter          |xcx           |Yes    |Yes    |?      | Split the given input about each occurrance of 'c'. |
 
