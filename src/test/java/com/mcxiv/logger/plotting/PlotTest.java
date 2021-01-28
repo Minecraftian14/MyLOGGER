@@ -2,6 +2,7 @@ package com.mcxiv.logger.plotting;
 
 import com.mcxiv.logger.boxUtilities.Box;
 import com.mcxiv.logger.decorations.ConsoleDecoration;
+import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.formatted.FLog;
 import org.junit.Test;
 
@@ -19,10 +20,9 @@ public class PlotTest {
 
         int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94, 4, 90, 44, 86, 86, 46, 20, 91, 89, 86, 47, 8, 45, 56};
 
-        log.raw(Plot.BarGraph.box()
+        Plot.BarGraph.box()
                 .values(age)
-                .create()
-        );
+                .create(log);
     }
 
     @Test
@@ -31,14 +31,13 @@ public class PlotTest {
 
         int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94, 4, 90, 44, 86, 86, 46, 20, 91, 89, 86, 47, 8, 45, 56};
 
-        log.raw(Plot.BarGraph.box()
+        Plot.BarGraph.box()
                 .title("Visitor's Age Survey")
                 .XLabel(0, age.length, i -> (age[i] > 18 ? "Adult " : "Minor ") + age[i])
                 .YLabel(0, 10, i -> i * 15)
                 .scale(0.08)
                 .values(age)
-                .create()
-        );
+                .create(log);
     }
 
     @Test
@@ -47,12 +46,11 @@ public class PlotTest {
 
         int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94, 4, 90, 44, 86, 86, 46, 20, 91, 89, 86, 47, 8, 45, 56};
 
-        log.raw(Plot.BarGraph.box()
+        Plot.BarGraph.box()
                 .values(age)
                 .charHeight(15)
                 .setBarType(Box.B_T)
-                .create()
-        );
+                .create(log);
     }
 
     @Test
@@ -61,42 +59,46 @@ public class PlotTest {
 
         int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94};//,6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94,6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94};
 
-        log.raw(Plot.BarGraph.box()
+        Plot.BarGraph.box()
 //                .title("Yo")
-                        .values(age)
-                        .setBarType("Hello")
-                        .create()
-        );
+                .values(age)
+                .setBarType("Hello")
+                .create(log);
     }
 
     @Test
     public void simple() {
         FLog log = FLog.getNew();
 
-        log.raw(Plot.BarGraph.simple()
-                        .title("Simple Test")
-//                        .XLabel(0, 20, i -> "Title Name " + i)
-                        .values(0, 20, i -> (int) (100 * Math.random()))
-//                .XLabel("1","2","3","4","5","6","4","5","6","4","5","6")
-//                .bar(10, 20, 70, 90, 50, 60, 20, 70, 90, 50, 60, 20, 70, 90, 50, 60, 20, 70, 90, 50, 60)
-                        .charHeight(13)
-                        .setBarType(Box.B_T)
-                        .create()
-        );
+
+        Plot.BarGraph.simple()
+                .title("Simple Test")
+                .XLabel(0, 20, i -> "Title Name " + i)
+                .values(0, 20, i -> (int) (100 * Math.random()))
+                .charHeight(13)
+                .setBarType(Box.B_T)
+                .create(log);
+
+        Plot.BarGraph.box()
+                .title("Simple Test")
+                .XLabel(0, 20, i -> "Title Name " + i)
+                .values(0, 20, i -> (int) (100 * Math.random()))
+                .charHeight(13)
+                .setBarType(Box.B_T)
+                .create(log);
     }
 
     @Test
     public void box() {
         FLog log = FLog.getNew();
 
-        log.raw(Plot.BarGraph.box()
-                        .title("Simple Test")
+        Plot.BarGraph.box()
+                .title("Simple Test")
 //                .XLabel(0, 20, i -> "Title Name " + i)
-                        .YLabel(0, 4, i -> "M.Height " + i)
-                        .values(0, 20, i -> (int) (100 * Math.random()))
+                .YLabel(0, 4, i -> "M.Height " + i)
+                .values(0, 20, i -> (int) (100 * Math.random()))
 //                .setBarType("(*)")
-                        .create()
-        );
+                .create(log);
     }
 
 

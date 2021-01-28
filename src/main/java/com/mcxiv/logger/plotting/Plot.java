@@ -2,6 +2,7 @@ package com.mcxiv.logger.plotting;
 
 import com.mcxiv.logger.boxUtilities.Box;
 import com.mcxiv.logger.decorations.ConsoleDecoration;
+import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.util.Iterator;
 
 public class Plot {
@@ -36,7 +37,7 @@ public class Plot {
 
         BarGraph setBarType(String bar);
 
-        String create();
+        void create(FLog log);
 
     }
 

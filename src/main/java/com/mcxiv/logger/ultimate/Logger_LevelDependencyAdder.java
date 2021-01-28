@@ -1,5 +1,6 @@
-package com.mcxiv.logger.formatted;
+package com.mcxiv.logger.ultimate;
 
+import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.util.StringsConsumer;
 
 abstract class Logger_LevelDependencyAdder extends FLog {

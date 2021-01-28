@@ -1,8 +1,9 @@
-package com.mcxiv.logger.formatted;
+package com.mcxiv.logger.formatted.fixed;
 
+import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.util.StringsConsumer;
 
-abstract class Logger_LevelDependencyAdder extends FLog {
+abstract class Logger_LevelDependencyAdder extends FileLog {
 
     public Logger_LevelDependencyAdder() {
         super();
@@ -17,6 +18,5 @@ abstract class Logger_LevelDependencyAdder extends FLog {
     public FLog provideEmpty() {
         return EMPTY_VESSEL;
     }
-
 
 }

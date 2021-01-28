@@ -1,11 +1,9 @@
 package com.mcxiv.logger.tables;
 
-import com.mcxiv.logger.decorations.Decoration;
-import com.mcxiv.logger.util.GroupIterator;
-import com.mcxiv.logger.util.Iterator;
+import com.mcxiv.logger.formatted.FLog;
+import com.mcxiv.logger.packets.Packet;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class StripesTable extends TableAdaptor {
 
@@ -15,17 +13,17 @@ class StripesTable extends TableAdaptor {
     String title = null;
     String[] header;
 
-    Decoration titleFormat = null;
-    Decoration headFormat1 = null;
-    Decoration headFormat2 = null;
-    Decoration rowFormat1 = null;
-    Decoration rowFormat2 = null;
+    String titleFormat = null;
+    String headFormat1 = null;
+    String headFormat2 = null;
+    String rowFormat1 = null;
+    String rowFormat2 = null;
 
-    static Decoration TITLE_FORMAT = Decoration.getDecoration(":@eb:");
-    static Decoration HEAD_FORMAT1 = Decoration.getDecoration(":@bb:");
-    static Decoration HEAD_FORMAT2 = Decoration.getDecoration(":@cb:");
-    static Decoration ROW_FORMAT1 = Decoration.getDecoration(":@d:");
-    static Decoration ROW_FORMAT2 = Decoration.getDecoration(":@e:");
+    static String TITLE_FORMAT = "@eb";
+    static String HEAD_FORMAT1 = "@bb";
+    static String HEAD_FORMAT2 = "@cb";
+    static String ROW_FORMAT1 = "@d";
+    static String ROW_FORMAT2 = "@e";
 
     public StripesTable() {
         rowWidth = new ArrayList<>();
@@ -40,14 +38,14 @@ class StripesTable extends TableAdaptor {
      */
     @Override
     public Table format(String... codes) {
-        rowFormat1 = Decoration.getDecoration(codes[0]);
-        rowFormat2 = Decoration.getDecoration(codes[1]);
+        rowFormat1 = codes[0];
+        rowFormat2 = codes[1];
         return this;
     }
 
     @Override
     public Table formatTitle(String code) {
-        titleFormat = Decoration.getDecoration(code);
+        titleFormat = code;
         return this;
     }
 
@@ -59,8 +57,8 @@ class StripesTable extends TableAdaptor {
      */
     @Override
     public Table formatHead(String... codes) {
-        headFormat1 = Decoration.getDecoration(codes[0]);
-        headFormat2 = Decoration.getDecoration(codes[1]);
+        headFormat1 = codes[0];
+        headFormat2 = codes[1];
         return this;
     }
 
@@ -87,6 +85,40 @@ class StripesTable extends TableAdaptor {
     }
 
     @Override
+    public int getWidth() {
+        return rowWidth.stream().reduce(0, Integer::sum) + rowWidth.size() * 2;
+    }
+
+    @Override
+    public void create(FLog mainLog) {
+        Packet packet = mainLog.newPacket();
+
+        // Initialising all formats, if not specified, the default is used.
+        if (titleFormat == null) titleFormat = TITLE_FORMAT;
+        if (headFormat1 == null) headFormat1 = HEAD_FORMAT1;
+        if (headFormat2 == null) headFormat2 = HEAD_FORMAT2;
+        if (rowFormat1 == null) rowFormat1 = ROW_FORMAT1;
+        if (rowFormat2 == null) rowFormat2 = ROW_FORMAT2;
+
+        if (title != null)
+            packet.prtf(":n%" + rowWidth.stream().reduce(0, Integer::sum) + "s" + titleFormat + ":").consume(title);
+
+        for (int i = 0; i < header.length; i++)
+            packet.prtf(":: :%-" + rowWidth.get(i) + "s" + (i % 2 == 0 ? headFormat1 : headFormat2) + ": ::").consume(header[i]);
+        packet.raw("\n");
+
+        for (String[] row : rows) {
+            for (int i = 0; i < row.length; i++)
+                packet.prtf(":: :%-" + rowWidth.get(i) + "s" + (i % 2 == 0 ? rowFormat1 : rowFormat2) + ": ::").consume(row[i]);
+            packet.raw("\n");
+        }
+
+        packet.consume();
+    }
+
+}
+
+/*@Override
     public String create() {
 
         // Initialising all formats, if not specified, the default is used.
@@ -135,5 +167,4 @@ class StripesTable extends TableAdaptor {
         for (String[] row : rows) table.append(String.format(row_form, (Object[]) row));
 
         return table.toString();
-    }
-}
+    }*/

@@ -26,12 +26,17 @@ public interface Table {
     }
 
 
-    @Format({
-            ":: :@a00 #F b %-40s: ::",
-            ":: :$B @ee0 u n %-63s:",
-            "::   at :@ffc %-100s x\nx n:"
-    })
-    static void tabulate(FLog log, Exception e) {
+    static void tabulate(FLog log, Throwable e) {
+
+        Table table = Table.stripped().formatHead("b@ffa", "b@ffc").format("@ffc", "@ffa")
+                .head("Package", "Class", "Method", "Line no.");
+
+        for (StackTraceElement ele : e.getStackTrace()) {
+            int i = 0;
+            for (; i < ele.getClassName().length(); i++)
+                if (Character.isUpperCase(ele.getClassName().charAt(i))) break;
+            table.row(ele.getClassName().substring(0, i - 1), ele.getClassName().substring(i), ele.getMethodName(), "" + ele.getLineNumber());
+        }
 
         String name = e.getClass().getName();
         name = name.substring(name.lastIndexOf(".") + 1);
@@ -39,28 +44,22 @@ public interface Table {
         String msg = e.getMessage();
         msg = msg == null ? "" : msg;
 
-        String elem = "";
+        log.prtf(":: :@a00 #F b %-40s: ::",
+                ":: :$B @ee0 u n %-" + (table.getWidth() - Math.max(40, name.length())-3) + "s:")
+                .consume(name, msg);
 
-        for (StackTraceElement ele : e.getStackTrace()) {
-            int i = 0;
-            for (; i < ele.getClassName().length(); i++)
-                if (Character.isUpperCase(ele.getClassName().charAt(i))) break;
-            String pkg = ele.getClassName().substring(0, i - 1);
-            elem += String.format("%-30s %30s %-25s %d\n", ele.getClassName().substring(0, i - 1), ele.getClassName().substring(i), ele.getMethodName(), ele.getLineNumber());
-        }
+        table.create(log);
 
-        for (Throwable se : e.getSuppressed())
-            elem+=se+"\n";
 
-        Throwable ourCause = e.getCause();
-        if (ourCause != null)
-            elem+=ourCause+"\n";
+//        Throwable ourCause = e.getCause();
+//        if (ourCause != null)
+//            elem += ourCause + "\n";
 
 //        for (Throwable throwable : e.getSuppressed()) {
 //
 //        }
 
-        log.prt(name, msg, elem);
+//        log.prt(name, msg, elem);
 
     }
 
@@ -95,6 +94,8 @@ public interface Table {
 
     Table formatHead(String... codes);
 
-    String create();
+    int getWidth();
+
+    void create(FLog mainLog);
 
 }

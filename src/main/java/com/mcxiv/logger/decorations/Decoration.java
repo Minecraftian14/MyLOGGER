@@ -52,29 +52,6 @@ public abstract class Decoration {
     static Pattern re_SBcolor = Pattern.compile("([\\[][@]([A-Fa-f0-9]{6,8})[]])");
 
 
-    public static Decoration getRandomDecoration() {
-
-        RandomColor c = new RandomColor();
-
-        String[] codes = new String[]{
-                ":#" + c.yieldHex() + ": ::",
-                ":#" + c.getBright().yieldHex() + ": ::",
-                ":#" + c.getDark().yieldHex() + ": ::",
-                ":#" + c.getBright().yieldHex() + ": ::"
-        };
-
-        switch (DECORATION_CLASS) {
-            case "com.mcxiv.logger.decorations.ConsoleDecoration":
-                return new ConsoleDecoration(codes);
-
-            case "com.mcxiv.logger.decorations.TagDecoration":
-                return new TagDecoration(codes);
-
-            default:
-                return new EmptyDecoration();
-        }
-    }
-
     public static String center(int len, String txt) {
         txt = String.format("%" + (len - txt.length()) / 2 + "s", " ") + txt;
         return String.format("%-" + len + "s", txt);

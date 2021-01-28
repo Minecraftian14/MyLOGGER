@@ -2,6 +2,8 @@ package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.boxUtilities.Box;
 import com.mcxiv.logger.decorations.Decoration;
+import com.mcxiv.logger.formatted.FLog;
+import com.mcxiv.logger.packets.Packet;
 
 import java.util.ArrayList;
 
@@ -78,6 +80,83 @@ class BoxTable extends TableAdaptor {
         return this;
     }
 
+    @Override
+    public int getWidth() {
+        return 1+rowWidth.stream().reduce(0, Integer::sum) + rowWidth.size() * 4;
+    }
+
+    @Override
+    public void create(FLog mainLog) {
+        Packet packet = mainLog.newPacket();
+
+        int w = rowWidth.size() * 3 + 1; // number of cells * (number of padding spaces provided per cell + border character per cell) + one extra border character which lyes unpaired with the cells.
+        for (Integer rw : rowWidth) w += rw; // adding up individual row widths to w
+        // now, w = table width.
+
+        if (title != null) {
+
+            packet.raw(Box.TL_DC);
+            for (int i = 0; i < w - 2; i++) packet.raw(Box.DB);
+            packet.raw(Box.TR_DC);packet.raw("\n");
+
+            packet.prtf(Box.DP + ":: :bn%*"+(w-4)+"s: ::" + Box.DP).consume(title);
+
+            packet.raw(Box.R_DC);
+            for (int i = 0; i < rowWidth.size(); i++) {
+                for (int j = 0; j < rowWidth.get(i) + 2; j++) packet.raw(Box.DB);
+                if (i != rowWidth.size() - 1) packet.raw(Box.B_DC);
+            }
+            packet.raw(Box.L_DC);packet.raw("\n");
+
+        } else {
+            packet.raw(Box.TL_DC);
+            for (int i = 0; i < rowWidth.size(); i++) {
+                for (int j = 0; j < rowWidth.get(i) + 2; j++) packet.raw(Box.DB);
+                if (i != rowWidth.size() - 1) packet.raw(Box.B_DC);
+            }
+            packet.raw(Box.TR_DC);packet.raw("\n");
+        }
+
+        // Adjusting each header element to fit it's respective row width.
+        for (int i = 0; i < header.length; i++)
+            header[i] = String.format("%" + rowWidth.get(i) + "s", header[i]);
+
+        // filling in values of header into head form
+        packet.prtf(Box.DP + ":: :b: ::" + Box.DP, ":: :b~: ::" + Box.DP).consume(header);
+        packet.raw("\n");
+
+
+        packet.raw(Box.R_DC);
+        for (int i = 0; i < rowWidth.size(); i++) {
+            for (int j = 0; j < rowWidth.get(i) + 2; j++) packet.raw(Box.DB);
+            if (i != rowWidth.size() - 1) packet.raw(Box.A_DC);
+        }
+        packet.raw(Box.L_DC);packet.raw("\n");
+
+        // Adjusting each row element to fit it's respective row width.
+        for (String[] row : rows)
+            for (int j = 0; j < row.length; j++)
+                row[j] = String.format("%" + rowWidth.get(j) + "s", row[j]);
+
+        // for every row {filling in values of that row into row form and then appending it after header}
+        for (String[] row : rows) {
+            packet.prtf(Box.DP + ":: :b: ::" + Box.DP, ":: :b~: ::" + Box.DP).consume(row);
+            packet.raw("\n");
+        }
+
+        packet.raw(Box.BL_DC);
+        for (int i = 0; i < rowWidth.size(); i++) {
+            for (int j = 0; j < rowWidth.get(i) + 2; j++) packet.raw(Box.DB);
+            if (i != rowWidth.size() - 1) packet.raw(Box.T_DC);
+        }
+        packet.raw(Box.BR_DC);packet.raw("\n");
+
+        packet.consume();
+
+    }
+}
+
+/*
     @Override
     public String create() {
         // Initialising all formats, if not specified, the default is used.
@@ -162,4 +241,4 @@ class BoxTable extends TableAdaptor {
 
         return table.toString();
     }
-}
+    */

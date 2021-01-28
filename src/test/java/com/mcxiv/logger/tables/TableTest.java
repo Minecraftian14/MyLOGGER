@@ -2,11 +2,16 @@ package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.tools.LogLevel;
+import com.sun.xml.internal.ws.wsdl.parser.MemberSubmissionAddressingWSDLParserExtension;
 import org.junit.Test;
 
+import javax.lang.model.element.ExecutableElement;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.UnknownFormatConversionException;
 
 public class TableTest {
+
+    static FLog log = FLog.getNew();
 
     @Test
     public void SimpleTest() {
@@ -23,31 +28,32 @@ public class TableTest {
             Oce[i] = Ace[i] * Mice[i];
         }
 
-        System.out.print(Table.stripped()
+        Table.stripped()
+                .title("Yo")
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .row("", "A", "B", "A x B")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
                 .row("", "Only", "Even", "Values")
                 .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-                .create());
+                .create(log);
 
-        System.out.print(Table.box()
+        Table.box()
                 .title("Hello")
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .row("!", "A", "B", "A x B")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
                 .row("", "Only", "Even", "Values")
                 .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-                .create());
+                .create(log);
 
-        System.out.print(Table.empty()
+        Table.empty()
                 .title("Hello")
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .row("!", "A", "B", "A x B")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
                 .row("", "Only", "Even", "Values")
                 .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-                .create());
+                .create(log);
     }
 
     @Test
@@ -67,24 +73,24 @@ public class TableTest {
 
         FLog log = FLog.getNew();
 
-        log.raw(Table.stripped().warn()
+        Table.stripped().warn()
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-                .create());
+                .create(log);
 
         LogLevel.VITAL.activate();
 
-        log.raw(Table.stripped().warn()
+        Table.stripped().warn()
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-                .create());
+                .create(log);
 
 //        LogLevel.ALL.activate();
 
-        log.raw(Table.stripped().warn()
+        Table.stripped().warn()
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-                .create());
+                .create(log);
 
     }
 
@@ -96,7 +102,7 @@ public class TableTest {
         Double[] iterations = new Double[len];
         for (int i = 0; i < len; i++) iterations[i] = Math.random();
 
-        System.out.print(Table.stripped()
+        Table.stripped()
                 .title("Average of Random Numbers")
                 .head("S.No.", "Range", "Average")
                 .bunch(iterations, len / 10,
@@ -107,9 +113,9 @@ public class TableTest {
                 .formatTitle(":@4085eeb:")
                 .formatHead(":@2565ae#fff:", ":@0f5298#fff:")
                 .format(":@66d3fa:", ":@55d3fe:")
-                .create());
+                .create(log);
 
-        System.out.print(Table.box()
+        Table.box()
                 .title("Average of Random Numbers")
                 .head("S.No.", "Range", "Average")
                 .bunch(iterations, len / 10,
@@ -117,9 +123,9 @@ public class TableTest {
                         (gi, g) -> (gi * len / 10) + "-" + ((gi + 1) * len / 10),
                         (gi, g) -> String.format("%.3f",  avg(g) )
                 )
-                .create());
+                .create(log);
 
-        System.out.print(Table.empty()
+        Table.empty()
                 .title("Average of Random Numbers")
                 .head("S.No.", "Range", "Average")
                 .bunch(iterations, len / 10,
@@ -127,7 +133,7 @@ public class TableTest {
                         (gi, g) -> (gi * len / 10) + "-" + ((gi + 1) * len / 10),
                         (gi, g) -> String.format("%.3f",  avg(g) )
                 )
-                .create());
+                .create(log);
 
     }
 
@@ -144,8 +150,13 @@ public class TableTest {
         FLog log = FLog.getNew();
 
         try {
-            log.prt(String.format("%*s", "Hey"));
-        } catch (UnknownFormatConversionException e) {
+
+            throw new InternalFrameInternalFrameTitlePaneInternalFrameTitlePaneIconifyButtonPainter();
+//            throw new SQLIntegrityConstraintViolationException("Yo");
+//            int k = 1/0;
+//            log.prt(String.format("%*s", "Hey"));
+
+        } catch (Throwable e) {
 
             Table.tabulate(log, e);
 
@@ -153,5 +164,8 @@ public class TableTest {
 
         }
 
+    }
+
+    private class InternalFrameInternalFrameTitlePaneInternalFrameTitlePaneIconifyButtonPainter extends Throwable {
     }
 }

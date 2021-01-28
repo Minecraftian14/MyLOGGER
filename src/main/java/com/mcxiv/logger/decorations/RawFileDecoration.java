@@ -1,53 +1,11 @@
 package com.mcxiv.logger.decorations;
 
-import com.mcxiv.logger.tools.C;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.regex.Matcher;
 
 public class RawFileDecoration extends Decoration {
 
-    private static Function<String[], Decoration> getPartnerDecoration = ConsoleDecoration::new;
-
-    public static void setPartnerDecorationDecoration(Function<String[], Decoration> decoration) {
-        getPartnerDecoration = decoration;
-    }
-
-    public static int MAX_BUFFER_SIZE = 200;
-
-    Decoration decoration;
-    FileWriter writer;
-    StringBuilder buffer;
-
-
-    //
-
 
     public RawFileDecoration(String... codes) {
-        this(resolveFile(), codes);
-    }
-
-    private static File resolveFile() {
-        new File("logs").mkdir();
-        return new File("logs/" + LocalDateTime.now().toString().replaceAll("[^a-zA-Z0-9]", ",") + ".txt");
-    }
-
-    public RawFileDecoration(File file, String... codes) {
-        if (codes.length == 0) return;
-        this.decoration = getPartnerDecoration.apply(codes);
-
-        try {
-            writer = new FileWriter(file);
-            buffer = new StringBuilder(MAX_BUFFER_SIZE);
-            Runtime.getRuntime().addShutdownHook(new Thread(this::flush));
-        } catch (IOException e) {
-            System.out.println(C.RBG + C.hex.font.to24Bit(255, 255, 255) + "IO Exception " + C.RS + C.Y + e.getCause() + C.RS);
-        }
 
         decorates = new Decorate[codes.length];
 
@@ -127,24 +85,4 @@ public class RawFileDecoration extends Decoration {
 
     }
 
-    @Override
-    public String decorate(String... input) {
-        if (writer != null) write(super.decorate(input.clone()));
-        return decoration.decorate(input);
-    }
-
-    private void write(String msg) {
-        if (buffer.length() > MAX_BUFFER_SIZE) flush();
-        buffer.append(msg);
-    }
-
-    private void flush() {
-        try {
-            writer.write(buffer.toString());
-            writer.flush();
-        } catch (IOException e) {
-            System.out.println(C.RBG + C.hex.font.to24Bit(255, 255, 255) + "IO Exception " + C.RS + C.Y + e.getCause() + C.RS);
-        }
-        buffer.setLength(0);
-    }
 }

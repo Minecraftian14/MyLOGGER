@@ -1,5 +1,6 @@
 package com.mcxiv.logger.tables;
 
+import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.util.GroupIterator;
 import com.mcxiv.logger.util.Iterator;
 import com.mcxiv.logger.util.LevelDependent;
@@ -40,8 +41,12 @@ public abstract class TableAdaptor extends LevelDependent<TableAdaptor> implemen
         }
 
         @Override
-        public String create() {
-            return "";
+        public int getWidth() {
+            return 0;
+        }
+
+        @Override
+        public void create(FLog mainLog) {
         }
     };
 

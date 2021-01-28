@@ -1,13 +1,8 @@
 package com.mcxiv.logger.formatted;
 
 
-import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.decorations.Format;
-import com.mcxiv.logger.decorations.RawFileDecoration;
-import com.mcxiv.logger.decorations.TagDecoration;
 import org.junit.Test;
-
-import java.io.File;
 
 public class Logger_AnnotationCompilerTest {
 
@@ -157,14 +152,14 @@ public class Logger_AnnotationCompilerTest {
     @Test
     @Format({":$B:", ":: :$GBG$R: ::", ":#ff00ff:", ":$R:", ":$BR:"})
     public void test() {
-        FLog log = new Logger_AnnotationCompiler();
+        FLog log = new Logger_MethodImplierBody();
         log.prt("Hey!", "So", "How", "Do", "You", "Do", "?");
     }
 
     @Test
     @Format({":$B:", ":: :$GBG$R: ::", ":#ff00ff:"})
     public void test2() {
-        FLog log = new Logger_AnnotationCompiler();
+        FLog log = new Logger_MethodImplierBody();
 //        Decoration.setDecoration(TagDecoration::new);
 //        Decoration.setDecoration(TagDecoration.class);
         log.prt("Hey!", "So", "How", "Do", "You", "Do", "?");
@@ -173,7 +168,7 @@ public class Logger_AnnotationCompilerTest {
     @Test
     @Format({":$B:", ":: :$GBG$R: ::", ":#ff00ff:"})
     public void testCustomFormat() {
-        FLog log = new Logger_AnnotationCompiler();
+        FLog log = new Logger_MethodImplierBody();
         log.prtf(":$B:", ":: :$GBG$R: ::", ":#ff00ff:").consume("Hey!", "So", "How", "Do", "You", "Do", "?");
         log.prt();
     }
