@@ -73,21 +73,22 @@ public class TableTest {
 
         FLog log = FLog.getNew();
 
-        Table.stripped().warn()
+        Table.stripped()
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
                 .create(log);
 
         LogLevel.VITAL.activate();
 
-        Table.stripped().warn()
+        Table.stripped()
+                .setLogLevel(LogLevel.DEBUG)
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
                 .create(log);
 
 //        LogLevel.ALL.activate();
 
-        Table.stripped().warn()
+        Table.stripped()
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
                 .create(log);

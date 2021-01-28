@@ -82,11 +82,13 @@ class BoxTable extends TableAdaptor {
 
     @Override
     public int getWidth() {
-        return 1+rowWidth.stream().reduce(0, Integer::sum) + rowWidth.size() * 4;
+        return 1 + rowWidth.stream().reduce(0, Integer::sum) + rowWidth.size() * 4;
     }
 
     @Override
     public void create(FLog mainLog) {
+        if(level!=null&&!level.accepted())return;
+
         Packet packet = mainLog.newPacket();
 
         int w = rowWidth.size() * 3 + 1; // number of cells * (number of padding spaces provided per cell + border character per cell) + one extra border character which lyes unpaired with the cells.
@@ -97,16 +99,18 @@ class BoxTable extends TableAdaptor {
 
             packet.raw(Box.TL_DC);
             for (int i = 0; i < w - 2; i++) packet.raw(Box.DB);
-            packet.raw(Box.TR_DC);packet.raw("\n");
+            packet.raw(Box.TR_DC);
+            packet.raw("\n");
 
-            packet.prtf(Box.DP + ":: :bn%*"+(w-4)+"s: ::" + Box.DP).consume(title);
+            packet.prtf(Box.DP + ":: :bn%*" + (w - 4) + "s: ::" + Box.DP).consume(title);
 
             packet.raw(Box.R_DC);
             for (int i = 0; i < rowWidth.size(); i++) {
                 for (int j = 0; j < rowWidth.get(i) + 2; j++) packet.raw(Box.DB);
                 if (i != rowWidth.size() - 1) packet.raw(Box.B_DC);
             }
-            packet.raw(Box.L_DC);packet.raw("\n");
+            packet.raw(Box.L_DC);
+            packet.raw("\n");
 
         } else {
             packet.raw(Box.TL_DC);
@@ -114,7 +118,8 @@ class BoxTable extends TableAdaptor {
                 for (int j = 0; j < rowWidth.get(i) + 2; j++) packet.raw(Box.DB);
                 if (i != rowWidth.size() - 1) packet.raw(Box.B_DC);
             }
-            packet.raw(Box.TR_DC);packet.raw("\n");
+            packet.raw(Box.TR_DC);
+            packet.raw("\n");
         }
 
         // Adjusting each header element to fit it's respective row width.
@@ -131,7 +136,8 @@ class BoxTable extends TableAdaptor {
             for (int j = 0; j < rowWidth.get(i) + 2; j++) packet.raw(Box.DB);
             if (i != rowWidth.size() - 1) packet.raw(Box.A_DC);
         }
-        packet.raw(Box.L_DC);packet.raw("\n");
+        packet.raw(Box.L_DC);
+        packet.raw("\n");
 
         // Adjusting each row element to fit it's respective row width.
         for (String[] row : rows)
@@ -149,7 +155,8 @@ class BoxTable extends TableAdaptor {
             for (int j = 0; j < rowWidth.get(i) + 2; j++) packet.raw(Box.DB);
             if (i != rowWidth.size() - 1) packet.raw(Box.T_DC);
         }
-        packet.raw(Box.BR_DC);packet.raw("\n");
+        packet.raw(Box.BR_DC);
+        packet.raw("\n");
 
         packet.consume();
 

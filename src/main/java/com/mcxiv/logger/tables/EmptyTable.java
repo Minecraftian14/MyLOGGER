@@ -68,6 +68,9 @@ class EmptyTable extends TableAdaptor {
 
     @Override
     public void create(FLog mainLog) {
+        if(level!=null&&!level.accepted())return;
+
+
         Packet packet = mainLog.newPacket();
 
         StringBuilder table = new StringBuilder();

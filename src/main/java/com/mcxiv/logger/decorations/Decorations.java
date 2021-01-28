@@ -21,7 +21,8 @@ public class Decorations {
         StackTraceElement element = null;
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         for (int i = 2; i < 6; i++) {
-            if (!(stackTrace[i].getClassName().endsWith("Logger_MethodImplierBody") || stackTrace[i].getClassName().endsWith("Logger_LogFileWriter"))) {
+
+            if (!(stackTrace[i].getClassName().endsWith("Logger_MethodImplierBody") || stackTrace[i].getClassName().endsWith("Logger_LogFileWriter") || stackTrace[i].getClassName().contains("$"))) {
                 element = stackTrace[i];
                 break;
             }

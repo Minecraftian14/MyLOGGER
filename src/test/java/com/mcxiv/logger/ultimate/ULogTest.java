@@ -6,7 +6,9 @@ import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.formatted.fixed.FileLog;
 import com.mcxiv.logger.plotting.Plot;
 import com.mcxiv.logger.tables.Table;
+import com.mcxiv.logger.tools.LogLevel;
 import org.junit.Test;
+import sun.rmi.runtime.Log;
 
 public class ULogTest {
 
@@ -79,6 +81,7 @@ public class ULogTest {
         }).start();
 
         Table.box()
+//                .setLogLevel(LogLevel.DEBUG)
                 .title("%%s")
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .row("!", "A", "B", "A x B")

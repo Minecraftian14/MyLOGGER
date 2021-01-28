@@ -91,6 +91,8 @@ class StripesTable extends TableAdaptor {
 
     @Override
     public void create(FLog mainLog) {
+        if(level!=null&&!level.accepted())return;
+
         Packet packet = mainLog.newPacket();
 
         // Initialising all formats, if not specified, the default is used.

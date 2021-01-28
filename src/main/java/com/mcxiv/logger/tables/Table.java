@@ -2,8 +2,10 @@ package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.formatted.FLog;
+import com.mcxiv.logger.tools.LogLevel;
 import com.mcxiv.logger.util.GroupIterator;
 import com.mcxiv.logger.util.Iterator;
+import javafx.scene.control.Tab;
 
 public interface Table {
 
@@ -18,13 +20,6 @@ public interface Table {
     static TableAdaptor empty() {
         return new EmptyTable();
     }
-
-    static String[] form(Object... obj) {
-        String[] msg = new String[obj.length];
-        for (int i = 0; i < obj.length; i++) msg[i] = obj[i].toString();
-        return msg;
-    }
-
 
     static void tabulate(FLog log, Throwable e) {
 
@@ -95,6 +90,8 @@ public interface Table {
     Table formatHead(String... codes);
 
     int getWidth();
+
+    Table setLogLevel(LogLevel level);
 
     void create(FLog mainLog);
 

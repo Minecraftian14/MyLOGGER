@@ -86,6 +86,7 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
         @Override
         public void consume() {
             Logger_MethodImplierBody.this.raw(builder.toString());
+//            builder.setLength(0);
         }
     }
 
