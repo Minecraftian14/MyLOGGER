@@ -6,13 +6,14 @@ import org.junit.Test;
 
 public class Logger_LevelDependencyAdderTest {
 
+    @Format({"", "", ":n:"})
     public void print(FLog log) {
-        log.vital().prt("Vital", "Hello", "World\n");
-        log.error().prt("Error", "Hello", "World\n");
-        log.warn().prt("Warn", "Hello", "World\n");
-        log.notice().prt("Notice", "Hello", "World\n");
-        log.debug().prt("Debug", "Hello", "World\n");
-        log.general().prt("General", "Hello", "World\n");
+        log.vital().prt(() -> FLog.form("Vital", "Hello", "World"));
+        log.error().prt(() -> FLog.form("Error", "Hello", "World"));
+        log.warn().prt(() -> FLog.form("Warn", "Hello", "World"));
+        log.notice().prt(() -> new String[]{"Notice", "Hello", "World"});
+        log.debug().prt(() -> FLog.form("Debug", "Hello", "World"));
+        log.general().prt(() -> FLog.form("General", "Hello", "World"));
         log.prt("\n");
     }
 
@@ -35,15 +36,15 @@ public class Logger_LevelDependencyAdderTest {
     public void test_NICEFormatting() {
         FLog log = FLog.getNew();
 
-        log.general().prt("1", "Useless Sentences", "Some boring text ahead...",
+        log.general().prt(() -> FLog.form("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just",
                 "lying around here for you to read. Though feel",
                 "totally comfortable if you wish to skip ahead."
-        );
+        ));
 
         LogLevel.NOTICE.activate();
 
-        log.notice().prt("2", "Senseless Art", "Valuable Shit",
+        log.notice().prt(() -> FLog.form("2", "Senseless Art", "Valuable Shit",
                 "The main theory behind Senseless Art is the",
                 "ability to use simple sentences to create a",
                 "feeling of improtance and value describing",
@@ -52,7 +53,7 @@ public class Logger_LevelDependencyAdderTest {
                 "sense of how to use such to your advantage,",
                 "consider, the person a master of this uniquely",
                 "special art form."
-        );
+        ));
     }
 
 }

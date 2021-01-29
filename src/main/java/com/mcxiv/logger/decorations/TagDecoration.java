@@ -50,7 +50,8 @@ public class TagDecoration extends Decoration {
 
     }
 
-    public TagDecoration(String... codes) {
+    public TagDecoration(Decorations.Tag tag, String... codes) {
+        super(tag);
 
         decorates = new Decorate[codes.length];
 
@@ -142,7 +143,9 @@ public class TagDecoration extends Decoration {
             if (sp.content.contains("-"))
                 if (!sp.content.contains("%") || sp.content.indexOf("-") < sp.content.indexOf("%"))
                     format.append("[STRIKE]");
-            if (sp.content.contains("~")) {
+
+            if (sp.content.contains("R")) the_whole_repeats = true;
+            else if (sp.content.contains("~")) {
                 last_one_repeats = true;
                 repeater_index = i;
             }

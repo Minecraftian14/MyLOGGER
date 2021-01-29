@@ -76,9 +76,12 @@ input text.
 |Tab Space         |t             |Yes    |Yes    |?      | To prepend a tab space |
 |Word Wrap         |wnw           |Yes    |Yes    |?      | Word Wrap input to fit a width of 'n' and apply the same format to each line. |
 |Splitter          |xcx           |Yes    |Yes    |?      | Split the given input about each occurrance of 'c'. |
+|Repeater          |R             |Yes    |Yes    |Yes    | Reuse the decorators from start when input exceeds them. |
+|Meta Data         |P C or M      |Yes    |Yes    |Yes    | P -> package name, C -> class name, M -> method name. |
 
 
 * Console -> a Formatting Style to decorate the console outputs.
+* Raw -> Just like console but no color/bold/underline... formatting.
 * Tags -> a Formatting Style consisting of appending bracketed
 tags to the input to inform a parser about the text format.
 An example of this formatting is used in HyperLap2D to apply

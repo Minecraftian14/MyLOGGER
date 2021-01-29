@@ -25,10 +25,9 @@ FLog log = FLog.getNew();
 
 int[] age = new int[]{6,47,74,70,42,22,11,30,18,32,94,4,90,44,86,86,46,20,91,89,86,47,8,45,56};
 
-log.raw(Plot.BarGraph.simple()
+Plot.BarGraph.simple()
                 .values(age)
-                .create()
-);
+                .create(log);
 ```
 ![SuperSimpleTest](images/SuperSimpleTest.png)<br /><br />
 
@@ -37,14 +36,13 @@ FLog log = FLog.getNew();
 
 int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94, 4, 90, 44, 86, 86, 46, 20, 91, 89, 86, 47, 8, 45, 56};
 
-log.raw(Plot.BarGraph.simple()
+Plot.BarGraph.simple()
         .title("Visitor's Age Survey")
         .XLabel(0, age.length, i -> (age[i] > 18 ? "Adult " : "Minor ") + age[i])
         .YLabel(0, 10,i -> i*15)
         .scale(0.08)
         .values(age)
-        .create()
-);
+        .create(log);
 ```
 ![SimpleTest1](images/SimpleTest1.png)<br /><br />
 
@@ -53,12 +51,11 @@ FLog log = FLog.getNew();
 
 int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94, 4, 90, 44, 86, 86, 46, 20, 91, 89, 86, 47, 8, 45, 56};
 
-log.raw(Plot.BarGraph.simple()
+Plot.BarGraph.simple()
         .values(age)
         .charHeight(15)
         .setBarType(Box.B_T)
-        .create()
-);
+        .create(log);
 ```
 ![SimpleTest3](images/SimpleTest3.png)<br /><br />
 
@@ -67,11 +64,10 @@ FLog log = FLog.getNew();
 
 int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94};
 
-log.raw(Plot.BarGraph.simple()
+Plot.BarGraph.simple()
         .values(age)
         .setBarType("Hello")
-        .create()
-);
+        .create(log);
 ```
 ![SimpleTest2](images/SimpleTest2.png)<br /><br />
 
@@ -96,5 +92,7 @@ log.raw(Plot.image(i.getWidth(), i.getHeight(), i.getWidth()/2, i.getHeight()/2,
         (x, y) -> (i.getRGB(x, y) >> 8) & 0xFF,   // for green
         (x, y) -> i.getRGB(x, y) & 0xFF));        // for blue
 ```
+original <br />
 ![SimpleTest2](images/ImageTestB.png)<br /><br />
+the output <br />
 ![SimpleTest2](images/ImageTestA.png)<br /><br />

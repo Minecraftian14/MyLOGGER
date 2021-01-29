@@ -6,3 +6,5 @@ public interface StringsConsumer {
     void consume(String...st);
 
 }
+
+

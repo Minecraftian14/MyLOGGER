@@ -1,35 +1,38 @@
 package com.mcxiv.logger.util;
 
-import com.mcxiv.logger.formatted.FLog;
+import com.mcxiv.logger.packets.LambdaPacket;
 import com.mcxiv.logger.tools.LogLevel;
 
-public abstract class LevelDependent<T> {
+public interface LevelDependencyAdder {
 
-    public abstract T provide();
-    public abstract T provideEmpty();
-    
-    public T vital() {
+    LambdaPacket provide();
+
+    default LambdaPacket provideEmpty() {
+        return LambdaPacket.EMPTY_VESSEL;
+    }
+
+    default LambdaPacket vital() {
         return LogLevel.VITAL.accepted() ? provide() : provideEmpty();
     }
 
-    public T error() {
+    default LambdaPacket error() {
         return LogLevel.ERROR.accepted() ? provide() : provideEmpty();
     }
 
-    public T warn() {
+    default LambdaPacket warn() {
         return LogLevel.WARN.accepted() ? provide() : provideEmpty();
     }
 
-    public T notice() {
+    default LambdaPacket notice() {
         return LogLevel.NOTICE.accepted() ? provide() : provideEmpty();
     }
 
-    public T debug() {
+    default LambdaPacket debug() {
         return LogLevel.DEBUG.accepted() ? provide() : provideEmpty();
     }
 
-    public T general() {
+    default LambdaPacket general() {
         return LogLevel.ALL.accepted() ? provide() : provideEmpty();
     }
-    
+
 }

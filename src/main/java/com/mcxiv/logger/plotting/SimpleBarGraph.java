@@ -1,8 +1,8 @@
 package com.mcxiv.logger.plotting;
 
 import com.mcxiv.logger.boxUtilities.Box;
-import com.mcxiv.logger.decorations.Decoration;
-import com.mcxiv.logger.tools.C;
+import com.mcxiv.logger.formatted.FLog;
+import com.mcxiv.logger.packets.Packet;
 import com.mcxiv.logger.tools.RandomColor;
 import com.mcxiv.logger.util.Iterator;
 
@@ -14,7 +14,7 @@ class SimpleBarGraph implements Plot.BarGraph {
     int[] values = null;
 
     double scale = 0.1;
-    String bar = Box.B_F ;
+    String bar = Box.B_F;
 
     @Override
     public Plot.BarGraph title(String title) {
@@ -81,7 +81,8 @@ class SimpleBarGraph implements Plot.BarGraph {
     }
 
     @Override
-    public String create() {
+    public void create(FLog mainLog) {
+        Packet packet = mainLog.newPacket();
 
         // Getting the highest value provided here!
         int highestBar = Integer.MIN_VALUE;
@@ -101,30 +102,17 @@ class SimpleBarGraph implements Plot.BarGraph {
         for (String s : xLabels) if (longestXLabel < s.length()) longestXLabel = s.length();
 
 
-        // If xLabels exceed the bar height:
-        //      set values of first <charHeight> xLabels such that they also contains all elements after
-        //      <charHeight>. Thus giving the effect if the list is continued aside.
-        // Else they are not much modified.
-        // Also, apply an intend and respective bar colors.
-        String form = "    %s%s" + C.RS + " %-" + longestXLabel + "s";
-
-        for (int i = 0; i < Math.min(charHeight, xLabels.length); i++) {
-            String value = "";
-
-            for (int j = 0; j < Math.ceil(xLabels.length / (float) charHeight); j++) {
-                int k = j * charHeight + i;
-                if (k >= xLabels.length) continue;
-                value += String.format(form, RandomColor.getRandomAt(k), bar, xLabels[k]);
-            }
-
-            xLabels[i] = value;
+        // Initialising a set of random colors so that they match the bars and the x labels.
+        // And setting xLabels to be of same length.
+        String form = "%-"+longestXLabel+"s";
+        String[] colors = new String[xLabels.length];
+        for (int i = 0; i < xLabels.length; i++) {
+            colors[i] = ":#" + new RandomColor().yieldHex() + ":";
+            xLabels[i] = String.format(form, xLabels[i]);
         }
 
 
         //
-
-
-        StringBuilder builder = new StringBuilder();
 
         form = " %" + longestYLabel + "s \u2528 ";
 
@@ -133,45 +121,46 @@ class SimpleBarGraph implements Plot.BarGraph {
 
             // Adding in yLabels, or, a space if not enough provided.
             // Note that these names/space are formatted to have a padding and an axis fragment.
-            if (dh >= charHeight - yLabels.length)
-                builder.append(String.format(form, yLabels[charHeight - dh - 1]));
-            else builder.append(String.format(form, ""));
+            if (dh >= charHeight - yLabels.length) {
+                packet.raw(String.format(form, yLabels[charHeight - dh - 1]));
+            } else packet.raw(String.format(form, ""));
 
             // Putting in a Bar if bar is to be printed else a space.
             for (int dw = 0; dw < values.length; dw++) { // for each bar space
                 if (values[dw] * scale >= charHeight - dh)
-                    builder.append(RandomColor.getRandomAt(dw)).append(bar);
-                else for (int i = 0; i < bar.length(); i++) builder.append(" ");
+                    packet.prtf(colors[dw]).consume(bar);
+                else for (int i = 0; i < bar.length(); i++) packet.raw(" ");
             }
 
-            // Putting in xLabels if they are present.
-            if (xLabels != null && dh < xLabels.length)
-                builder.append(xLabels[dh]);
+            // Putting in all xLabels such that if they exceed the charheight they are printed appearing to exist in separate column.
+            for (int j = 0; j < Math.ceil(xLabels.length / (float) charHeight); j++) {
+                int s = dh + j * charHeight;
+                if (s < xLabels.length)
+                    packet.prtf("::    : :", colors[s], ":: : :").consume("", bar, xLabels[s]);
+            }
 
-            builder.append("\n").append(C.RS);
+            packet.raw("\n");
         }
 
         for (int i = 0; i < longestYLabel + 2; i++) // applying space in order to match up with the ylabels width and padding
-            builder.append(" ");
-        builder.append("\u2517");  // applying a bottom left corner
+            packet.raw(" ");
+        packet.raw("\u2517");  // applying a bottom left corner
         for (int i = 0; i < values.length * bar.length() + 2; i++) // applying x axis
-            builder.append("\u2501");
+            packet.raw("\u2501");
 
-        if (title != null) { // centering the title about x axis and putting it.
-            builder.append("\n");
-            for (int i = 0; i < longestYLabel + 2; i++)
-                builder.append(" ");
-            builder.append(C.FB).append(Decoration.center(values.length * bar.length() + 3, title)).append(C.RS);
-        }
+        // centering the title about x axis and putting it.
+        if (title != null)
+            packet.prtf("::\n:b%*" + (values.length * bar.length() + (longestYLabel + 4) * 2) + "s:").consume(title);
 
-        return builder.toString();
+//        mainLog.raw(builder.toString());
+        packet.consume();
     }
 
     private static String[] defaultXLables(int[] values) {
-        return Iterator.toArray(0, values.length, 1,i -> values[i]);
+        return Iterator.toArray(0, values.length, 1, i -> values[i]);
     }
 
     private static String[] defaultYLables(int highestBar, double scale) {
-        return Iterator.toArray(0, (int) (highestBar*scale),1 ,i -> String.format("%.3f", i/scale) );
+        return Iterator.toArray(0, (int) (highestBar * scale), 1, i -> String.format("%.3f", i / scale));
     }
 }

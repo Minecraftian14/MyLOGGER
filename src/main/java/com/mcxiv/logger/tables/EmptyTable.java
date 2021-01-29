@@ -1,5 +1,8 @@
 package com.mcxiv.logger.tables;
 
+import com.mcxiv.logger.formatted.FLog;
+import com.mcxiv.logger.packets.Packet;
+
 import java.util.ArrayList;
 
 class EmptyTable extends TableAdaptor {
@@ -35,6 +38,7 @@ class EmptyTable extends TableAdaptor {
         return this;
     }
 
+
     @Override
     public Table title(String title) {
         this.title = title;
@@ -58,6 +62,34 @@ class EmptyTable extends TableAdaptor {
     }
 
     @Override
+    public int getWidth() {
+        return rowWidth.stream().reduce(0, Integer::sum) + rowWidth.size() * 2;
+    }
+
+    @Override
+    public void create(FLog mainLog) {
+        if(level!=null&&!level.accepted())return;
+
+
+        Packet packet = mainLog.newPacket();
+
+        StringBuilder table = new StringBuilder();
+
+        if (title != null) packet.prtf(":: :n:").consume(title);
+
+        for (String[] row : rows) {
+            for (int i = 0; i < row.length; i++)
+                packet.prtf(":: :%-" + rowWidth.get(i) + "s: ::").consume(row[i]);
+            packet.raw("\n");
+        }
+
+       packet.consume();
+
+    }
+}
+
+
+    /*@Override
     public String create() {
 
         StringBuilder table = new StringBuilder();
@@ -84,5 +116,4 @@ class EmptyTable extends TableAdaptor {
         }
 
         return table.toString();
-    }
-}
+    }*/

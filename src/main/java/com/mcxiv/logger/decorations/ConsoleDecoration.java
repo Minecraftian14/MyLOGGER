@@ -24,7 +24,8 @@ public class ConsoleDecoration extends Decoration {
         STATE = mode;
     }
 
-    public ConsoleDecoration(String... codes) {
+    public ConsoleDecoration(Decorations.Tag tag, String... codes) {
+        super(tag);
 
         decorates = new Decorate[codes.length];
 
@@ -39,8 +40,21 @@ public class ConsoleDecoration extends Decoration {
             FormattingCodeSplitter sp = new FormattingCodeSplitter(code);
 
             // And some basic initialisation.
-            StringBuilder format = new StringBuilder(sp.prepre);
+            StringBuilder format = new StringBuilder();
             Matcher m;
+
+
+            //
+
+
+            if (tag != null) {
+                String brush = "";
+                if (sp.content.contains("P")) brush += "[" + tag.packageName + "]";
+                if (sp.content.contains("C")) brush += "[" + tag.className + "]";
+                if (sp.content.contains("M")) brush += "[" + tag.executableName + "]";
+                sp.prepre = brush + " " + sp.prepre;
+            }
+            format.append(sp.prepre);
 
 
             //
@@ -128,7 +142,9 @@ public class ConsoleDecoration extends Decoration {
             if (sp.content.contains("-"))
                 if (!sp.content.contains("%") || sp.content.indexOf("-") < sp.content.indexOf("%"))
                     format.append(C.FS);
-            if (sp.content.contains("~")) {
+
+            if (sp.content.contains("R")) the_whole_repeats = true;
+            else if (sp.content.contains("~")) {
                 last_one_repeats = true;
                 repeater_index = i;
             }

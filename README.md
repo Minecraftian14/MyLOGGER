@@ -4,21 +4,25 @@
 
 A simple _logging_ tool to make **console outputs** look prettier...
 
-For instructions on writing a "Formatting Code",
+Get an intro to "writing formatting codes" at, 
 [![](https://img.shields.io/badge/Logger-Instructions-yellow)](WRITING_A_FORMAT_FOR_DECORATION.md)
 
-For examples of `@Format` annotation,
+Other important stuff regarding the usage of this tool,  
+[![](https://img.shields.io/badge/Logger-Stuff-cyan)](WRITING_A_FORMAT_FOR_DECORATION.md)
+
+Get simple and complicated examples for better insight, 
 [![](https://img.shields.io/badge/Logger-Examples-orange)](LOGGER_EXAMPLES.md)
 
-For instructions on using Tables and examples, 
+You know, you can also create Tables with this tool!
 [![](https://img.shields.io/badge/Tables-Examples-green)](TABLE_EXAMPLES.md)
 
-For examples of plotint data, 
+And well, we have simple plotting tools too,
 [![](https://img.shields.io/badge/Plotting-Examples-red)](PLOTTING.md)
 
 For console specific compatibility,
 [![](https://img.shields.io/badge/Console-Compatibility-purple)](SUPPORT.md) 
 
+<br />
 
 [![](https://jitpack.io/v/Minecraftian14/MyLOGGER.svg)](https://jitpack.io/#Minecraftian14/MyLOGGER)
 [![](https://img.shields.io/discord/740954840259362826?color=7289da&label=Discord)](https://discord.gg/UgMH9c98mg)
@@ -31,12 +35,13 @@ For console specific compatibility,
 ```groovy
 allprojects {
     repositories {
-        ...
+        // ... other sources
         maven { url 'https://jitpack.io' }
     }
 }
 
 dependencies {
+    // ... other dependencies
 
     // Include the library as a dependency. 
     // Replace TAG_NAME with the number aside jitpack badge.
@@ -51,18 +56,24 @@ dependencies {
 #### Initialise
 
 ```
-// default initialisation.
+// Default initialisation, to print to Console.
 FLog logger = FLog.getNew();
 
-// if using the annotation processor version.
+// The annotation processor version.
 FLog logger = ALog.getNew();
 
-// to use a custom Decoration
-Decoration.setDecoration(TagDecoration::new);
+// To write logs to to a file "Hello.txt".
+FLog logger = FileLog.getNew("new.txt");
 
-// to change the output Decoration when using RawFileDecoration
-RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
-Decoration.setDecoration(RawFileDecoration::new);
+// to use a custom Decoration
+log.setDecorationType(Decorations.TAG); // enable tag decos.
+log.setDecorationType(Decorations.RAW); // enable raw decos, ie, no strange characters.
+
+// creating a logger to both, print to console and write to file.
+FLog log = ULog.forNew()
+                .add(FLog.getNew())
+                .add(FileLog.getNew("new.txt"))
+                .create();
 ```
 
 #### Usage

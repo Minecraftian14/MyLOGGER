@@ -2,8 +2,10 @@ package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.formatted.FLog;
+import com.mcxiv.logger.tools.LogLevel;
 import com.mcxiv.logger.util.GroupIterator;
 import com.mcxiv.logger.util.Iterator;
+import javafx.scene.control.Tab;
 
 public interface Table {
 
@@ -19,19 +21,17 @@ public interface Table {
         return new EmptyTable();
     }
 
-    static String[] form(Object... obj) {
-        String[] msg = new String[obj.length];
-        for (int i = 0; i < obj.length; i++) msg[i] = obj[i].toString();
-        return msg;
-    }
+    static void tabulate(FLog log, Throwable e) {
 
+        Table table = Table.stripped().formatHead("b@ffa", "b@ffc").format("@ffc", "@ffa")
+                .head("Package", "Class", "Method", "Line no.");
 
-    @Format({
-            ":: :@a00 #F b %-40s: ::",
-            ":: :$B @ee0 u n %-63s:",
-            "::   at :@ffc %-100s x\nx n:"
-    })
-    static void tabulate(FLog log, Exception e) {
+        for (StackTraceElement ele : e.getStackTrace()) {
+            int i = 0;
+            for (; i < ele.getClassName().length(); i++)
+                if (Character.isUpperCase(ele.getClassName().charAt(i))) break;
+            table.row(ele.getClassName().substring(0, i - 1), ele.getClassName().substring(i), ele.getMethodName(), "" + ele.getLineNumber());
+        }
 
         String name = e.getClass().getName();
         name = name.substring(name.lastIndexOf(".") + 1);
@@ -39,28 +39,22 @@ public interface Table {
         String msg = e.getMessage();
         msg = msg == null ? "" : msg;
 
-        String elem = "";
+        log.prtf(":: :@a00 #F b %-40s: ::",
+                ":: :$B @ee0 u n %-" + (table.getWidth() - Math.max(40, name.length())-3) + "s:")
+                .consume(name, msg);
 
-        for (StackTraceElement ele : e.getStackTrace()) {
-            int i = 0;
-            for (; i < ele.getClassName().length(); i++)
-                if (Character.isUpperCase(ele.getClassName().charAt(i))) break;
-            String pkg = ele.getClassName().substring(0, i - 1);
-            elem += String.format("%-30s %30s %-25s %d\n", ele.getClassName().substring(0, i - 1), ele.getClassName().substring(i), ele.getMethodName(), ele.getLineNumber());
-        }
+        table.create(log);
 
-        for (Throwable se : e.getSuppressed())
-            elem+=se+"\n";
 
-        Throwable ourCause = e.getCause();
-        if (ourCause != null)
-            elem+=ourCause+"\n";
+//        Throwable ourCause = e.getCause();
+//        if (ourCause != null)
+//            elem += ourCause + "\n";
 
 //        for (Throwable throwable : e.getSuppressed()) {
 //
 //        }
 
-        log.prt(name, msg, elem);
+//        log.prt(name, msg, elem);
 
     }
 
@@ -95,6 +89,10 @@ public interface Table {
 
     Table formatHead(String... codes);
 
-    String create();
+    int getWidth();
+
+    Table setLogLevel(LogLevel level);
+
+    void create(FLog mainLog);
 
 }

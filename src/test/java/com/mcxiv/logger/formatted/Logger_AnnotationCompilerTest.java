@@ -1,13 +1,9 @@
 package com.mcxiv.logger.formatted;
 
 
-import com.mcxiv.logger.decorations.Decoration;
+import com.mcxiv.logger.decorations.Decorations;
 import com.mcxiv.logger.decorations.Format;
-import com.mcxiv.logger.decorations.RawFileDecoration;
-import com.mcxiv.logger.decorations.TagDecoration;
 import org.junit.Test;
-
-import java.io.File;
 
 public class Logger_AnnotationCompilerTest {
 
@@ -73,13 +69,32 @@ public class Logger_AnnotationCompilerTest {
     }
 
     @Test
+    @Format({":$B: ::", ":$GR: ::"})
+    public void test_Repeator() {
+        FLog log = FLog.getNew();
+        log.prt("Text Space One", "some more text", "And well", " even more text...");
+    }
+
+    @Test
+    @Format({"Player:: :PCM $B %7s:ed ::by ", ":$Gn:"})
+    public void movement() {
+        FLog log = FLog.getNew();
+
+        log.prt("sprint", 45);
+
+        log.prt("shift", 78);
+
+        log.prt("drift", 48);
+    }
+
+    @Test
     @Format({"\n:: :@ff4$Bb u: ::", ":: :@ff9#FF1493b%-18s: ::", ":: :@ffd#82En%-27s: ::", "::    :w47w@e#4B0082%-47s: ::"})
     public void test_NICEFormatting() {
 
         FLog log = FLog.getNew();
 
 //        RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
-//        Decoration.setDecoration(RawFileDecoration::new);
+        log.setDecorationType(Decorations.RAW);
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +
@@ -157,14 +172,14 @@ public class Logger_AnnotationCompilerTest {
     @Test
     @Format({":$B:", ":: :$GBG$R: ::", ":#ff00ff:", ":$R:", ":$BR:"})
     public void test() {
-        FLog log = new Logger_AnnotationCompiler();
+        FLog log = new Logger_MethodImplierBody();
         log.prt("Hey!", "So", "How", "Do", "You", "Do", "?");
     }
 
     @Test
     @Format({":$B:", ":: :$GBG$R: ::", ":#ff00ff:"})
     public void test2() {
-        FLog log = new Logger_AnnotationCompiler();
+        FLog log = new Logger_MethodImplierBody();
 //        Decoration.setDecoration(TagDecoration::new);
 //        Decoration.setDecoration(TagDecoration.class);
         log.prt("Hey!", "So", "How", "Do", "You", "Do", "?");
@@ -173,7 +188,7 @@ public class Logger_AnnotationCompilerTest {
     @Test
     @Format({":$B:", ":: :$GBG$R: ::", ":#ff00ff:"})
     public void testCustomFormat() {
-        FLog log = new Logger_AnnotationCompiler();
+        FLog log = new Logger_MethodImplierBody();
         log.prtf(":$B:", ":: :$GBG$R: ::", ":#ff00ff:").consume("Hey!", "So", "How", "Do", "You", "Do", "?");
         log.prt();
     }
