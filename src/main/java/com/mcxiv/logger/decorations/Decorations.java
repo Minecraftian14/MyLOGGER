@@ -15,7 +15,11 @@ public class Decorations {
     public static final String TAG = "tag";
     public static final String EMPTY = "empty";
 
-    private static HashMap<Tag, Decoration> decorations_map = new HashMap<>();
+    private static final HashMap<Tag, Decoration> decorations_map = new HashMap<>();
+
+    public static void put(Tag tag, Decoration decoration) {
+        decorations_map.put(tag, decoration);
+    }
 
     public static Decoration get(String decorator) {
 
@@ -23,17 +27,22 @@ public class Decorations {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         for (int i = 2; i < 6; i++) {
 
-            if (!(stackTrace[i].getClassName().endsWith("Logger_MethodImplierBody") || stackTrace[i].getClassName().endsWith("Logger_LogFileWriter") || stackTrace[i].getClassName().contains("$"))) {
-                element = stackTrace[i];
+//            if (!(stackTrace[i].getClassName().endsWith("Logger_MethodImplierBody") || stackTrace[i].getClassName().endsWith("Logger_LogFileWriter") || stackTrace[i].getClassName().contains("$"))) {
+            String n = stackTrace[i].getClassName();
+            n = n.substring(n.lastIndexOf(".") + 1);
+            if (!n.startsWith("Logger_")) {
+                element = stackTrace[i];//Logger_AnnotationRetriever
                 break;
             }
         }
         if (element == null) element = Thread.currentThread().getStackTrace()[3];
 
+//        System.out.println(element.getClassName());
 //        for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace())
 //            System.out.println(stackTraceElement.getClassName() + "  " + stackTraceElement.getMethodName());
 
         Tag tag = new Tag(element.getClassName(), element.getMethodName(), decorator);
+
         if (decorations_map.containsKey(tag))
             return decorations_map.get(tag);
 
@@ -107,8 +116,8 @@ public class Decorations {
 
         public Tag(String classAddress, String executableName, String decorator) {
             for (int i = 0; i < classAddress.length(); i++) {
-                if(Character.isUpperCase(classAddress.charAt(i))){
-                    packageName = classAddress.substring(0, i-1);
+                if (Character.isUpperCase(classAddress.charAt(i))) {
+                    packageName = classAddress.substring(0, i - 1);
                     className = classAddress.substring(i);
                 }
             }

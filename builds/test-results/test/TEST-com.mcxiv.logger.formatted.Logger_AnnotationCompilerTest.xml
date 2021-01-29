@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2021-01-29T10:26:44" hostname="ANIRUDHHP" time="7.048">
+  <properties/>
+  <testcase name="test_SimpleFormatting" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.005"/>
+  <testcase name="test_FormattingWithCustomTime" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="4.005"/>
+  <testcase name="test_Center" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.001"/>
+  <testcase name="test_Repeator" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.001"/>
+  <testcase name="test_PreFix" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.001"/>
+  <testcase name="test_SufFix" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.003"/>
+  <testcase name="test_FormattingWithDefaultTime" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="2.997"/>
+  <testcase name="movement" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.002"/>
+  <testcase name="test" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.001"/>
+  <testcase name="timeFormats" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.003"/>
+  <testcase name="test2" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.001"/>
+  <testcase name="test_PrePreFix" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.0"/>
+  <testcase name="test_NICEFormatting" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.001"/>
+  <testcase name="demoGenerator" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.01"/>
+  <testcase name="test_SufSufFix" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.001"/>
+  <testcase name="testCustomFormat" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.002"/>
+  <testcase name="test_Formatting" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.003"/>
+  <testcase name="test_ABitComplicatedFormatting" classname="com.mcxiv.logger.formatted.Logger_AnnotationCompilerTest" time="0.0"/>
+  <system-out><![CDATA[ ?[38;2;51;136;136mThis color is pink ?[0m ?[38;2;51;136;136m ?[0m ?[38;2;155;131;128mYo! ?[0m ?[38;2;51;136;136m ?[0m ?[38;2;155;131;128mYo! ?[0m ?[38;2;51;136;136m ?[0m ?[38;2;155;131;128mYo! ?[0m ?[38;2;51;136;136m ?[0m ?[38;2;155;131;128mYo! ?[0m ?[38;2;51;136;136mThe main theory behind Senseless Art is the ability to use simple sentences to create a feeling of improtance and value describing things which can't even be compared to shit. If one has such wonderful creativity and a sense of how to use such to your advantage, consider+ the person a master of this uniquely special art form. ?[0m ?[38;2;51;136;136mText Space One ?[0m ?[38;2;155;131;128msome more text ?[0m[Impl] ?[38;2;17;204;68mAnd well ?[0m ?[38;2;155;131;128m even more text... ?[0m ?[38;2;51;136;136mA Message Here ?[0m ?[38;2;51;136;136mA Message Here ?[0mYo?[0mYo?[0m ?[38;2;51;136;136mSome Task Report! ?[0m ?[38;2;51;136;136mThis color is pink ?[0m ?[38;2;51;136;136msprint ?[0m ?[38;2;155;131;128m45 ?[0m ?[38;2;51;136;136mshift ?[0m ?[38;2;155;131;128m78 ?[0m ?[38;2;51;136;136mdrift ?[0m ?[38;2;155;131;128m48 ?[0m ?[38;2;51;136;136mHey! ?[0m ?[38;2;155;131;128mSo ?[0m[Impl] ?[38;2;17;204;68mHow ?[0m ?[38;2;155;131;128mDo ?[0mYouDo? ?[38;2;51;136;136m ?[0m ?[38;2;51;136;136m ?[0m ?[38;2;155;131;128m ?[0m ?[38;2;51;136;136m ?[0m ?[38;2;155;131;128m ?[0m[Impl] ?[38;2;17;204;68m ?[0m ?[38;2;51;136;136mHey! ?[0m ?[38;2;155;131;128mSo ?[0m[Impl] ?[38;2;17;204;68mHow ?[0m ?[38;2;155;131;128mDo ?[0mYouDo? ?[38;2;51;136;136mA Message Here ?[0m ?[38;2;51;136;136m1 ?[0m ?[38;2;155;131;128mUseless Sentences ?[0m[Impl] ?[38;2;17;204;68mSome boring text ahead... ?[0m ?[38;2;155;131;128mSo here we have some totally boring text just lying around here for you to read. Though feel totally comfortable if you wish to skip ahead. ?[0m ?[38;2;51;136;136m2 ?[0m ?[38;2;155;131;128mSenseless Art ?[0m[Impl] ?[38;2;17;204;68mValuable Shit ?[0m ?[38;2;155;131;128mThe main theory behind Senseless Art is the ability to use simple sentences to create a feeling of improtance and value describing things which can't even be compared to shit. If one has such wonderful creativity and a sense of how to use such to your advantage, consider+ the person a master of this uniquely special art form. ?[0m
+
+
+?[0mNo Formatting?[0m
+?[0m?[1m?[4m?[38;2;10;10;250m?[48;2;221;221;221m Example ?[0m  ?[38;2;0;170;0m?[48;2;238;238;238m > String Formatting             ?[0m
+
+
+?[0m ?[38;2;51;136;136mA Message Here ?[0m?[34mHey!?[0m?[42m?[31m So ?[0m?[38;2;255;0;255mHow?[0mDoYouDo? ?[38;2;51;136;136m1 ?[0m ?[38;2;155;131;128m1267 ?[0m ?[38;2;51;136;136m2 ?[0m ?[38;2;155;131;128m13908 ?[0m ?[38;2;51;136;136m3 ?[0m ?[38;2;155;131;128m34 ?[0m ?[38;2;51;136;136m4 ?[0m ?[38;2;155;131;128m152576 ?[0m ?[38;2;51;136;136mText Space One ?[0m ?[38;2;155;131;128msome more text ?[0m[Impl] ?[38;2;17;204;68mAnd well, even more text... ?[0m]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

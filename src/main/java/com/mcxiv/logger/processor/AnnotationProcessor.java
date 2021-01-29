@@ -26,29 +26,59 @@ public class AnnotationProcessor extends AbstractProcessor {
     private static final String CLASS_DATA_START = "" +
             "package com.mcxiv.logger.processor;\n" +
             "\n" +
-            "import com.mcxiv.logger.decorations.Decoration;\n" +
+            "import com.mcxiv.logger.decorations.Decorations;\n" +
+            "import com.mcxiv.logger.formatted.FLog;\n" +
+            "import com.mcxiv.logger.util.ByteConsumer;\n" +
+            "import com.mcxiv.logger.util.StringsConsumer;\n" +
             "\n" +
+            "import java.io.OutputStream;\n" +
             "import java.util.HashMap;\n" +
             "\n" +
-            "public class ProcessedDecorations {\n" +
+            "public abstract class ALog extends FLog {\n" +
             "\n" +
-            "    private static HashMap<String, Decoration> map = new HashMap<>();\n" +
+            "    public ALog() {\n" +
+            "        setDecorationType(Decorations.CONSOLE);\n" +
+            "    }\n" +
             "\n" +
-            "    static {\n";
+            "    public static FLog getNew() {\n" +
+            "        return new Logger_AnnotationRetriever();\n" +
+            "    }\n" +
+            "\n" +
+            "    public static FLog getNew(OutputStream stream) {\n" +
+            "        return new Logger_AnnotationRetriever(stream);\n" +
+            "    }\n" +
+            "\n" +
+            "    public static FLog getNew(ByteConsumer consumer) {\n" +
+            "        return new Logger_AnnotationRetriever(consumer);\n" +
+            "    }\n" +
+            "\n" +
+            "    public static FLog getNew(StringsConsumer consumer) {\n" +
+            "        return new Logger_AnnotationRetriever(consumer);\n" +
+            "    }\n" +
+            "\n" +
+            "    static HashMap<String, String[]> map = new HashMap<>();\n" +
+            "\n" +
+            "    {\n";
     private static final String CLASS_DATA_CLOSE = "" +
-            "\n    }\n" +
-            "\n" +
-            "    public static Decoration getFor(String nm) {\n" +
-            "        return map.get(nm);\n" +
             "    }\n" +
             "\n" +
-            "    public static void putNew(String nm, Decoration decoration) {\n" +
-            "        map.put(nm,decoration);\n" +
+            "    @Override\n" +
+            "    public void setDecorationType(String name) {\n" +
+            "        super.setDecorationType(name);\n" +
+            "        map.forEach((k, f) ->\n" +
+            "                Decorations.put(\n" +
+            "                        new Decorations.Tag(\n" +
+            "                                k.substring(0, k.indexOf(\":\")),\n" +
+            "                                k.substring(k.indexOf(\":\") + 1),\n" +
+            "                                getDecorationType()\n" +
+            "                        ),\n" +
+            "                        Decorations.getSpecific(null, getDecorationType(), f)\n" +
+            "                )\n" +
+            "        );\n" +
             "    }\n" +
-            "\n" +
             "}\n";
 
-    private static final String MAP_DATA_FORM = "       map.put(\"%s\", Decoration.getDecoration(%s));\n";
+    private static final String MAP_DATA_FORM = "        map.put(\"%s\", new String[]{%s});\n";
 
     StringBuilder builder;
 
@@ -59,7 +89,6 @@ public class AnnotationProcessor extends AbstractProcessor {
         builder = new StringBuilder(CLASS_DATA_START);
 //        Runtime.getRuntime().addShutdownHook(new Thread(this::flush));
 
-        write(Files.ALOG.name, Files.ALOG.val);
         write(Files.LOGGER_STREAM_DEPENDENCY_ADDER.name, Files.LOGGER_STREAM_DEPENDENCY_ADDER.val);
         write(Files.LOGGER_LEVEL_DEPENDENCY_ADDER.name, Files.LOGGER_LEVEL_DEPENDENCY_ADDER.val);
         write(Files.LOGGER_ANNOTATION_RETRIEVER.name, Files.LOGGER_ANNOTATION_RETRIEVER.val);
@@ -119,7 +148,7 @@ public class AnnotationProcessor extends AbstractProcessor {
     private void flush() {
         try {
 
-            JavaFileObject javaFileObject = processingEnv.getFiler().createSourceFile("com.mcxiv.logger.processor.ProcessedDecorations");
+            JavaFileObject javaFileObject = processingEnv.getFiler().createSourceFile("com.mcxiv.logger.processor.ALog");
             Writer writer = javaFileObject.openWriter();
             writer.write(builder.toString());
             writer.close();
