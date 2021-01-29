@@ -8,7 +8,7 @@ import java.io.File;
 public abstract class FileLog extends FLog {
 
     public FileLog() {
-        decorator_name = Decorations.RAW_FILE;
+        decorator_name = Decorations.RAW;
     }
 
     public static FLog getNew(String file) {

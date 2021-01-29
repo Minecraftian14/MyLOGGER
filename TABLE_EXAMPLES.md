@@ -20,13 +20,13 @@ for (int i = 0; i < len; i++) {
     Oce[i] = Ace[i] * Mice[i];
 }
 
-System.out.print(Table.stripped()
+Table.stripped()
         .head("S.No.", "Number 1", "Number 2", "Answer")
         .row("", "A", "B", "A x B")
         .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
         .row("", "Only", "Even", "Values")
         .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-        .create());
+        .create(log);
 ```
 
 ### Output
@@ -42,14 +42,14 @@ System.out.print(Table.stripped()
 ```
 // Same Initialisation
 
-System.out.print(Table.box()
+Table.box()
         .title("Hello")
         .head("S.No.", "Number 1", "Number 2", "Answer")
         .row("!", "A", "B", "A x B")
         .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
         .row("", "Only", "Even", "Values")
         .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-        .create());
+        .create(log);
 ```
 ### Output
 ![Example Table Two](images/T2.png)
@@ -63,14 +63,14 @@ System.out.print(Table.box()
 ```
 // Same initialisation.
 
-System.out.print(Table.empty()
+Table.empty()
                 .title("Hello")
                 .head("S.No.", "Number 1", "Number 2", "Answer")
                 .row("!", "A", "B", "A x B")
                 .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
                 .row("", "Only", "Even", "Values")
                 .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-                .create());
+                .create(log);
 ```
 ### Output
 ![Example Table Three](images/T3.png)
@@ -90,7 +90,7 @@ int gs = len / 10;      // group size
 Double[] iterations = new Double[len];
 for (int i = 0; i < len; i++) iterations[i] = Math.random();
 
-System.out.print(Table.stripped()
+Table.stripped()
         .title("Average of Random Numbers")
         .head("S.No.", "Range", "Average")
         .bunch(iterations, len / 10,
@@ -101,7 +101,7 @@ System.out.print(Table.stripped()
         .formatTitle(":@4085eeb:")
         .formatHead(":@2565ae#fff:", ":@0f5298#fff:")
         .format(":@66d3fa:", ":@55d3fe:")
-        .create());
+        .create(log);
 ```
 ```
 private Double avg(Double[] g) {

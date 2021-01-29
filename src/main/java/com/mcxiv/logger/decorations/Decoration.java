@@ -1,32 +1,17 @@
 package com.mcxiv.logger.decorations;
 
-import com.mcxiv.logger.tools.RandomColor;
-
-import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import static com.mcxiv.logger.tools.C.map;
 
 public abstract class Decoration {
 
-    private static Function<String[], Decoration> decorator = ConsoleDecoration::new;
-    private static String DECORATION_CLASS = ConsoleDecoration.class.getName();
-
-    public static Decoration getDecoration(String... codes) {
-        return decorator.apply(codes);
-    }
-
-    public static void setDecoration(Function<String[], Decoration> decoration) {
-        decorator = decoration;
-        DECORATION_CLASS = decoration.apply(new String[0]).getClass().getName();
-    }
-
-
     Decorate[] decorates;
     boolean last_one_repeats = false;
+    boolean the_whole_repeats = false;
     int repeater_index = -1;
 
-    public Decoration(String... codes) {
+    public Decoration(Decorations.Tag tag, String... codes) {
     }
 
     static Pattern re_prepre = Pattern.compile("^([^:]*)[:][:]");
@@ -63,7 +48,10 @@ public abstract class Decoration {
         for (int i = 0; i < Math.min(input.length, decorates.length); i++)
             input[i] = decorates[i].decorate(input[i]);
 
-        if (last_one_repeats && decorates.length < input.length)
+        if (the_whole_repeats && decorates.length < input.length)
+            for (int i = decorates.length; i < input.length; i++)
+                input[i] = decorates[i % decorates.length].decorate(input[i]);
+        else if (last_one_repeats && decorates.length < input.length)
             for (int i = decorates.length; i < input.length; i++)
                 input[i] = decorates[repeater_index].decorate(input[i]);
 

@@ -26,18 +26,8 @@ public enum LogLevel {
         level = this;
     }
 
-    public static interface LogLevelAdaptor<T> {
-        T vital();
-
-        T error();
-
-        T warn();
-
-        T notice();
-
-        T debug();
-
-        T general();
-    }
+   public void act(Runnable runnable) {
+        if(accepted()) runnable.run();
+   }
 
 }

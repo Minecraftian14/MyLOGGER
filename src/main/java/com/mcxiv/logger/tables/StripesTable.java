@@ -103,7 +103,7 @@ class StripesTable extends TableAdaptor {
         if (rowFormat2 == null) rowFormat2 = ROW_FORMAT2;
 
         if (title != null)
-            packet.prtf(":n%" + rowWidth.stream().reduce(0, Integer::sum) + "s" + titleFormat + ":").consume(title);
+            packet.prtf(":: :n%-" + (getWidth()-2) + "s" + titleFormat + ": ::").consume(title);
 
         for (int i = 0; i < header.length; i++)
             packet.prtf(":: :%-" + rowWidth.get(i) + "s" + (i % 2 == 0 ? headFormat1 : headFormat2) + ": ::").consume(header[i]);

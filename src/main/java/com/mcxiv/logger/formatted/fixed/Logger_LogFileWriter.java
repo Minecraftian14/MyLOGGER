@@ -2,7 +2,7 @@ package com.mcxiv.logger.formatted.fixed;
 
 import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.decorations.Decorations;
-import com.mcxiv.logger.decorations.RawFileDecoration;
+import com.mcxiv.logger.decorations.RawDecoration;
 import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.packets.Packet;
 import com.mcxiv.logger.tables.Table;
@@ -62,14 +62,14 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
     @Override
     public void prt(String... msg) {
-        write(Decorations.get("raw file").decorate(msg));
+        write(Decorations.get(Decorations.RAW).decorate(msg));
     }
 
     @Override
     public void prt(Object... obj) {
         String[] stf = new String[obj.length];
         for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();
-        write(Decorations.get("raw file").decorate(stf));
+        write(Decorations.get(Decorations.RAW).decorate(stf));
     }
 
     @Override
@@ -79,7 +79,7 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
     @Override
     public StringsConsumer prtf(String... format) {
-        return msg -> write(new RawFileDecoration(format).decorate(msg));
+        return msg -> write(new RawDecoration(null, format).decorate(msg));
     }
 
     @Override
@@ -91,13 +91,13 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
         @Override
         public void prt(String... msg) {
-            Decoration decoration = Decorations.get(Decorations.RAW_FILE);
+            Decoration decoration = Decorations.get(Decorations.RAW);
             builder.append(decoration.decorate(msg));
         }
 
         @Override
         public void prt(Object... obj) {
-            Decoration decoration = Decorations.get(Decorations.RAW_FILE);
+            Decoration decoration = Decorations.get(Decorations.RAW);
             String[] stf = new String[obj.length];
             for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();
             builder.append(decoration.decorate(stf));
@@ -110,7 +110,7 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
         @Override
         public StringsConsumer prtf(String... format) {
-            return msg -> builder.append(new RawFileDecoration(format).decorate(msg));
+            return msg -> builder.append(new RawDecoration(null,format).decorate(msg));
         }
 
         @Override

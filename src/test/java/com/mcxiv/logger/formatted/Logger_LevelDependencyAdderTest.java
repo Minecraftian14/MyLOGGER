@@ -6,12 +6,12 @@ import org.junit.Test;
 
 public class Logger_LevelDependencyAdderTest {
 
-    @Format({"","",":n:"})
+    @Format({"", "", ":n:"})
     public void print(FLog log) {
         log.vital().prt(() -> FLog.form("Vital", "Hello", "World"));
         log.error().prt(() -> FLog.form("Error", "Hello", "World"));
         log.warn().prt(() -> FLog.form("Warn", "Hello", "World"));
-        log.notice().prt(() -> FLog.form("Notice", "Hello", "World"));
+        log.notice().prt(() -> new String[]{"Notice", "Hello", "World"});
         log.debug().prt(() -> FLog.form("Debug", "Hello", "World"));
         log.general().prt(() -> FLog.form("General", "Hello", "World"));
         log.prt("\n");

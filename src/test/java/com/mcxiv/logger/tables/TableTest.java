@@ -111,9 +111,9 @@ public class TableTest {
                         (gi, g) -> (gi * len / 10) + "-" + ((gi + 1) * len / 10),
                         (gi, g) -> String.format("%.3f",  avg(g) )
                 )
-                .formatTitle(":@4085eeb:")
-                .formatHead(":@2565ae#fff:", ":@0f5298#fff:")
-                .format(":@66d3fa:", ":@55d3fe:")
+                .formatTitle("@4085eeb")
+                .formatHead("@2565ae#fff", "@0f5298#fff")
+                .format("@66d3fa", "@55d3fe")
                 .create(log);
 
         Table.box()

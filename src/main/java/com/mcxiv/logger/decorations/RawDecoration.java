@@ -2,10 +2,11 @@ package com.mcxiv.logger.decorations;
 
 import java.util.regex.Matcher;
 
-public class RawFileDecoration extends Decoration {
+public class RawDecoration extends Decoration {
 
 
-    public RawFileDecoration(String... codes) {
+    public RawDecoration(Decorations.Tag tag, String... codes) {
+        super(tag);
 
         decorates = new Decorate[codes.length];
 
@@ -37,7 +38,8 @@ public class RawFileDecoration extends Decoration {
 
             // Parsing other formatting chars
 
-            if (sp.content.contains("~")) {
+            if (sp.content.contains("R")) the_whole_repeats = true;
+            else if (sp.content.contains("~")) {
                 last_one_repeats = true;
                 repeater_index = i;
             }

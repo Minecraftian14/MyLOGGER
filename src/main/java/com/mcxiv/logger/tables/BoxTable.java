@@ -15,46 +15,23 @@ class BoxTable extends TableAdaptor {
     String title = null;
     String[] header;
 
-    Decoration titleFormat = null;
-    Decoration headFormat = null;
-    Decoration rowFormat = null;
-
-    static Decoration TITLE_FORMAT = Decoration.getDecoration(Box.DP + ":: :b: ::" + Box.DP);
-    static Decoration HEAD_FORMAT = Decoration.getDecoration(Box.DP + ":: :b: ::" + Box.DP, ":: :b~: ::" + Box.DP);
-    static Decoration ROW_FORMAT = Decoration.getDecoration(Box.DP + ":: : : ::" + Box.DP, ":: :~: ::" + Box.DP);
-
     public BoxTable() {
         rowWidth = new ArrayList<>();
         rows = new ArrayList<>();
     }
 
-    /**
-     * <p>
-     * <b>Important</b> - The number of inputs should be at least 2 elements big.
-     * The first to corresponds to Column 1 and the second Column 2, the rest all are ignored.
-     * </p>
-     */
     @Override
     public Table format(String... codes) {
-        rowFormat = Decoration.getDecoration(codes[0], codes[1]);
         return this;
     }
 
     @Override
     public Table formatTitle(String code) {
-        titleFormat = Decoration.getDecoration(code);
         return this;
     }
 
-    /**
-     * <p>
-     * <b>Important</b> - The number of inputs should be at least 1 elements big.
-     * The first to corresponds to Head Format, the rest all are ignored.
-     * </p>
-     */
     @Override
     public Table formatHead(String... codes) {
-        headFormat = Decoration.getDecoration(codes[0]);
         return this;
     }
 

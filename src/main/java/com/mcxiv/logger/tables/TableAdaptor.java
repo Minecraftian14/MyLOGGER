@@ -7,6 +7,7 @@ import com.mcxiv.logger.util.GroupIterator;
 import com.mcxiv.logger.util.Iterator;
 import com.mcxiv.logger.util.LevelDependencyAdder;
 import com.mcxiv.logger.util.StringsConsumer;
+import javafx.scene.control.Tab;
 
 import java.util.Arrays;
 
@@ -44,7 +45,7 @@ public abstract class TableAdaptor implements Table {
         return this;
     }
 
-    @SafeVarargs
+//    @SafeVarargs
     @Override
     public final <T> Table bunch(T[] main, int groupSize, GroupIterator<T>... its) {
 
@@ -56,9 +57,7 @@ public abstract class TableAdaptor implements Table {
                 msg[j] = its[j].consume(i / groupSize, Arrays.copyOfRange(main, i, i + groupSize)).toString();
 
             row(msg);
-
         }
-
         return this;
     }
 

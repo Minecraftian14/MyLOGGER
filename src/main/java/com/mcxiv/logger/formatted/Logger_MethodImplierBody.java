@@ -47,7 +47,7 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
 
     @Override
     public StringsConsumer prtf(String... format) {
-        Decoration decoration = Decorations.getSpecific(Decorations.CONSOLE, format);
+        Decoration decoration = Decorations.getSpecific(null,Decorations.CONSOLE, format);
         return msg -> writer.consume(decoration.decorate(msg));
     }
 
@@ -79,7 +79,7 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
 
         @Override
         public StringsConsumer prtf(String... format) {
-            Decoration decoration = Decorations.getSpecific(Decorations.CONSOLE, format);
+            Decoration decoration = Decorations.getSpecific(null,Decorations.CONSOLE, format);
             return msg -> builder.append(decoration.decorate(msg));
         }
 

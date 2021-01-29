@@ -2,6 +2,7 @@ package com.mcxiv.logger.decorations;
 
 import com.mcxiv.logger.tools.RandomColor;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Objects;
 public class Decorations {
 
     public static final String CONSOLE = "console";
-    public static final String RAW_FILE = "raw file";
+    public static final String RAW = "raw file";
     public static final String TAG = "tag";
     public static final String EMPTY = "empty";
 
@@ -57,33 +58,33 @@ public class Decorations {
                         format = clazz.getAnnotation(Format.class);
 
                 if (format != null) {
-                    Decoration t = getSpecific(decorator, format.value());
+                    Decoration t = getSpecific(tag, decorator, format.value());
                     decorations_map.put(tag, t);
                     return t;
                 }
             } catch (Exception ignored) {
             }
 
-        Decoration t = getRandom(decorator);
+        Decoration t = getRandom(tag, decorator);
         decorations_map.put(tag, t);
         return t;
     }
 
-    public static Decoration getSpecific(String decorator, String... formats) {
+    public static Decoration getSpecific(@Nullable Tag tag, String decorator, String... formats) {
         switch (decorator) {
             case CONSOLE:
-                return new ConsoleDecoration(formats);
+                return new ConsoleDecoration(tag, formats);
             case TAG:
-                return new TagDecoration(formats);
-            case RAW_FILE:
-                return new RawFileDecoration(formats);
+                return new TagDecoration(tag, formats);
+            case RAW:
+                return new RawDecoration(tag, formats);
             case EMPTY:
             default:
                 return new EmptyDecoration();
         }
     }
 
-    public static Decoration getRandom(String decorator) {
+    public static Decoration getRandom(@Nullable Tag tag, String decorator) {
         RandomColor c = new RandomColor();
 
         String[] codes = new String[]{
@@ -93,18 +94,24 @@ public class Decorations {
                 ":#" + c.getBright().yieldHex() + ": ::"
         };
 
-        return getSpecific(decorator, codes);
+        return getSpecific(tag, decorator, codes);
     }
 
 
-    private static class Tag {
+    public static class Tag {
 
+        String packageName;
         String className;
         String executableName;
         String decorator;
 
-        public Tag(String className, String executableName, String decorator) {
-            this.className = className;
+        public Tag(String classAddress, String executableName, String decorator) {
+            for (int i = 0; i < classAddress.length(); i++) {
+                if(Character.isUpperCase(classAddress.charAt(i))){
+                    packageName = classAddress.substring(0, i-1);
+                    className = classAddress.substring(i);
+                }
+            }
             this.executableName = executableName;
             this.decorator = decorator;
         }
@@ -114,14 +121,15 @@ public class Decorations {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Tag tag = (Tag) o;
-            return Objects.equals(className, tag.className) &&
+            return Objects.equals(packageName, tag.packageName) &&
+                    Objects.equals(className, tag.className) &&
                     Objects.equals(executableName, tag.executableName) &&
                     Objects.equals(decorator, tag.decorator);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(className, executableName, decorator);
+            return Objects.hash(packageName, className, executableName, decorator);
         }
     }
 
