@@ -5,11 +5,13 @@ enum Files {
     ALOG("ALog", "" +
             "package com.mcxiv.logger.processor;\n" +
             "\n" +
+            "import com.mcxiv.logger.decorations.Decorations;\n" +
             "import com.mcxiv.logger.formatted.FLog;\n" +
             "import com.mcxiv.logger.util.ByteConsumer;\n" +
             "import com.mcxiv.logger.util.StringsConsumer;\n" +
             "\n" +
             "import java.io.OutputStream;\n" +
+            "import java.util.HashMap;\n" +
             "\n" +
             "public abstract class ALog extends FLog {\n" +
             "\n" +
@@ -29,16 +31,37 @@ enum Files {
             "        return new Logger_AnnotationRetriever(consumer);\n" +
             "    }\n" +
             "\n" +
+            "    static HashMap<String, String[]> map = new HashMap<>();\n" +
+            "\n" +
+            "    {\n" +
+            "        map.put(\"classAdress\", new String[]{\"format\"});\n" +
+            "    }\n" +
+            "\n" +
+            "    @Override\n" +
+            "    public void setDecorationType(String name) {\n" +
+            "        super.setDecorationType(name);\n" +
+            "        map.forEach((k, f) ->\n" +
+            "                Decorations.put(\n" +
+            "                        new Decorations.Tag(\n" +
+            "                                k.substring(0, k.indexOf(\":\")),\n" +
+            "                                k.substring(k.indexOf(\":\") + 1),\n" +
+            "                                getDecorationType()\n" +
+            "                        ),\n" +
+            "                        Decorations.getSpecific(null, getDecorationType(), f)\n" +
+            "                )\n" +
+            "        );\n" +
+            "    }\n" +
             "}\n"),
     LOGGER_ANNOTATION_RETRIEVER("Logger_AnnotationRetriever", "" +
             "package com.mcxiv.logger.processor;\n" +
             "\n" +
             "import com.mcxiv.logger.decorations.Decoration;\n" +
+            "import com.mcxiv.logger.decorations.Decorations;\n" +
+            "import com.mcxiv.logger.packets.Packet;\n" +
             "import com.mcxiv.logger.util.ByteConsumer;\n" +
             "import com.mcxiv.logger.util.StringsConsumer;\n" +
             "\n" +
             "import java.io.OutputStream;\n" +
-            "import java.util.HashMap;\n" +
             "\n" +
             "class Logger_AnnotationRetriever extends Logger_StreamDependencyAdder {\n" +
             "\n" +
@@ -58,33 +81,17 @@ enum Files {
             "        super(consumer);\n" +
             "    }\n" +
             "\n" +
-            "    static HashMap<String, Decoration> decorations = new HashMap<>();\n" +
-            "\n" +
-            "    private static Decoration getDecoration() {\n" +
-            "\n" +
-            "        StackTraceElement element = Thread.currentThread().getStackTrace()[3];\n" +
-            "\n" +
-            "        String key = element.getClassName()+\":\" + element.getMethodName();\n" +
-            "\n" +
-            "        Decoration decoration = ProcessedDecorations.getFor(key);\n" +
-            "\n" +
-            "        if (decoration!=null) return decoration;\n" +
-            "\n" +
-            "        decoration = Decoration.getRandomDecoration();\n" +
-            "        ProcessedDecorations.putNew(key, decoration);\n" +
-            "\n" +
-            "        return decoration;\n" +
-            "    }\n" +
-            "\n" +
+            "    \n" +
+            "    \n" +
             "    @Override\n" +
             "    public void prt(String... msg) {\n" +
-            "        Decoration decoration = getDecoration();\n" +
+            "        Decoration decoration = Decorations.get(decorator_name);\n" +
             "        writer.consume(decoration.decorate(msg));\n" +
             "    }\n" +
             "\n" +
             "    @Override\n" +
             "    public void prt(Object... obj) {\n" +
-            "        Decoration decoration = getDecoration();\n" +
+            "        Decoration decoration = Decorations.get(decorator_name);\n" +
             "        String[] stf = new String[obj.length];\n" +
             "        for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();\n" +
             "        writer.consume(decoration.decorate(stf));\n" +
@@ -97,14 +104,54 @@ enum Files {
             "\n" +
             "    @Override\n" +
             "    public StringsConsumer prtf(String... format) {\n" +
-            "        Decoration decoration = Decoration.getDecoration(format);\n" +
+            "        Decoration decoration = Decorations.get(decorator_name);\n" +
             "        return msg -> writer.consume(decoration.decorate(msg));\n" +
             "    }\n" +
+            "\n" +
+            "    @Override\n" +
+            "    public Packet newPacket() {\n" +
+            "        return new OurPacket();\n" +
+            "    }\n" +
+            "\n" +
+            "    private class OurPacket extends Packet {\n" +
+            "\n" +
+            "        @Override\n" +
+            "        public void prt(String... msg) {\n" +
+            "            Decoration decoration = Decorations.get(Decorations.CONSOLE);\n" +
+            "            builder.append(decoration.decorate(msg));\n" +
+            "        }\n" +
+            "\n" +
+            "        @Override\n" +
+            "        public void prt(Object... obj) {\n" +
+            "            Decoration decoration = Decorations.get(Decorations.CONSOLE);\n" +
+            "            String[] stf = new String[obj.length];\n" +
+            "            for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();\n" +
+            "            builder.append(decoration.decorate(stf));\n" +
+            "        }\n" +
+            "\n" +
+            "        @Override\n" +
+            "        public void raw(String raw) {\n" +
+            "            prtf(\"\").consume(raw);\n" +
+            "        }\n" +
+            "\n" +
+            "        @Override\n" +
+            "        public StringsConsumer prtf(String... format) {\n" +
+            "            Decoration decoration = Decorations.getSpecific(null, Decorations.CONSOLE, format);\n" +
+            "            return msg -> builder.append(decoration.decorate(msg));\n" +
+            "        }\n" +
+            "\n" +
+            "        @Override\n" +
+            "        public void consume() {\n" +
+            "            Logger_AnnotationRetriever.this.raw(builder.toString());\n" +
+            "//            builder.setLength(0);\n" +
+            "        }\n" +
+            "    }\n" +
+            "\n" +
             "}\n"),
     LOGGER_LEVEL_DEPENDENCY_ADDER("Logger_LevelDependencyAdder", "" +
             "package com.mcxiv.logger.processor;\n" +
             "\n" +
-            "import com.mcxiv.logger.formatted.FLog;\n" +
+            "import com.mcxiv.logger.packets.LambdaPacket;\n" +
             "import com.mcxiv.logger.util.StringsConsumer;\n" +
             "\n" +
             "abstract class Logger_LevelDependencyAdder extends ALog {\n" +
@@ -114,38 +161,32 @@ enum Files {
             "    }\n" +
             "\n" +
             "    @Override\n" +
-            "    public FLog provide() {\n" +
-            "        return this;\n" +
+            "    public LambdaPacket provide() {\n" +
+            "        return packet;\n" +
             "    }\n" +
             "\n" +
-            "    @Override\n" +
-            "    public FLog provideEmpty() {\n" +
-            "        return EMPTY_VESSEL;\n" +
-            "    }\n" +
+            "    protected LambdaPacket packet = new LambdaPacket() {\n" +
+            "        @Override\n" +
+            "        public void prt(StringsSupplier supplier) {\n" +
+            "            Logger_LevelDependencyAdder.this.prt(supplier.get());\n" +
+            "        }\n" +
             "\n" +
-            "    private static final FLog EMPTY_VESSEL = new FLog() {\n" +
             "        @Override\n" +
-            "        public FLog provide() {\n" +
-            "            return null;\n" +
+            "        public void raw(StringSupplier supplier) {\n" +
+            "            Logger_LevelDependencyAdder.this.raw(supplier.get());\n" +
             "        }\n" +
+            "\n" +
             "        @Override\n" +
-            "        public FLog provideEmpty() {\n" +
-            "            return null;\n" +
+            "        public void prt(ObjectsSupplier supplier) {\n" +
+            "            Logger_LevelDependencyAdder.this.prt(supplier.get());\n" +
             "        }\n" +
+            "\n" +
             "        @Override\n" +
-            "        public void prt(String... msg) {\n" +
-            "        }\n" +
-            "        @Override\n" +
-            "        public void prt(Object... obj) {\n" +
-            "        }\n" +
-            "        @Override\n" +
-            "        public void raw(String raw) {\n" +
-            "        }\n" +
-            "        @Override\n" +
-            "        public StringsConsumer prtf(String... format) {\n" +
-            "            return null;\n" +
+            "        public StringsConsumer prtf(StringsSupplier supplier) {\n" +
+            "            return Logger_LevelDependencyAdder.this.prtf(supplier.get());\n" +
             "        }\n" +
             "    };\n" +
+            "\n" +
             "}\n"),
     LOGGER_STREAM_DEPENDENCY_ADDER("Logger_StreamDependencyAdder", "" +
             "package com.mcxiv.logger.processor;\n" +

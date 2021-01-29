@@ -2,12 +2,7 @@ package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.tools.LogLevel;
-import com.sun.xml.internal.ws.wsdl.parser.MemberSubmissionAddressingWSDLParserExtension;
 import org.junit.Test;
-
-import javax.lang.model.element.ExecutableElement;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.UnknownFormatConversionException;
 
 public class TableTest {
 
@@ -109,7 +104,7 @@ public class TableTest {
                 .bunch(iterations, len / 10,
                         (gi, g) -> gi,
                         (gi, g) -> (gi * len / 10) + "-" + ((gi + 1) * len / 10),
-                        (gi, g) -> String.format("%.3f",  avg(g) )
+                        (gi, g) -> String.format("%.3f", avg(g))
                 )
                 .formatTitle("@4085eeb")
                 .formatHead("@2565ae#fff", "@0f5298#fff")
@@ -122,7 +117,7 @@ public class TableTest {
                 .bunch(iterations, len / 10,
                         (gi, g) -> gi,
                         (gi, g) -> (gi * len / 10) + "-" + ((gi + 1) * len / 10),
-                        (gi, g) -> String.format("%.3f",  avg(g) )
+                        (gi, g) -> String.format("%.3f", avg(g))
                 )
                 .create(log);
 
@@ -132,7 +127,7 @@ public class TableTest {
                 .bunch(iterations, len / 10,
                         (gi, g) -> gi,
                         (gi, g) -> (gi * len / 10) + "-" + ((gi + 1) * len / 10),
-                        (gi, g) -> String.format("%.3f",  avg(g) )
+                        (gi, g) -> String.format("%.3f", avg(g))
                 )
                 .create(log);
 

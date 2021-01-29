@@ -117,4 +117,16 @@ public class PlotTest {
                 (x, y) -> i.getRGB(x, y) & 0xFF));
 
     }
+
+    @Test
+    public void gantt() {
+        FLog log = FLog.getNew();
+
+        Plot.Gantt.horizontal()
+                .YLabel("A", "B", "C", "D")
+                .XLabel(0, 10 ,i -> i)
+                .valuesFroms(25,42,77,46)
+                .valuesTos(43,67,82,89)
+                .create(log);
+    }
 }

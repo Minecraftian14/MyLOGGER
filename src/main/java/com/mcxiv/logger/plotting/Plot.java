@@ -7,7 +7,7 @@ import com.mcxiv.logger.util.Iterator;
 
 public class Plot {
 
-    public static interface BarGraph {
+    public interface BarGraph {
 
         static BarGraph simple() {
             return new SimpleBarGraph();
@@ -41,6 +41,37 @@ public class Plot {
 
     }
 
+    public interface Gantt {
+
+        static Gantt horizontal() {
+            return new HGantt();
+        }
+
+        Gantt title(String title);
+
+        Gantt XLabel(String... names);
+
+        Gantt XLabel(int a, int b, Iterator its);
+
+        Gantt YLabel(String... names);
+
+        Gantt YLabel(int a, int b, Iterator its);
+
+        Gantt values(int... values);
+
+        Gantt values(int a, int b, Iterator its);
+
+        Gantt valuesFroms(int... values);
+
+        Gantt valuesFroms(int a, int b, Iterator its);
+
+        Gantt valuesTos(int... values);
+
+        Gantt valuesTos(int a, int b, Iterator its);
+
+        void create(FLog log);
+
+    }
 
     public static String image(int w, int h, IntFunction r, IntFunction g, IntFunction b) {
 
