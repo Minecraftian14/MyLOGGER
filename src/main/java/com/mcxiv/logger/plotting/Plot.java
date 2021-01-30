@@ -17,6 +17,10 @@ public class Plot {
             return new BoxBarGraph();
         }
 
+        static BarGraph multi() {
+            return new MultiBarGraph();
+        }
+
         BarGraph title(String title);
 
         BarGraph XLabel(String... names);
