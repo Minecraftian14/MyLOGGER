@@ -104,7 +104,7 @@ class SimpleBarGraph implements Plot.BarGraph {
 
         // Initialising a set of random colors so that they match the bars and the x labels.
         // And setting xLabels to be of same length.
-        String form = "%-"+longestXLabel+"s";
+        String form = "%-" + longestXLabel + "s";
         String[] colors = new String[xLabels.length];
         for (int i = 0; i < xLabels.length; i++) {
             colors[i] = ":#" + new RandomColor().yieldHex() + ":";
@@ -127,7 +127,9 @@ class SimpleBarGraph implements Plot.BarGraph {
 
             // Putting in a Bar if bar is to be printed else a space.
             for (int dw = 0; dw < values.length; dw++) { // for each bar space
-                if (values[dw] * scale >= charHeight - dh)
+                if ((bar.equals(Box.B_F)) && ((int) (values[dw] * scale) == charHeight - dh - 1) && ((values[dw] * scale) % 1 > 0.5))
+                    packet.prtf(colors[dw]).consume("\u2584");
+                else if (values[dw] * scale >= charHeight - dh)
                     packet.prtf(colors[dw]).consume(bar);
                 else for (int i = 0; i < bar.length(); i++) packet.raw(" ");
             }
