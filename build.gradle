@@ -7,7 +7,7 @@ java {
 }
 
 group 'com.mcxiv.logger'
-version 'v5.2'
+version 'v5.3'
 
 sourceCompatibility = 1.8 // java 8
 targetCompatibility = 1.8
@@ -21,7 +21,6 @@ dependencies {
 
     implementation 'com.google.auto.service:auto-service:1.0-rc4'
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
-
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
