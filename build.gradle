@@ -1,6 +1,5 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
+apply plugin: 'maven'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -10,30 +9,35 @@ java {
 group 'com.mcxiv.logger'
 version 'v5.2'
 
+sourceCompatibility = 1.8 // java 8
+targetCompatibility = 1.8
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 
-//    implementation "me.eugeniomarletti.kotlin.metadata:kotlin-metadata:1.4.0"
-//    implementation project(':browser') //importing the other module in here, in order to handle it.
-//    implementation 'com.squareup:kotlinpoet:1.2.0'
     implementation 'com.google.auto.service:auto-service:1.0-rc4'
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
 
-//    implementation project(':')
-//    annotationProcessor project(':')
-
 }
 
-task fatJar(type: Jar) {
+task sourcesJar(type: Jar, dependsOn: classes) {
     manifest {
         attributes 'Implementation-Title': 'MyLOGGER',
                 'Implementation-Version': version
     }
-    baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+wrapper {
+    gradleVersion = "6.1.1"
+    distributionType = Wrapper.DistributionType.ALL
 }
