@@ -8,7 +8,7 @@ java {
 }
 
 group 'com.mcxiv.logger'
-version 'V3'
+version 'v5.2'
 
 repositories {
     mavenCentral()
@@ -28,8 +28,12 @@ dependencies {
 
 }
 
-jar {
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'MyLOGGER',
+                'Implementation-Version': version
     }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

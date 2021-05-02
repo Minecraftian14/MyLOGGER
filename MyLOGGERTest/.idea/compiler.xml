@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$PROJECT_DIR$/libs/MyLOGGER-V3.jar" />
+          <entry name="$PROJECT_DIR$/build/libs/MyLOGGERTest-1.0-SNAPSHOT.jar" />
+        </processorPath>
+        <module name="MyLOGGERTest.main" />
+      </profile>
+    </annotationProcessing>
     <bytecodeTargetLevel target="1.8" />
   </component>
 </project>
