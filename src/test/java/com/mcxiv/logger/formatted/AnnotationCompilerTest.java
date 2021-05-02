@@ -94,7 +94,7 @@ public class AnnotationCompilerTest {
         FLog log = FLog.getNew();
 
 //        RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
-//        log.setDecorationType(Decorations.RAW);
+        log.setDecorationType(Decorations.TAG);
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +

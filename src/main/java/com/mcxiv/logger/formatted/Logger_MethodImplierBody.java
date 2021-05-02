@@ -28,13 +28,13 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
 
     @Override
     public void prt(String... msg) {
-        Decoration decoration = Decorations.get(Decorations.CONSOLE);
+        Decoration decoration = Decorations.get(decorator_name);
         writer.consume(decoration.decorate(msg));
     }
 
     @Override
     public void prt(Object... obj) {
-        Decoration decoration = Decorations.get(Decorations.CONSOLE);
+        Decoration decoration = Decorations.get(decorator_name);
         String[] stf = new String[obj.length];
         for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();
         writer.consume(decoration.decorate(stf));
@@ -47,7 +47,7 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
 
     @Override
     public StringsConsumer prtf(String... format) {
-        Decoration decoration = Decorations.getSpecific(null,Decorations.CONSOLE, format);
+        Decoration decoration = Decorations.getSpecific(null,decorator_name, format);
         return msg -> writer.consume(decoration.decorate(msg));
     }
 
@@ -60,13 +60,13 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
 
         @Override
         public void prt(String... msg) {
-            Decoration decoration = Decorations.get(Decorations.CONSOLE);
+            Decoration decoration = Decorations.get(decorator_name);
             builder.append(decoration.decorate(msg));
         }
 
         @Override
         public void prt(Object... obj) {
-            Decoration decoration = Decorations.get(Decorations.CONSOLE);
+            Decoration decoration = Decorations.get(decorator_name);
             String[] stf = new String[obj.length];
             for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();
             builder.append(decoration.decorate(stf));
@@ -79,7 +79,7 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
 
         @Override
         public StringsConsumer prtf(String... format) {
-            Decoration decoration = Decorations.getSpecific(null,Decorations.CONSOLE, format);
+            Decoration decoration = Decorations.getSpecific(null,decorator_name, format);
             return msg -> builder.append(decoration.decorate(msg));
         }
 
