@@ -5,7 +5,7 @@ import com.mcxiv.logger.decorations.Decorations;
 import com.mcxiv.logger.decorations.Format;
 import org.junit.Test;
 
-public class Logger_AnnotationCompilerTest {
+public class AnnotationCompilerTest {
 
     @Test
     public void demoGenerator() {
@@ -94,7 +94,7 @@ public class Logger_AnnotationCompilerTest {
         FLog log = FLog.getNew();
 
 //        RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
-        log.setDecorationType(Decorations.RAW);
+//        log.setDecorationType(Decorations.RAW);
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +

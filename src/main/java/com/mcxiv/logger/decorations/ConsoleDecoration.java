@@ -52,7 +52,7 @@ public class ConsoleDecoration extends Decoration {
                 if (sp.content.contains("P")) brush += "[" + tag.packageName + "]";
                 if (sp.content.contains("C")) brush += "[" + tag.className + "]";
                 if (sp.content.contains("M")) brush += "[" + tag.executableName + "]";
-                sp.prepre = brush + " " + sp.prepre;
+                if (!brush.equals("")) sp.prepre = brush + " " + sp.prepre;
             }
             format.append(sp.prepre);
 
