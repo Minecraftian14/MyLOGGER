@@ -2,7 +2,6 @@ package com.mcxiv.logger.decorations;
 
 import com.mcxiv.logger.tools.RandomColor;
 
-import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -79,7 +78,7 @@ public class Decorations {
         return t;
     }
 
-    public static Decoration getSpecific(@Nullable Tag tag, String decorator, String... formats) {
+    public static Decoration getSpecific(Tag tag, String decorator, String... formats) {
         switch (decorator) {
             case CONSOLE:
                 return new ConsoleDecoration(tag, formats);
@@ -93,7 +92,7 @@ public class Decorations {
         }
     }
 
-    public static Decoration getRandom(@Nullable Tag tag, String decorator) {
+    public static Decoration getRandom(Tag tag, String decorator) {
         RandomColor c = new RandomColor();
 
         String[] codes = new String[]{

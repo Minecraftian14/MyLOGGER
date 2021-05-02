@@ -1,6 +1,5 @@
 package com.mcxiv.logger.processor;
 
-import com.google.auto.service.AutoService;
 import com.mcxiv.logger.decorations.Format;
 
 import javax.annotation.processing.*;
@@ -18,7 +17,6 @@ import java.util.Set;
 
 @SupportedAnnotationTypes("com.mcxiv.logger.decorations.Format")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-@AutoService(Processor.class)
 public class AnnotationProcessor extends AbstractProcessor {
 
     private static boolean ranOnce = false;

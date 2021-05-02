@@ -17,11 +17,6 @@ dependencies {
     compile project(":")
     annotationProcessor project(":")
 
-//    implementation 'com.github.Minecraftian14:MyLOGGER:V3'
-//    implementation 'com.github.Minecraftian14:MyLOGGER:f186d9c30e'
-//    implementation 'com.github.Minecraftian14:MyLOGGER:f186d9c30e'
-//    annotationProcessor 'com.github.Minecraftian14:MyLOGGER:f186d9c30e'
-
     compile fileTree(dir: 'libs', include: '*.jar')
 
     annotationProcessor fileTree(dir: 'libs', include: '*.jar')
