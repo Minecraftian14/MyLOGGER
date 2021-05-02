@@ -71,6 +71,15 @@ public class DecorationCommonResolvers {
         return decorate;
     }
 
+    public static Decorate WordRepeaterFormattingResolver(Matcher m, String content, Decorate decorate) {
+        if ((m = re_wordRepeater.matcher(content)).find()) {
+            int len = Integer.parseInt(m.group(1));
+            final Decorate new_d = decorate;
+            return s -> new_d.decorate(Decoration.center(len, s));
+        }
+        return decorate;
+    }
+
     public static class TimeResolver {
         String content;
         Supplier<String> supplier;
