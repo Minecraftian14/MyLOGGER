@@ -51,7 +51,7 @@
     * SSS -> 3 digits for milli seconds.
 * `n` -> newLine in the end.
 
-```
+```js
 log.prt("", "Yo!");
 Thread.sleep(999);
 log.prt("", "Yo!");
@@ -106,7 +106,7 @@ log.prt("", "Yo!");
     * `%-47s` - String formatted to fit 47 characters, left aligned  
     * `: ::`- appended, formatted, white space
     * `::\n`- appended, formatless, newline
-```
+```js
 FLog log = FLog.getNew();
 
 log.prt("1", "Useless Sentences", "Some boring text ahead...",
@@ -131,7 +131,7 @@ log.prt("2", "Senseless Art", "Valuable Shit",
 > @Format(":$B %*50s w49w:")
 * `w49w` - *Higher priority*, word warp the text to fit a width of 49.
 * `%*50s` - *Lower priority*, Center align text and to fit a width of 50.
-```
+```js
 FLog log = FLog.getNew();
 log.prt("The main theory behind Senseless Art is the " +
         "ability to use simple sentences to create a " +
