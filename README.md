@@ -4,23 +4,14 @@
 
 A simple _logging_ tool to make **console outputs** look prettier...
 
-Get an intro to "writing formatting codes" at, 
-[![](https://img.shields.io/badge/Logger-Instructions-yellow)](WRITING_A_FORMAT_FOR_DECORATION.md)
-
-Other important stuff regarding the usage of this tool,  
-[![](https://img.shields.io/badge/Logger-Stuff-cyan)](WRITING_A_FORMAT_FOR_DECORATION.md)
-
-Get simple and complicated examples for better insight, 
-[![](https://img.shields.io/badge/Logger-Examples-orange)](LOGGER_EXAMPLES.md)
-
-You know, you can also create Tables with this tool!
-[![](https://img.shields.io/badge/Tables-Examples-green)](TABLE_EXAMPLES.md)
-
-And well, we have simple plotting tools too,
-[![](https://img.shields.io/badge/Plotting-Examples-red)](PLOTTING.md)
-
-For console specific compatibility,
-[![](https://img.shields.io/badge/Console-Compatibility-purple)](SUPPORT.md) 
+Wanna have a look around?                              | Try visiting these links
+-------------------------------------------------------|---------------------------------------------------------------------------------------------------
+Get an intro to "writing formatting codes" at          | [![](https://img.shields.io/badge/Logger-Instructions-yellow)](WRITING_A_FORMAT_FOR_DECORATION.md)
+Other important stuff regarding the usage of this tool | [![](https://img.shields.io/badge/Logger-Stuff-cyan)](WRITING_A_FORMAT_FOR_DECORATION.md)
+Get simple and complicated examples for better insight | [![](https://img.shields.io/badge/Logger-Examples-orange)](LOGGER_EXAMPLES.md)
+You know, you can also create Tables with this tool!   | [![](https://img.shields.io/badge/Tables-Examples-green)](TABLE_EXAMPLES.md)
+And well, we have simple plotting tools too            | [![](https://img.shields.io/badge/Plotting-Examples-red)](PLOTTING.md)
+For console specific compatibility                     | [![](https://img.shields.io/badge/Console-Compatibility-purple)](SUPPORT.md) 
 
 <br />
 
