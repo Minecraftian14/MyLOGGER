@@ -46,7 +46,7 @@ dependencies {
 
 #### Initialise
 
-```
+```js
 // Default initialisation, to print to Console.
 FLog logger = FLog.getNew();
 
@@ -69,7 +69,7 @@ FLog log = ULog.forNew()
 
 #### Usage
 
-```
+```js
 // Print formatted text 
 logger.prt(arg1, arg2, arg3 ... argn);
 
