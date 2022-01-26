@@ -2,7 +2,7 @@
 
 ### Initialisation
 
-```
+```js
 // Default initialisation, prints to System.out
 FLog logger = FLog.getNew();
 
@@ -44,7 +44,7 @@ ConsoleDecoration.setColorMode(mode);
 
 #### Usage
 
-```
+```js
 // Print formatted text 
 // the arguments can be strings or objects.
 logger.prt(arg1, arg2, arg3 ... argn);
