@@ -7,7 +7,7 @@
 * Using `.iter(int:A, int:B, int:C, Function<int->String>[])` to insert `(⌊(B-A)/C⌋+1)` rows whose elements are a function on 'i' as index to yield a suitable String as it's value. Here instead of i being incremented by 1, it's incremented by C.
 * Using `.create()` to get a String containing the table. 
 ### Code
-```
+```js
 int len = 10;
 
 int[] Ace = new int[len];
@@ -39,7 +39,7 @@ Table.stripped()
 * Creating Table with using Box Drawing Characters. 
 * Using `.title(#String)` to define a Title.
 ### Code
-```
+```js
 // Same Initialisation
 
 Table.box()
@@ -60,7 +60,7 @@ Table.box()
 ### Highlights
 * Creating Table with only `space`/` ` spacing. 
 ### Code
-```
+```js
 // Same initialisation.
 
 Table.empty()
@@ -84,7 +84,7 @@ Table.empty()
 * Using `.formatHead(#String[])` to create a custom Decoration for the table's Header elements.
 * Using `.format(#String[])` to create a custom Decoration for the table's Row elements.
 ### Code
-```
+```js
 int len = 10000;        // total number of example data
 int gs = len / 10;      // group size
 Double[] iterations = new Double[len];
@@ -103,7 +103,7 @@ Table.stripped()
         .format(":@66d3fa:", ":@55d3fe:")
         .create(log);
 ```
-```
+```js
 private Double avg(Double[] g) {
     double avg = 0;
     for (Double d : g) avg += d;
