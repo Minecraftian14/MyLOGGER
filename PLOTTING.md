@@ -20,7 +20,7 @@
 
 ### Simple Bar Graph
 * To create an instance, use `Plot.BarGraph.simple()`.
-```
+```js
 FLog log = FLog.getNew();
 
 int[] age = new int[]{6,47,74,70,42,22,11,30,18,32,94,4,90,44,86,86,46,20,91,89,86,47,8,45,56};
@@ -31,7 +31,7 @@ Plot.BarGraph.simple()
 ```
 ![SuperSimpleTest](images/SuperSimpleTest.png)<br /><br />
 
-```
+```js
 FLog log = FLog.getNew();
 
 int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94, 4, 90, 44, 86, 86, 46, 20, 91, 89, 86, 47, 8, 45, 56};
@@ -46,7 +46,7 @@ Plot.BarGraph.simple()
 ```
 ![SimpleTest1](images/SimpleTest1.png)<br /><br />
 
-```
+```js
 FLog log = FLog.getNew();
 
 int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94, 4, 90, 44, 86, 86, 46, 20, 91, 89, 86, 47, 8, 45, 56};
@@ -59,7 +59,7 @@ Plot.BarGraph.simple()
 ```
 ![SimpleTest3](images/SimpleTest3.png)<br /><br />
 
-```
+```js
 FLog log = FLog.getNew();
 
 int[] age = new int[]{6, 47, 74, 70, 42, 22, 11, 30, 18, 32, 94};
@@ -82,7 +82,7 @@ Plot.BarGraph.simple()
 
 ### Image
 * To print to console, an image, call the image method with 3 Int Functions which give the respective pixel color [0-255] at x, y. See the example for more details. 
-```
+```js
 BufferedImage i = ImageIO.read(new File("src/test/resources/NICE.png"));
 
 FLog log = FLog.getNew();
