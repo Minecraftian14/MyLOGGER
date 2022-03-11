@@ -16,8 +16,7 @@ For console specific compatibility                     | [![](https://img.shield
 <br />
 
 [![](https://jitpack.io/v/Minecraftian14/MyLOGGER.svg)](https://jitpack.io/#Minecraftian14/MyLOGGER)
-[![](https://img.shields.io/discord/740954840259362826?color=7289da&label=Discord)](https://discord.gg/UgMH9c98mg)
-
+[![](https://img.shields.io/discord/872811194170347520?color=%237289da&logoColor=%23424549)](https://discord.gg/hZnHFGvU6W)
 
 ## Setup
 
