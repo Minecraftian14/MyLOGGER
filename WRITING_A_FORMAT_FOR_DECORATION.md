@@ -43,7 +43,10 @@ input text.
 
 ### Creating a formatting code
 #### List of all the formats available.
-|Token             |Usage         |Console|Tag    |HTML   |Note |
+
+*Html not yet supported*
+
+|Token             |Usage         |Console|Tag    |~HTML~ |Note |
 |------------------|--------------|-------|-------|-------|-----|
 |pre-prefix        |here::        |Yes    |Yes    |Yes    | A prefix staying unaffected by format. |
 |prefix            |::here:       |Yes    |Yes    |Yes    | A prefix affected by format. |
