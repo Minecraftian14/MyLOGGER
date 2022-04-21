@@ -17,6 +17,7 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
     public static int MAX_BUFFER_SIZE = 200;
 
+    boolean didFileExistedAtTheTimeOfLoggerCreation;
     FileWriter writer = null;
     StringBuilder buffer;
 
@@ -29,6 +30,8 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
     }
 
     public Logger_LogFileWriter(File file) {
+        this.didFileExistedAtTheTimeOfLoggerCreation = file.exists();
+
         File fp = new File("logs");
         if (!fp.exists()) fp.mkdir();
 
@@ -61,6 +64,11 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
     }
 
     @Override
+    public boolean wasFileCreated() {
+        return !didFileExistedAtTheTimeOfLoggerCreation;
+    }
+
+    @Override
     public void prt(String... msg) {
         write(Decorations.get(decorator_name).decorate(msg));
     }
@@ -74,7 +82,7 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
     @Override
     public void raw(String raw) {
-        prtf("").consume(raw);
+        write(raw);
     }
 
     @Override
@@ -106,7 +114,7 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
         @Override
         public void raw(String raw) {
-            prtf("").consume(raw);
+            builder.append(raw);
         }
 
         @Override

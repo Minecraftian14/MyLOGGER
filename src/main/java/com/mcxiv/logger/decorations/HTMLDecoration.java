@@ -8,6 +8,53 @@ import java.util.regex.Matcher;
 
 public class HTMLDecoration extends Decoration {
 
+    public static final String CSS_FORMATTING_REQUIRED_FOR_HTML
+            = "" +
+              "<style>\n" +
+              "    *{\n" +
+              "        font-family: monospace;\n" +
+              "    }\n" +
+              "    .rev_1114 {\n" +
+              "    }\n" +
+              "    .frm_1114 {\n" +
+              "        border: 1px solid;\n" +
+              "    }\n" +
+              "    .cir_1114 {\n" +
+              "        border: 1px solid;\n" +
+              "        border-radius: 100%;\n" +
+              "    }\n" +
+              "    .bs_1114 {\n" +
+              "        animation: blinker 1s linear infinite;\n" +
+              "    }\n" +
+              "    .bf_1114 {\n" +
+              "        animation: blinker 250ms linear infinite;\n" +
+              "    }\n" +
+              "    @keyframes blinker {\n" +
+              "        50% {\n" +
+              "            opacity: 0;\n" +
+              "        }\n" +
+              "    }\n" +
+              "    .tu_1114 {\n" +
+              "        border-bottom: 3px solid;\n" +
+              "    }\n" +
+              "    .b_1114 {\n" +
+              "        font-weight: bold;\n" +
+              "    }\n" +
+              "    .f_1114 {\n" +
+              "        /* TODO: Faint's not working. */\n" +
+              "        font-weight: lighter;\n" +
+              "    }\n" +
+              "    .i_1114 {\n" +
+              "        font-style: italic;\n" +
+              "    }\n" +
+              "    .u_1114 {\n" +
+              "        text-decoration: underline;\n" +
+              "    }\n" +
+              "    .o_1114 {\n" +
+              "        text-decoration: overline;\n" +
+              "    }\n" +
+              "</style>".replace(" ", "");
+
     public HTMLDecoration(Decorations.Tag tag, String... codes) {
         super(tag);
 
@@ -38,9 +85,10 @@ public class HTMLDecoration extends Decoration {
 
             if (tag != null) {
                 String brush = "";
-                if (sp.content.contains("P")) brush += "[" + tag.packageName + "]";
-                if (sp.content.contains("C")) brush += "[" + tag.className + "]";
-                if (sp.content.contains("M")) brush += "[" + tag.executableName + "]";
+                String subcont = sp.content.replaceAll("<.*>", "");
+                if (subcont.contains("P")) brush += "[" + tag.packageName + "]";
+                if (subcont.contains("C")) brush += "[" + tag.className + "]";
+                if (subcont.contains("M")) brush += "[" + tag.executableName + "]";
                 if (!brush.equals("")) sp.prepre = brush + " " + sp.prepre;
             }
             format.append(sp.prepre);
@@ -130,13 +178,18 @@ public class HTMLDecoration extends Decoration {
             };
 
             simpleHelper.accept("rev");
-            simpleHelper.accept("rev");
+            sp.content = sp.content.replace("rev", "");
             simpleHelper.accept("frm");
+            sp.content = sp.content.replace("frm", "");
             simpleHelper.accept("cir");
+            sp.content = sp.content.replace("cir", "");
 
             simpleHelper.accept("bs");
+            sp.content = sp.content.replace("bs", "");
             simpleHelper.accept("bf");
+            sp.content = sp.content.replace("bf", "");
             simpleHelper.accept("tu");
+            sp.content = sp.content.replace("tu", "");
 
             simpleHelper.accept("b");
             simpleHelper.accept("f");
@@ -162,9 +215,12 @@ public class HTMLDecoration extends Decoration {
 
             format.append("<span style='").append(style).append("' class='").append(clazz).append("'>").append(sp.pre);
 
+            String subFormat;
             // If a specific formatting like '%25s' or '%-25s' is provided, use it, else put a simple '%s'
-            if ((m = re_formatting.matcher(sp.content)).find()) format.append(m.group(1));
-            else format.append("%s");
+            if ((m = re_formatting.matcher(sp.content)).find()) subFormat = m.group(1);
+            else subFormat = "%s";
+
+            format.append("%s");
 
             format.append(sp.suf).append("</span>").append(sp.sufsuf);
 
@@ -183,7 +239,7 @@ public class HTMLDecoration extends Decoration {
             // Final 'form' to which the input is entered.
             final String form = format.toString();
 
-            decorates[i] = s -> String.format(form, s.replaceAll(" ", "&nbsp;"));
+            decorates[i] = s -> String.format(form, String.format(subFormat, s).replaceAll(" ", "&nbsp;"));
 
 
             // Applying Time if defined/specified.
@@ -191,7 +247,7 @@ public class HTMLDecoration extends Decoration {
 
 
             // Applying Basic post Formatting
-            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i], "<br/>");
+            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i], "&nbsp;", "<br/>");
 
         }
     }

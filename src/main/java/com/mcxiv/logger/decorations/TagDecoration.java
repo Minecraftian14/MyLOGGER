@@ -187,7 +187,7 @@ public class TagDecoration extends Decoration {
 
 
             // Applying Basic post Formatting
-            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i], "\n");
+            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i], " ", "\n");
 
         }
     }

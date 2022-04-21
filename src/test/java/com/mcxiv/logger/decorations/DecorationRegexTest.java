@@ -62,7 +62,7 @@ public class DecorationRegexTest {
 
     @Test
     public void testCenter() {
-        System.out.println(Decoration.center(90, "Hello"));
+        System.out.println(Decoration.center(90, "Hello", " "));
     }
 
     @Test

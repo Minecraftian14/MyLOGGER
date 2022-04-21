@@ -1,12 +1,13 @@
 package com.mcxiv.logger.formatted;
 
 
-import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.decorations.Decorations;
 import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.formatted.fixed.FileLog;
 import com.mcxiv.logger.ultimate.ULog;
 import org.junit.Test;
+
+import java.io.File;
 
 public class AnnotationCompilerTest {
 
@@ -88,6 +89,22 @@ public class AnnotationCompilerTest {
         log.prt("shift", 78);
 
         log.prt("drift", 48);
+    }
+
+    @Test
+    @Format({"\n:: :frm bs tu b <MM;SS> :", " :: :cir bf u i f o n:"})
+    public void test_HTMLFormatting() {
+
+        FLog log = FileLog.getNew("html.html");
+        log.setDecorationType(Decorations.HTML);
+
+        log = ULog.forNew()
+                .add(log)
+                .add(FLog.getNew())
+                .create();
+
+        log.prt("abc", "xyz");
+
     }
 
     @Test

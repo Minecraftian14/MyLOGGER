@@ -10,18 +10,18 @@ import static com.mcxiv.logger.decorations.Decoration.*;
 public class DecorationCommonResolvers {
 
 
-    public static Decorate CommonFormattingResolver(Matcher m, String content, Decorate decorate, String new_line) {
-        decorate = CenterFormattingResolver(m, content, decorate);
+    public static Decorate CommonFormattingResolver(Matcher m, String content, Decorate decorate, String space, String new_line) {
+        decorate = CenterFormattingResolver(m, content, decorate, space);
         decorate = WordWarpFormattingResolver(m, content, decorate, new_line);
         decorate = SplittingFormattingResolver(m, content, decorate);
         return decorate;
     }
 
-    public static Decorate CenterFormattingResolver(Matcher m, String content, Decorate decorate) {
+    public static Decorate CenterFormattingResolver(Matcher m, String content, Decorate decorate, String space) {
         if ((m = re_centerFormatting.matcher(content)).find()) {
             int len = Integer.parseInt(m.group(1));
             final Decorate new_d = decorate;
-            return s -> new_d.decorate(Decoration.center(len, s));
+            return s -> new_d.decorate(Decoration.center(len, s, space));
         }
         return decorate;
     }
@@ -75,7 +75,7 @@ public class DecorationCommonResolvers {
         if ((m = re_wordRepeater.matcher(content)).find()) {
             int len = Integer.parseInt(m.group(1));
             final Decorate new_d = decorate;
-            return s -> new_d.decorate(Decoration.center(len, s));
+            return s -> new_d.decorate(Decoration.center(len, s, " "));
         }
         return decorate;
     }
