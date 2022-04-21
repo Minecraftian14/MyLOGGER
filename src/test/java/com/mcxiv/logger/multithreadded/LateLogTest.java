@@ -3,6 +3,7 @@ package com.mcxiv.logger.multithreadded;
 import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.formatted.fixed.FileLog;
+import com.mcxiv.logger.tools.LogLevel;
 import com.mcxiv.logger.ultimate.ULog;
 import org.junit.Test;
 

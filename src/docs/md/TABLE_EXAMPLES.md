@@ -14,34 +14,26 @@
 
 ### Code
 
-```js
-int
-len = 10;
+```groovy
+int len = 10;
 
-int[]
-Ace = new int[len];
-int[]
-Mice = new int[len];
-int[]
-Oce = new int[len];
+int[] Ace = new int[len];
+int[] Mice = new int[len];
+int[] Oce = new int[len];
 
-for (int i = 0;
-i < len;
-i++
-)
-{
-    Ace[i] = (int)(Math.random() * 10);
-    Mice[i] = (int)(Math.random() * 10);
+for (int i = 0; i < len; i++) {
+    Ace[i] = (int) (Math.random() * 10);
+    Mice[i] = (int) (Math.random() * 10);
     Oce[i] = Ace[i] * Mice[i];
 }
 
 Table.stripped()
-    .head("S.No.", "Number 1", "Number 2", "Answer")
-    .row("", "A", "B", "A x B")
-    .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-    .row("", "Only", "Even", "Values")
-    .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-    .create(log);
+        .head("S.No.", "Number 1", "Number 2", "Answer")
+        .row("", "A", "B", "A x B")
+        .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
+        .row("", "Only", "Even", "Values")
+        .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
+        .create(log);
 ```
 
 ### Output
@@ -57,17 +49,17 @@ Table.stripped()
 
 ### Code
 
-```js
+```groovy
 // Same Initialisation
 
 Table.box()
-    .title("Hello")
-    .head("S.No.", "Number 1", "Number 2", "Answer")
-    .row("!", "A", "B", "A x B")
-    .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-    .row("", "Only", "Even", "Values")
-    .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-    .create(log);
+        .title("Hello")
+        .head("S.No.", "Number 1", "Number 2", "Answer")
+        .row("!", "A", "B", "A x B")
+        .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
+        .row("", "Only", "Even", "Values")
+        .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
+        .create(log);
 ```
 
 ### Output
@@ -82,17 +74,17 @@ Table.box()
 
 ### Code
 
-```js
+```groovy
 // Same initialisation.
 
 Table.empty()
-    .title("Hello")
-    .head("S.No.", "Number 1", "Number 2", "Answer")
-    .row("!", "A", "B", "A x B")
-    .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-    .row("", "Only", "Even", "Values")
-    .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
-    .create(log);
+        .title("Hello")
+        .head("S.No.", "Number 1", "Number 2", "Answer")
+        .row("!", "A", "B", "A x B")
+        .iter(0, len, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
+        .row("", "Only", "Even", "Values")
+        .iter(1, len, 2, i -> i + 1, i -> Ace[i], i -> Mice[i], i -> Oce[i])
+        .create(log);
 ```
 
 ### Output
@@ -112,45 +104,33 @@ Table.empty()
 
 ### Code
 
-```js
-int
-len = 10000;        // total number of example data
-int
-gs = len / 10;      // group size
-Double[]
-iterations = new Double[len];
-for (int i = 0;
-i < len;
-i++
-)
-iterations[i] = Math.random();
+```groovy
+int len = 10000;        // total number of example data
+int gs = len / 10;      // group size
+Double[] iterations = new Double[len];
+for (int i = 0; i < len; i++)
+    iterations[i] = Math.random();
 
 Table.stripped()
-    .title("Average of Random Numbers")
-    .head("S.No.", "Range", "Average")
-    .bunch(iterations, len / 10,
-        (gi, g) -> gi,
-        (gi, g) -> (gi * len / 10) + "-" + ((gi + 1) * len / 10),
-        (gi, g) -> String.format("%.3f", avg(g))
-    )
-    .formatTitle(":@4085eeb:")
-    .formatHead(":@2565ae#fff:", ":@0f5298#fff:")
-    .format(":@66d3fa:", ":@55d3fe:")
-    .create(log);
+        .title("Average of Random Numbers")
+        .head("S.No.", "Range", "Average")
+        .bunch(iterations, len / 10,
+                (gi, g) -> gi,
+                (gi, g) -> (gi * len / 10) + "-" + ((gi + 1) * len / 10),
+                (gi, g) -> String.format("%.3f", avg(g))
+        )
+        .formatTitle(":@4085eeb:")
+        .formatHead(":@2565ae#fff:", ":@0f5298#fff:")
+        .format(":@66d3fa:", ":@55d3fe:")
+        .create(log);
 ```
 
-```js
-private
-Double
-avg(Double[]
-g
-)
-{
+```groovy
+private Double avg(Double[] g) {
     double
     avg = 0;
-    for (Double d : g
-)
-    avg += d;
+    for (Double d : g)
+        avg += d;
     return avg / g.length;
 }
 ```

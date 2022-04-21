@@ -1,4 +1,4 @@
-#  MyLOGGER
+# MyLOGGER
 
 ![Collage](src/docs/resources/images/collage.png)
 
@@ -11,7 +11,7 @@ Other important stuff regarding the usage of this tool | [![](https://img.shield
 Get simple and complicated examples for better insight | [![](https://img.shields.io/badge/Logger-Examples-orange)](src/main/md/LOGGER_EXAMPLES.md)
 You know, you can also create Tables with this tool!   | [![](https://img.shields.io/badge/Tables-Examples-green)](src/main/md/TABLE_EXAMPLES.md)
 And well, we have simple plotting tools too            | [![](https://img.shields.io/badge/Plotting-Examples-red)](src/main/md/PLOTTING.md)
-For console specific compatibility                     | [![](https://img.shields.io/badge/Console-Compatibility-purple)](src/main/md/SUPPORT.md) 
+For console specific compatibility                     | [![](https://img.shields.io/badge/Console-Compatibility-purple)](src/main/md/SUPPORT.md)
 
 <br />
 
@@ -45,7 +45,7 @@ dependencies {
 
 #### Initialise
 
-```js
+```groovy
 // Default initialisation, to print to Console.
 FLog logger = FLog.getNew();
 
@@ -61,14 +61,14 @@ log.setDecorationType(Decorations.RAW); // enable raw decos, ie, no strange char
 
 // creating a logger to both, print to console and write to file.
 FLog log = ULog.forNew()
-                .add(FLog.getNew())
-                .add(FileLog.getNew("new.txt"))
-                .create();
+        .add(FLog.getNew())
+        .add(FileLog.getNew("new.txt"))
+        .create();
 ```
 
 #### Usage
 
-```js
+```groovy
 // Print formatted text 
 logger.prt(arg1, arg2, arg3 ... argn);
 

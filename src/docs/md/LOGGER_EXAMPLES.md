@@ -55,7 +55,7 @@
     * SSS -> 3 digits for milli seconds.
 * `n` -> newLine in the end.
 
-```js
+```groovy
 log.prt("", "Yo!");
 Thread.sleep(999);
 log.prt("", "Yo!");
@@ -114,25 +114,24 @@ log.prt("", "Yo!");
     * `: ::`- appended, formatted, white space
     * `::\n`- appended, formatless, newline
 
-```js
-FLog
-log = FLog.getNew();
+```groovy
+FLog log = FLog.getNew();
 
-log.prt("1", "Useless Sentences", "Some boring text ahead...",
-    "So here we have some totally boring text just " +
-    "lying around here for you to read. Though feel " +
-    "totally comfortable if you wish to skip ahead."
+log.prt("1", "Useless Sentences", "Some boring text ahead...", "" +
+        "So here we have some totally boring text just " +
+        "lying around here for you to read. Though feel " +
+        "totally comfortable if you wish to skip ahead."
 );
 
-log.prt("2", "Senseless Art", "Valuable Shit",
-    "The main theory behind Senseless Art is the " +
-    "ability to use simple sentences to create a " +
-    "feeling of improtance and value describing " +
-    "things which can't even be compared to shit. " +
-    "If one has such wonderful creativity and a " +
-    "sense of how to use such to your advantage, " +
-    "consider+ the person a master of this uniquely " +
-    "special art form."
+log.prt("2", "Senseless Art", "Valuable Shit", "" +
+        "The main theory behind Senseless Art is the " +
+        "ability to use simple sentences to create a " +
+        "feeling of improtance and value describing " +
+        "things which can't even be compared to shit. " +
+        "If one has such wonderful creativity and a " +
+        "sense of how to use such to your advantage, " +
+        "consider+ the person a master of this uniquely " +
+        "special art form."
 );
 ``` 
 
@@ -143,17 +142,16 @@ log.prt("2", "Senseless Art", "Valuable Shit",
 * `w49w` - *Higher priority*, word warp the text to fit a width of 49.
 * `%*50s` - *Lower priority*, Center align text and to fit a width of 50.
 
-```js
-FLog
-log = FLog.getNew();
+```groovy
+FLog log = FLog.getNew();
 log.prt("The main theory behind Senseless Art is the " +
-    "ability to use simple sentences to create a " +
-    "feeling of improtance and value describing " +
-    "things which can't even be compared to shit. " +
-    "If one has such wonderful creativity and a " +
-    "sense of how to use such to your advantage, " +
-    "consider+ the person a master of this uniquely " +
-    "special art form."
+        "ability to use simple sentences to create a " +
+        "feeling of improtance and value describing " +
+        "things which can't even be compared to shit. " +
+        "If one has such wonderful creativity and a " +
+        "sense of how to use such to your advantage, " +
+        "consider+ the person a master of this uniquely " +
+        "special art form."
 );
 ```
 
