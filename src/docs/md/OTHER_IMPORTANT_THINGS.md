@@ -2,7 +2,7 @@
 
 ### Initialisation
 
-```js
+```groovy
 // Default initialisation, prints to System.out
 FLog logger = FLog.getNew();
 
@@ -30,11 +30,24 @@ log.setDecorationType(Decorations.TAG); // enable tag decos.
 log.setDecorationType(Decorations.RAW); // enable raw decos, ie, no strange characters.
 
 
-// creating a logger to both, print to console and write to file.
+// Creating a logger to both, print to console and write to file.
 FLog log = ULog.forNew()
-                .add(FLog.getNew())
-                .add(FileLog.getNew("new.txt"))
-                .create();
+        .add(FLog.getNew())
+        .add(FileLog.getNew("new.txt"))
+        .create();
+
+
+// Creating a logger to run on a separate Thread
+// where logger is another instance of FLog
+FLog log = LateLog.getNew(logger);
+
+// Other ways, to customise it further
+// where logger is another instance of FLog 
+// and executorService is an instance of ExecutorService
+FLog log = LateLog.getNew(
+        executorService,
+        logger
+);
 
 
 // When using ConsoleDecoration, to set the color mode.
@@ -44,7 +57,7 @@ ConsoleDecoration.setColorMode(mode);
 
 #### Usage
 
-```js
+```groovy
 // Print formatted text 
 // the arguments can be strings or objects.
 logger.prt(arg1, arg2, arg3 ... argn);
@@ -72,8 +85,16 @@ logger.general().prt(() -> new String[]{"General", "Hello", "World"});
 // or
 LogLevel.DEBUG.act(() -> log.prt("General", "Hello", "World"));
 
+// LogLevel can also be used in other places, to do some action if required.
+LogLevel.NOTICE.act(() -> someTask());
+
 // To set a log level
 LogLevel.setLevel(LogLevel.WARN);
 // or
-LogLevel.NOTICE.activate();  
+LogLevel.NOTICE.activate(); 
+
+// To check if a LogLevel is active/allowed
+if(LogLevel.ERROR.accepted()) {
+    // Some code
+}
 ```

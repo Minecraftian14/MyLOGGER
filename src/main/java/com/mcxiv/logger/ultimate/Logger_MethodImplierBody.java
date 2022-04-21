@@ -1,7 +1,5 @@
 package com.mcxiv.logger.ultimate;
 
-import com.mcxiv.logger.decorations.Decoration;
-import com.mcxiv.logger.decorations.Decorations;
 import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.packets.Packet;
 import com.mcxiv.logger.util.StringsConsumer;

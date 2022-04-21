@@ -68,7 +68,7 @@ class EmptyTable extends TableAdaptor {
 
     @Override
     public void create(FLog mainLog) {
-        if(level!=null&&!level.accepted())return;
+        if (level != null && !level.accepted()) return;
 
 
         Packet packet = mainLog.newPacket();
@@ -83,7 +83,7 @@ class EmptyTable extends TableAdaptor {
             packet.raw("\n");
         }
 
-       packet.consume();
+        packet.consume();
 
     }
 }

@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 
 public class TagDecoration extends Decoration {
 
-    private static final HashMap<String, String> map = new HashMap<>();
+    static final HashMap<String, String> map = new HashMap<>();
 
     static {
         map.put("BK", "[000000]");
@@ -187,7 +187,7 @@ public class TagDecoration extends Decoration {
 
 
             // Applying Basic post Formatting
-            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i]);
+            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i], " ", "\n");
 
         }
     }

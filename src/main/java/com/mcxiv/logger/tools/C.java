@@ -49,29 +49,63 @@ public class C {
     public static final String CYAN_BRIGHT_BACKGROUND = "\u001B[46;1m", CBBG = CYAN_BRIGHT_BACKGROUND;
     public static final String WHITE_BRIGHT_BACKGROUND = "\u001B[47;1m", WBBG = WHITE_BRIGHT_BACKGROUND;
 
-    public static final String BOLD = "\u001b[1m", FB = BOLD; // Idea: Yes
-    public static final String FAINT = "\u001b[2m", FFa = FAINT;
-    public static final String ITALICS = "\u001b[3m", FI = ITALICS;
-    public static final String UNDERLINED = "\u001b[4m", FU = UNDERLINED; // Idea: Yes
-    public static final String BLINK_SLOW = "\u001b[5m", BlS = BLINK_SLOW;
-    public static final String BLINK_FAST = "\u001b[6m", BlF = BLINK_FAST;
-    public static final String REVERSED = "\u001b[7m", FR = REVERSED; // Idea: Yes
-    public static final String HIDE_START = "\u001b[8m", HdS = HIDE_START;
-    public static final String STRIKE = "\u001b[9m", FS = STRIKE; // Idea: Yes
+    public static final String BOLD = "\u001b[1m", FB = BOLD, FBC = "b";
+    public static final String FAINT = "\u001b[2m", FFa = FAINT, FFaC = "f";
+    public static final String ITALICS = "\u001b[3m", FI = ITALICS, FIC = "i";
+    public static final String UNDERLINED = "\u001b[4m", FU = UNDERLINED, FUC = "u";
+    public static final String BLINK_SLOW = "\u001b[5m", BlS = BLINK_SLOW, BlSC = "bs";
+    public static final String BLINK_FAST = "\u001b[6m", BlF = BLINK_FAST, BlFC = "bf";
+    public static final String REVERSED = "\u001b[7m", FR = REVERSED, FRC = "rev";
+    public static final String HIDE_START = "\u001b[8m", HdS = HIDE_START, HdSC = "hds";
+    public static final String STRIKE = "\u001b[9m", FS = STRIKE, FSC = "str";
 
-    public static final String FRAKTUR = "\u001b[20m", FFk = FRAKTUR;
-    public static final String UNDERLINED_THICK = "\u001b[21m", FUt = UNDERLINED_THICK; // Idea: Yes
+    public static final String DEFAULT_FONT = "\u001b[10m", FDF = DEFAULT_FONT, FDFC = "def_fnt";
+    public static final String ALTERNATIVE_FONT_1 = "\u001b[11m", FAF1 = ALTERNATIVE_FONT_1, FAF1C = "alt_fnt_1";
+    // TODO: If this feature is ever implemented, create the ALT FNT 2, 3, 4...
+    public static final String ALTERNATIVE_FONT_9 = "\u001b[19m", FAF9 = ALTERNATIVE_FONT_9, FAF9C = "alt_fnt_9";
 
-    public static final String BLINK_OFF = "\u001b[25m", BlO = BLINK_OFF;
+    public static final String FRAKTUR = "\u001b[20m", FFk = FRAKTUR, FFkC = "ffk";
+    public static final String UNDERLINED_THICK = "\u001b[21m", FUt = UNDERLINED_THICK, FUtC = "tu";
 
-    public static final String HIDE_OFF = "\u001b[28m", HdO = HIDE_OFF;
+    public static final String RESET_INTENSITY = "\u001b[22m", nFB_FFa = RESET_INTENSITY, nFB_FFaC = "rsb";
+    public static final String RESET_ITALICS = "\u001b[23m", nFI = RESET_ITALICS, nFIC = "rsi";
+    public static final String RESET_UNDERLINE = "\u001b[24m", nFU = RESET_UNDERLINE, nFUC = "rsu";
+    public static final String BLINK_OFF = "\u001b[25m", BlO = BLINK_OFF, BlOC = "";
 
-    public static final String FRAMED = "\u001b[51m", FFr = FRAMED; // Idea: Yes
-    public static final String CIRCLED = "\u001b[52m", FCr = CIRCLED; // Idea: Yes
-    public static final String OVERLINED = "\u001b[53m", FOv = OVERLINED;
+    public static final String PROPORTIONAL_SPACING = "\u001b[26m", FPS = PROPORTIONAL_SPACING, FPSC = "prop_fnt";
 
-    public static final String SUPER_SCRIPT = "\u001b[73m", FSS = SUPER_SCRIPT;
-    public static final String SUB_SCRIPT = "\u001b[74m", FSs = SUB_SCRIPT;
+    public static final String NOT_REVERSED = "\u001b[27m", nFR = NOT_REVERSED, nFRC = "nrev";
+    public static final String HIDE_OFF = "\u001b[28m", HdO = HIDE_OFF, HdOC = "";
+
+    public static final String RESET_STRIKE = "\u001b[29m", nFS = RESET_STRIKE, nFSC = "ns";
+
+    public static final String DEFAULT_FOREGROUND_COLOR = "\u001b[39m", DFC = DEFAULT_FOREGROUND_COLOR, DFCC = "dfc";
+    public static final String DEFAULT_BACKGROUND_COLOR = "\u001b[49m", DBC = DEFAULT_BACKGROUND_COLOR, DBCC = "dbc";
+
+    public static final String RESET_PROPORTIONAL_SPACING = "\u001b[50m", nFPS = RESET_PROPORTIONAL_SPACING, nFPSC = "nprop_font";
+
+    public static final String FRAMED = "\u001b[51m", FFr = FRAMED, FFrC = "frm";
+    public static final String CIRCLED = "\u001b[52m", FCr = CIRCLED, FCrC = "cir";
+    public static final String OVERLINED = "\u001b[53m", FOv = OVERLINED, FOvC = "o";
+    public static final String RESET_PERIMETER = "\u001b[54m", nFFr_FCr = RESET_PERIMETER, nFFr_FCrC = "nperi";
+    public static final String RESET_OVERLINE = "\u001b[55m", nFOv = RESET_OVERLINE, nFOvC = "no";
+
+    // 56, 57 are not even documented at wikipedia xD. Perfect codes to implement my own feature.
+
+    public static final String DEFAULT_UNDERLINE_COLOR = "\u001b[59m", DUC = DEFAULT_UNDERLINE_COLOR, DUCC = "duc";
+
+    // 60 to 65 represent some action with Ideograms. Check if they can be implemented or be repurposed.
+
+    public static final String SUPER_SCRIPT = "\u001b[73m", FSS = SUPER_SCRIPT, FSSC = "sup";
+    public static final String SUB_SCRIPT = "\u001b[74m", FSs = SUB_SCRIPT, FSsC = "sub";
+    public static final String RESET_SHIFT_SCRIPT = "\u001b[74m", nFSS_FSs = RESET_SHIFT_SCRIPT, nFSS_FSsC = "nshft";
+
+    // 90 to 97 are used to set bright foreground.
+    // 98 to 99 are not in wiki.
+    // 100 to 107 are used to set bright foreground.
+    // Provided the fact that 8bit are extended to 16bit only to have bright altertives, and the fact that hex colors provided too good a range for colors, these codes are useless.
+
+    // Some day experiment to find what all codes are after 107 (as they are not in wiki)
 
     public static final String CLEAR_SCREEN_FROM_CURSOR_TILL_END = "\u001b[0J";
     public static final String CLEAR_SCREEN_FROM_CURSOR_TO_START = "\u001b[1J";
@@ -183,17 +217,16 @@ public class C {
 
     }
 
-
-    /////// WILL BE DEPRECATED - TO BE REPLACED BY BETTER COMMANDS
     public static String getFontColor(int i) {
         return "\u001b[38;5;" + i + "m";
     }
 
-    public static int hexTo216(int r, int g, int b) {
-        r /= 42.6; // [0-256) -> [0-6)
-        g /= 42.6; // [0-256) -> [0-6)
-        b /= 42.6; // [0-256) -> [0-6)
-        return 16 + b + 6 * g + 36 * r;
+    public static String getBackColor(int i) {
+        return "\u001b[48;5;" + i + "m";
+    }
+
+    public static String getUnderlineColor(int i) {
+        return "\u001b[58;5;" + i + "m";
     }
 
     public static String hexTo24bitFont(int r, int g, int b) {
@@ -204,12 +237,19 @@ public class C {
         return "\u001b[48;2;" + r + ";" + g + ";" + b + "m";
     }
 
-    public static int hexToGray(int g) {
-        return 232 + (int) (g / 10.7);
+    public static String hexTo24bitUnderline(int r, int g, int b) {
+        return "\u001b[58;2;" + r + ";" + g + ";" + b + "m";
     }
 
-    public static String getBackColor(int i) {
-        return "\u001b[48;5;" + i + "m";
+    public static int hexTo216(int r, int g, int b) {
+        r /= 42.6; // [0-256) -> [0-6)
+        g /= 42.6; // [0-256) -> [0-6)
+        b /= 42.6; // [0-256) -> [0-6)
+        return 16 + b + 6 * g + 36 * r;
+    }
+
+    public static int hexToGray(int g) {
+        return 232 + (int) (g / 10.7);
     }
 
     public static int hex3ToColor(String color) {

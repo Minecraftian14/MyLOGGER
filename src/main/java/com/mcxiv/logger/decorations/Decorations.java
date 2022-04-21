@@ -12,6 +12,7 @@ public class Decorations {
     public static final String CONSOLE = "console";
     public static final String RAW = "raw file";
     public static final String TAG = "tag";
+    public static final String HTML = "html";
     public static final String EMPTY = "empty";
 
     private static final HashMap<Tag, Decoration> decorations_map = new HashMap<>();
@@ -24,10 +25,11 @@ public class Decorations {
 
         StackTraceElement element = null;
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        for (int i = 2; i < 6; i++) {
-
+        for (int i = 2; i < Math.min(16, stackTrace.length); i++) {
 //            if (!(stackTrace[i].getClassName().endsWith("Logger_MethodImplierBody") || stackTrace[i].getClassName().endsWith("Logger_LogFileWriter") || stackTrace[i].getClassName().contains("$"))) {
             String n = stackTrace[i].getClassName();
+            if(n.startsWith("java")) // TODO: Can we just ignore all internal calls by anything in java package? Like, in the end they cant even have the format annotations...
+                continue;
             n = n.substring(n.lastIndexOf(".") + 1);
             if (!n.startsWith("Logger_")) {
                 element = stackTrace[i];//Logger_AnnotationRetriever
@@ -84,6 +86,8 @@ public class Decorations {
                 return new ConsoleDecoration(tag, formats);
             case TAG:
                 return new TagDecoration(tag, formats);
+            case HTML:
+                return new HTMLDecoration(tag, formats);
             case RAW:
                 return new RawDecoration(tag, formats);
             case EMPTY:
@@ -130,9 +134,9 @@ public class Decorations {
             if (o == null || getClass() != o.getClass()) return false;
             Tag tag = (Tag) o;
             return Objects.equals(packageName, tag.packageName) &&
-                    Objects.equals(className, tag.className) &&
-                    Objects.equals(executableName, tag.executableName) &&
-                    Objects.equals(decorator, tag.decorator);
+                   Objects.equals(className, tag.className) &&
+                   Objects.equals(executableName, tag.executableName) &&
+                   Objects.equals(decorator, tag.decorator);
         }
 
         @Override

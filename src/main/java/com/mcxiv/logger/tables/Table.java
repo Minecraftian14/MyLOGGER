@@ -1,11 +1,9 @@
 package com.mcxiv.logger.tables;
 
-import com.mcxiv.logger.decorations.Format;
 import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.tools.LogLevel;
 import com.mcxiv.logger.util.GroupIterator;
 import com.mcxiv.logger.util.Iterator;
-import javafx.scene.control.Tab;
 
 public interface Table {
 
@@ -40,7 +38,7 @@ public interface Table {
         msg = msg == null ? "" : msg;
 
         log.prtf(":: :@a00 #F b %-40s: ::",
-                ":: :$B @ee0 u n %-" + (table.getWidth() - Math.max(40, name.length())-3) + "s:")
+                        ":: :$B @ee0 u n %-" + (table.getWidth() - Math.max(40, name.length()) - 3) + "s:")
                 .consume(name, msg);
 
         table.create(log);

@@ -38,9 +38,9 @@ public abstract class Decoration {
     static Pattern re_SBcolor = Pattern.compile("([\\[][@]([A-Fa-f0-9]{6,8})[]])");
 
 
-    public static String center(int len, String txt) {
+    public static String center(int len, String txt, String space) {
         txt = String.format("%" + (len - txt.length()) / 2 + "s", " ") + txt;
-        return String.format("%-" + len + "s", txt);
+        return String.format("%-" + len + "s", txt).replace(" ", space);
     }
 
     public String decorate(String... input) {

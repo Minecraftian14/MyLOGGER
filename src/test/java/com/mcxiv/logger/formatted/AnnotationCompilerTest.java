@@ -3,7 +3,11 @@ package com.mcxiv.logger.formatted;
 
 import com.mcxiv.logger.decorations.Decorations;
 import com.mcxiv.logger.decorations.Format;
+import com.mcxiv.logger.formatted.fixed.FileLog;
+import com.mcxiv.logger.ultimate.ULog;
 import org.junit.Test;
+
+import java.io.File;
 
 public class AnnotationCompilerTest {
 
@@ -88,29 +92,48 @@ public class AnnotationCompilerTest {
     }
 
     @Test
+    @Format({"\n:: :frm bs tu b <MM;SS> :", " :: :cir bf u i f o n:"})
+    public void test_HTMLFormatting() {
+
+        FLog log = FileLog.getNew("html.html");
+        log.setDecorationType(Decorations.HTML);
+
+        log = ULog.forNew()
+                .add(log)
+                .add(FLog.getNew())
+                .create();
+
+        log.prt("abc", "xyz");
+
+    }
+
+    @Test
     @Format({"\n:: :@ff4$Bb u: ::", ":: :@ff9#FF1493b%-18s: ::", ":: :@ffd#82En%-27s: ::", "::    :w47w@e#4B0082%-47s: ::"})
     public void test_NICEFormatting() {
 
-        FLog log = FLog.getNew();
+        FLog log = FileLog.getNew("html.html");
+        log.setDecorationType(Decorations.HTML);
 
-//        RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
-        log.setDecorationType(Decorations.TAG);
+        log = ULog.forNew()
+                .add(log)
+                .add(FLog.getNew())
+                .create();
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +
-                        "lying around here for you to read. Though feel " +
-                        "totally comfortable if you wish to skip ahead."
+                "lying around here for you to read. Though feel " +
+                "totally comfortable if you wish to skip ahead."
         );
 
         log.prt("2", "Senseless Art", "Valuable Shit",
                 "The main theory behind Senseless Art is the " +
-                        "ability to use simple sentences to create a " +
-                        "feeling of improtance and value describing " +
-                        "things which can't even be compared to shit. " +
-                        "If one has such wonderful creativity and a " +
-                        "sense of how to use such to your advantage, " +
-                        "consider+ the person a master of this uniquely " +
-                        "special art form."
+                "ability to use simple sentences to create a " +
+                "feeling of improtance and value describing " +
+                "things which can't even be compared to shit. " +
+                "If one has such wonderful creativity and a " +
+                "sense of how to use such to your advantage, " +
+                "consider+ the person a master of this uniquely " +
+                "special art form."
         );
     }
 

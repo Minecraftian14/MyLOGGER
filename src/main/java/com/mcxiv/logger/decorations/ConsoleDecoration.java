@@ -49,9 +49,10 @@ public class ConsoleDecoration extends Decoration {
 
             if (tag != null) {
                 String brush = "";
-                if (sp.content.contains("P")) brush += "[" + tag.packageName + "]";
-                if (sp.content.contains("C")) brush += "[" + tag.className + "]";
-                if (sp.content.contains("M")) brush += "[" + tag.executableName + "]";
+                String subcont = sp.content.replaceAll("<.*>", "");
+                if (subcont.contains("P")) brush += "[" + tag.packageName + "]";
+                if (subcont.contains("C")) brush += "[" + tag.className + "]";
+                if (subcont.contains("M")) brush += "[" + tag.executableName + "]";
                 if (!brush.equals("")) sp.prepre = brush + " " + sp.prepre;
             }
             format.append(sp.prepre);
@@ -126,12 +127,18 @@ public class ConsoleDecoration extends Decoration {
             // Parsing other formatting chars
 
             if (sp.content.contains("rev")) format.append(C.FR);
+            sp.content = sp.content.replace("rev", "");
             if (sp.content.contains("frm")) format.append(C.FFr);
+            sp.content = sp.content.replace("frm", "");
             if (sp.content.contains("cir")) format.append(C.FCr);
+            sp.content = sp.content.replace("cir", "");
 
 //            if (sp.content.contains("bs")) format.append(C.BlS);
-//            if (sp.content.contains("bf")) format.append(C.BlS);
+            sp.content = sp.content.replace("bs", "");
+//            if (sp.content.contains("bf")) format.append(C.BlF);
+            sp.content = sp.content.replace("bf", "");
             if (sp.content.contains("tu")) format.append(C.FUt);
+            sp.content = sp.content.replace("tu", "");
 
             if (sp.content.contains("b")) format.append(C.FB);
             if (sp.content.contains("f")) format.append(C.FFa);
@@ -186,7 +193,7 @@ public class ConsoleDecoration extends Decoration {
 
 
             // Applying Basic post Formatting
-            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i]);
+            decorates[i] = DecorationCommonResolvers.CommonFormattingResolver(m, sp.content, decorates[i], " ", "\n");
 
 
         }
