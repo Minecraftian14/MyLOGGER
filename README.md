@@ -4,14 +4,14 @@
 
 A simple _logging_ tool to make **console outputs** look prettier...
 
-Wanna have a look around?                              | Try visiting these links
--------------------------------------------------------|---------------------------------------------------------------------------------------------------
-Get an intro to "writing formatting codes" at          | [![](https://img.shields.io/badge/Logger-Instructions-yellow)](src/main/md/WRITING_A_FORMAT_FOR_DECORATION.md)
-Other important stuff regarding the usage of this tool | [![](https://img.shields.io/badge/Logger-Stuff-cyan)](src/main/md/OTHER_IMPORTANT_THINGS.md)
-Get simple and complicated examples for better insight | [![](https://img.shields.io/badge/Logger-Examples-orange)](src/main/md/LOGGER_EXAMPLES.md)
-You know, you can also create Tables with this tool!   | [![](https://img.shields.io/badge/Tables-Examples-green)](src/main/md/TABLE_EXAMPLES.md)
-And well, we have simple plotting tools too            | [![](https://img.shields.io/badge/Plotting-Examples-red)](src/main/md/PLOTTING.md)
-For console specific compatibility                     | [![](https://img.shields.io/badge/Console-Compatibility-purple)](src/main/md/SUPPORT.md)
+| Wanna have a look around?                              | Try visiting these links                                                                                        |
+|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Get an intro to "writing formatting codes" at          | [![](https://img.shields.io/badge/Logger-Instructions-yellow)](/src/main/md/WRITING_A_FORMAT_FOR_DECORATION.md) |
+| Other important stuff regarding the usage of this tool | [![](https://img.shields.io/badge/Logger-Stuff-cyan)](/src/main/md/OTHER_IMPORTANT_THINGS.md)                   |
+| Get simple and complicated examples for better insight | [![](https://img.shields.io/badge/Logger-Examples-orange)](/src/main/md/LOGGER_EXAMPLES.md)                     |
+| You know, you can also create Tables with this tool!   | [![](https://img.shields.io/badge/Tables-Examples-green)](/src/main/md/TABLE_EXAMPLES.md)                       |
+| And well, we have simple plotting tools too            | [![](https://img.shields.io/badge/Plotting-Examples-red)](/src/main/md/PLOTTING.md)                             |
+| For console specific compatibility                     | [![](https://img.shields.io/badge/Console-Compatibility-purple)](/src/main/md/SUPPORT.md)                       |
 
 <br />
 
