@@ -11,7 +11,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$PROJECT_DIR$/MyLOGGERTest/libs/MyLOGGER-V3.jar" />
-          <entry name="$PROJECT_DIR$/build/libs/MyLOGGER-v5.3.jar" />
+          <entry name="$PROJECT_DIR$/build/libs/MyLOGGER-v5.7.jar" />
         </processorPath>
         <module name="MyLOGGER.MyLOGGERTest.main" />
       </profile>

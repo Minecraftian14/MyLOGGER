@@ -1,8 +1,11 @@
 package com.mcxiv.logger.formatted;
 
 
+import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.decorations.Decorations;
 import com.mcxiv.logger.decorations.Format;
+import com.mcxiv.logger.formatted.fixed.FileLog;
+import com.mcxiv.logger.ultimate.ULog;
 import org.junit.Test;
 
 public class AnnotationCompilerTest {
@@ -91,10 +94,13 @@ public class AnnotationCompilerTest {
     @Format({"\n:: :@ff4$Bb u: ::", ":: :@ff9#FF1493b%-18s: ::", ":: :@ffd#82En%-27s: ::", "::    :w47w@e#4B0082%-47s: ::"})
     public void test_NICEFormatting() {
 
-        FLog log = FLog.getNew();
+        FLog log = FileLog.getNew("html.html");
+        log.setDecorationType(Decorations.HTML);
 
-//        RawFileDecoration.setPartnerDecorationDecoration(TagDecoration::new);
-        log.setDecorationType(Decorations.TAG);
+        log = ULog.forNew()
+                .add(log)
+                .add(FLog.getNew())
+                .create();
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +

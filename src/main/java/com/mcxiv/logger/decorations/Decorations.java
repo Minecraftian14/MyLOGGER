@@ -12,6 +12,7 @@ public class Decorations {
     public static final String CONSOLE = "console";
     public static final String RAW = "raw file";
     public static final String TAG = "tag";
+    public static final String HTML = "html";
     public static final String EMPTY = "empty";
 
     private static final HashMap<Tag, Decoration> decorations_map = new HashMap<>();
@@ -85,6 +86,8 @@ public class Decorations {
                 return new ConsoleDecoration(tag, formats);
             case TAG:
                 return new TagDecoration(tag, formats);
+            case HTML:
+                return new HTMLDecoration(tag, formats);
             case RAW:
                 return new RawDecoration(tag, formats);
             case EMPTY:

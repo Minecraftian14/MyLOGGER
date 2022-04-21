@@ -62,14 +62,14 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
     @Override
     public void prt(String... msg) {
-        write(Decorations.get(Decorations.RAW).decorate(msg));
+        write(Decorations.get(decorator_name).decorate(msg));
     }
 
     @Override
     public void prt(Object... obj) {
         String[] stf = new String[obj.length];
         for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();
-        write(Decorations.get(Decorations.RAW).decorate(stf));
+        write(Decorations.get(decorator_name).decorate(stf));
     }
 
     @Override
@@ -79,7 +79,8 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
     @Override
     public StringsConsumer prtf(String... format) {
-        return msg -> write(new RawDecoration(null, format).decorate(msg));
+        Decoration decoration = Decorations.getSpecific(null, decorator_name, format);
+        return msg -> write(decoration.decorate(msg));
     }
 
     @Override
@@ -91,13 +92,13 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
         @Override
         public void prt(String... msg) {
-            Decoration decoration = Decorations.get(Decorations.RAW);
+            Decoration decoration = Decorations.get(decorator_name);
             builder.append(decoration.decorate(msg));
         }
 
         @Override
         public void prt(Object... obj) {
-            Decoration decoration = Decorations.get(Decorations.RAW);
+            Decoration decoration = Decorations.get(decorator_name);
             String[] stf = new String[obj.length];
             for (int i = 0; i < stf.length; i++) stf[i] = obj[i].toString();
             builder.append(decoration.decorate(stf));
@@ -110,7 +111,8 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
         @Override
         public StringsConsumer prtf(String... format) {
-            return msg -> builder.append(new RawDecoration(null, format).decorate(msg));
+            Decoration decoration = Decorations.getSpecific(null, decorator_name, format);
+            return msg -> builder.append(decoration.decorate(msg));
         }
 
         @Override

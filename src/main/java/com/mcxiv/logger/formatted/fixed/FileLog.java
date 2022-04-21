@@ -19,8 +19,4 @@ public abstract class FileLog extends FLog {
         return new Logger_LogFileWriter(file);
     }
 
-    @Override
-    public void setDecorationType(String name) {
-    }
-
 }
