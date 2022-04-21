@@ -1,7 +1,6 @@
 package com.mcxiv.logger.tables;
 
 import com.mcxiv.logger.boxUtilities.Box;
-import com.mcxiv.logger.decorations.Decoration;
 import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.packets.Packet;
 
@@ -64,7 +63,7 @@ class BoxTable extends TableAdaptor {
 
     @Override
     public void create(FLog mainLog) {
-        if(level!=null&&!level.accepted())return;
+        if (level != null && !level.accepted()) return;
 
         Packet packet = mainLog.newPacket();
 

@@ -1,6 +1,5 @@
 package com.mcxiv.logger.formatted.fixed;
 
-import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.packets.LambdaPacket;
 import com.mcxiv.logger.util.StringsConsumer;
 

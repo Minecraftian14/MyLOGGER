@@ -209,9 +209,9 @@ public class MultiBarGraph implements Plot.BarGraph {
     private void createDefaultYLabels() {
         yLabels = new ArrayList<>();
         for (int i = (int) (-highestValue * scale / 2); i <= highestValue * scale / 2; i++) {
-            String nm = ""+i;
+            String nm = "" + i;
             yLabels.add(nm);
-            longestYLabel=Math.max(longestYLabel, nm.length());
+            longestYLabel = Math.max(longestYLabel, nm.length());
         }
     }
 }

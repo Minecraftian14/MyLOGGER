@@ -1,13 +1,8 @@
 package com.mcxiv.logger.tables;
 
-import com.mcxiv.logger.formatted.FLog;
-import com.mcxiv.logger.packets.LambdaPacket;
 import com.mcxiv.logger.tools.LogLevel;
 import com.mcxiv.logger.util.GroupIterator;
 import com.mcxiv.logger.util.Iterator;
-import com.mcxiv.logger.util.LevelDependencyAdder;
-import com.mcxiv.logger.util.StringsConsumer;
-import javafx.scene.control.Tab;
 
 import java.util.Arrays;
 
@@ -45,7 +40,7 @@ public abstract class TableAdaptor implements Table {
         return this;
     }
 
-//    @SafeVarargs
+    //    @SafeVarargs
     @Override
     public final <T> Table bunch(T[] main, int groupSize, GroupIterator<T>... its) {
 

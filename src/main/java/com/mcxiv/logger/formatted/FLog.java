@@ -37,7 +37,7 @@ public abstract class FLog implements Logger_MethodCollection, LevelDependencyAd
 
     @Override
     public void setDecorationType(String name) {
-        decorator_name=name;
+        decorator_name = name;
     }
 
     @Override
@@ -70,7 +70,8 @@ public abstract class FLog implements Logger_MethodCollection, LevelDependencyAd
 
         @Override
         public StringsConsumer prtf(String... format) {
-            return st -> {};
+            return st -> {
+            };
         }
     };
 }

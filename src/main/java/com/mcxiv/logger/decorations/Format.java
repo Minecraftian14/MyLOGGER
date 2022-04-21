@@ -7,13 +7,13 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- *     Apply this annotation to a CLASS/METHOD/CONSTRUCTOR to specify a set of 'Formatting Rules' to it.
- *     Here you can give a list of different strings as formats which corresponds to the formatting applied to
- *     it's respective input when using a Formatted Log Tool.
+ * Apply this annotation to a CLASS/METHOD/CONSTRUCTOR to specify a set of 'Formatting Rules' to it.
+ * Here you can give a list of different strings as formats which corresponds to the formatting applied to
+ * it's respective input when using a Formatted Log Tool.
  * </p>
  *
  * <p>
- *     A Formatting Rule consists of 5 parts:
+ * A Formatting Rule consists of 5 parts:
  * </p>
  *
  * <ul>
@@ -113,5 +113,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.TYPE})
 public @interface Format {
-   String[] value();
+    String[] value();
 }

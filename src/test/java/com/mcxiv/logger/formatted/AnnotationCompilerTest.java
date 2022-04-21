@@ -98,19 +98,19 @@ public class AnnotationCompilerTest {
 
         log.prt("1", "Useless Sentences", "Some boring text ahead...",
                 "So here we have some totally boring text just " +
-                        "lying around here for you to read. Though feel " +
-                        "totally comfortable if you wish to skip ahead."
+                "lying around here for you to read. Though feel " +
+                "totally comfortable if you wish to skip ahead."
         );
 
         log.prt("2", "Senseless Art", "Valuable Shit",
                 "The main theory behind Senseless Art is the " +
-                        "ability to use simple sentences to create a " +
-                        "feeling of improtance and value describing " +
-                        "things which can't even be compared to shit. " +
-                        "If one has such wonderful creativity and a " +
-                        "sense of how to use such to your advantage, " +
-                        "consider+ the person a master of this uniquely " +
-                        "special art form."
+                "ability to use simple sentences to create a " +
+                "feeling of improtance and value describing " +
+                "things which can't even be compared to shit. " +
+                "If one has such wonderful creativity and a " +
+                "sense of how to use such to your advantage, " +
+                "consider+ the person a master of this uniquely " +
+                "special art form."
         );
     }
 

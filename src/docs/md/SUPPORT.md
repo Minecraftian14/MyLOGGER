@@ -1,5 +1,6 @@
 #### List of all the formatting codes which as used in console.
-*Please help improve this table. 
+
+*Please help improve this table.
 
 |Code|Name      |Windows 10 cmd|Idea run output|
 |----|----------|--------------|---------------|

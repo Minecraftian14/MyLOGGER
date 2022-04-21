@@ -1,6 +1,5 @@
 package com.mcxiv.logger.packets;
 
-import com.mcxiv.logger.formatted.FLog;
 import com.mcxiv.logger.util.Printer;
 import com.mcxiv.logger.util.StringsConsumer;
 

@@ -110,9 +110,9 @@ public class PlotTest {
 //                .YLabel(-5, 6, i -> i * 15)
 //                .scale(0.08)
                 .setBarType(Box.B_H)
-                .values(0, 10, i -> (int) (100 * (Math.random()-0.5)))
-                .values(0, 10, i -> (int) (100 * (Math.random()-0.5)))
-                .values(0, 10, i -> (int) (100 * (Math.random()-0.5)))
+                .values(0, 10, i -> (int) (100 * (Math.random() - 0.5)))
+                .values(0, 10, i -> (int) (100 * (Math.random() - 0.5)))
+                .values(0, 10, i -> (int) (100 * (Math.random() - 0.5)))
                 .charHeight(15)
                 .create(log);
     }

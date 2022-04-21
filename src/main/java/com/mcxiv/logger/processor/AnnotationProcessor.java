@@ -22,59 +22,59 @@ public class AnnotationProcessor extends AbstractProcessor {
     private static boolean ranOnce = false;
 
     private static final String CLASS_DATA_START = "" +
-            "package com.mcxiv.logger.processor;\n" +
-            "\n" +
-            "import com.mcxiv.logger.decorations.Decorations;\n" +
-            "import com.mcxiv.logger.formatted.FLog;\n" +
-            "import com.mcxiv.logger.util.ByteConsumer;\n" +
-            "import com.mcxiv.logger.util.StringsConsumer;\n" +
-            "\n" +
-            "import java.io.OutputStream;\n" +
-            "import java.util.HashMap;\n" +
-            "\n" +
-            "public abstract class ALog extends FLog {\n" +
-            "\n" +
-            "    public ALog() {\n" +
-            "        setDecorationType(Decorations.CONSOLE);\n" +
-            "    }\n" +
-            "\n" +
-            "    public static FLog getNew() {\n" +
-            "        return new Logger_AnnotationRetriever();\n" +
-            "    }\n" +
-            "\n" +
-            "    public static FLog getNew(OutputStream stream) {\n" +
-            "        return new Logger_AnnotationRetriever(stream);\n" +
-            "    }\n" +
-            "\n" +
-            "    public static FLog getNew(ByteConsumer consumer) {\n" +
-            "        return new Logger_AnnotationRetriever(consumer);\n" +
-            "    }\n" +
-            "\n" +
-            "    public static FLog getNew(StringsConsumer consumer) {\n" +
-            "        return new Logger_AnnotationRetriever(consumer);\n" +
-            "    }\n" +
-            "\n" +
-            "    static HashMap<String, String[]> map = new HashMap<>();\n" +
-            "\n" +
-            "    {\n";
+                                                   "package com.mcxiv.logger.processor;\n" +
+                                                   "\n" +
+                                                   "import com.mcxiv.logger.decorations.Decorations;\n" +
+                                                   "import com.mcxiv.logger.formatted.FLog;\n" +
+                                                   "import com.mcxiv.logger.util.ByteConsumer;\n" +
+                                                   "import com.mcxiv.logger.util.StringsConsumer;\n" +
+                                                   "\n" +
+                                                   "import java.io.OutputStream;\n" +
+                                                   "import java.util.HashMap;\n" +
+                                                   "\n" +
+                                                   "public abstract class ALog extends FLog {\n" +
+                                                   "\n" +
+                                                   "    public ALog() {\n" +
+                                                   "        setDecorationType(Decorations.CONSOLE);\n" +
+                                                   "    }\n" +
+                                                   "\n" +
+                                                   "    public static FLog getNew() {\n" +
+                                                   "        return new Logger_AnnotationRetriever();\n" +
+                                                   "    }\n" +
+                                                   "\n" +
+                                                   "    public static FLog getNew(OutputStream stream) {\n" +
+                                                   "        return new Logger_AnnotationRetriever(stream);\n" +
+                                                   "    }\n" +
+                                                   "\n" +
+                                                   "    public static FLog getNew(ByteConsumer consumer) {\n" +
+                                                   "        return new Logger_AnnotationRetriever(consumer);\n" +
+                                                   "    }\n" +
+                                                   "\n" +
+                                                   "    public static FLog getNew(StringsConsumer consumer) {\n" +
+                                                   "        return new Logger_AnnotationRetriever(consumer);\n" +
+                                                   "    }\n" +
+                                                   "\n" +
+                                                   "    static HashMap<String, String[]> map = new HashMap<>();\n" +
+                                                   "\n" +
+                                                   "    {\n";
     private static final String CLASS_DATA_CLOSE = "" +
-            "    }\n" +
-            "\n" +
-            "    @Override\n" +
-            "    public void setDecorationType(String name) {\n" +
-            "        super.setDecorationType(name);\n" +
-            "        map.forEach((k, f) ->\n" +
-            "                Decorations.put(\n" +
-            "                        new Decorations.Tag(\n" +
-            "                                k.substring(0, k.indexOf(\":\")),\n" +
-            "                                k.substring(k.indexOf(\":\") + 1),\n" +
-            "                                getDecorationType()\n" +
-            "                        ),\n" +
-            "                        Decorations.getSpecific(null, getDecorationType(), f)\n" +
-            "                )\n" +
-            "        );\n" +
-            "    }\n" +
-            "}\n";
+                                                   "    }\n" +
+                                                   "\n" +
+                                                   "    @Override\n" +
+                                                   "    public void setDecorationType(String name) {\n" +
+                                                   "        super.setDecorationType(name);\n" +
+                                                   "        map.forEach((k, f) ->\n" +
+                                                   "                Decorations.put(\n" +
+                                                   "                        new Decorations.Tag(\n" +
+                                                   "                                k.substring(0, k.indexOf(\":\")),\n" +
+                                                   "                                k.substring(k.indexOf(\":\") + 1),\n" +
+                                                   "                                getDecorationType()\n" +
+                                                   "                        ),\n" +
+                                                   "                        Decorations.getSpecific(null, getDecorationType(), f)\n" +
+                                                   "                )\n" +
+                                                   "        );\n" +
+                                                   "    }\n" +
+                                                   "}\n";
 
     private static final String MAP_DATA_FORM = "        map.put(\"%s\", new String[]{%s});\n";
 
@@ -82,7 +82,7 @@ public class AnnotationProcessor extends AbstractProcessor {
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
-        if(ranOnce) return;
+        if (ranOnce) return;
         super.init(processingEnv);
         builder = new StringBuilder(CLASS_DATA_START);
 //        Runtime.getRuntime().addShutdownHook(new Thread(this::flush));
@@ -105,7 +105,7 @@ public class AnnotationProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        if(ranOnce) return false;
+        if (ranOnce) return false;
 
         Collection<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(Format.class);
 

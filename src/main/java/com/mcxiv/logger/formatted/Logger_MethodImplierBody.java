@@ -42,12 +42,12 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
 
     @Override
     public void raw(String raw) {
-        prtf("").consume(raw);
+        writer.consume(raw);
     }
 
     @Override
     public StringsConsumer prtf(String... format) {
-        Decoration decoration = Decorations.getSpecific(null,decorator_name, format);
+        Decoration decoration = Decorations.getSpecific(null, decorator_name, format);
         return msg -> writer.consume(decoration.decorate(msg));
     }
 
@@ -56,7 +56,7 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
         return new OurPacket();
     }
 
-    private class OurPacket extends Packet{
+    private class OurPacket extends Packet {
 
         @Override
         public void prt(String... msg) {
@@ -74,12 +74,12 @@ class Logger_MethodImplierBody extends Logger_StreamDependencyAdder {
 
         @Override
         public void raw(String raw) {
-            prtf("").consume(raw);
+            builder.append(raw);
         }
 
         @Override
         public StringsConsumer prtf(String... format) {
-            Decoration decoration = Decorations.getSpecific(null,decorator_name, format);
+            Decoration decoration = Decorations.getSpecific(null, decorator_name, format);
             return msg -> builder.append(decoration.decorate(msg));
         }
 

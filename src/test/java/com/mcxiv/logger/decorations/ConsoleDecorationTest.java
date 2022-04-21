@@ -7,7 +7,7 @@ public class ConsoleDecorationTest {
     @Test
     public void test1() {
 
-            ConsoleDecoration d = new ConsoleDecoration(null, ":$B:");
+        ConsoleDecoration d = new ConsoleDecoration(null, ":$B:");
         System.out.println(d.decorate("Hey"));
 
         d = new ConsoleDecoration(null, ":$Gb:");

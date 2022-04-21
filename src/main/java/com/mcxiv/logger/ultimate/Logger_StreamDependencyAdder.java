@@ -6,7 +6,7 @@ abstract class Logger_StreamDependencyAdder extends Logger_LevelDependencyAdder 
 
     FLog[] loggers;
 
-    public Logger_StreamDependencyAdder(FLog...loggers) {
+    public Logger_StreamDependencyAdder(FLog... loggers) {
         super();
         this.loggers = loggers;
     }

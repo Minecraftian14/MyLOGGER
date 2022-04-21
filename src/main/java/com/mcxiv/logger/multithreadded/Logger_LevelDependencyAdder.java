@@ -1,9 +1,10 @@
-package com.mcxiv.logger.ultimate;
+package com.mcxiv.logger.multithreadded;
 
 import com.mcxiv.logger.packets.LambdaPacket;
+import com.mcxiv.logger.ultimate.ULog;
 import com.mcxiv.logger.util.StringsConsumer;
 
-abstract class Logger_LevelDependencyAdder extends ULog {
+abstract class Logger_LevelDependencyAdder extends LateLog {
 
     public Logger_LevelDependencyAdder() {
         super();

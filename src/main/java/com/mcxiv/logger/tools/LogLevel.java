@@ -26,8 +26,8 @@ public enum LogLevel {
         level = this;
     }
 
-   public void act(Runnable runnable) {
-        if(accepted()) runnable.run();
-   }
+    public void act(Runnable runnable) {
+        if (accepted()) runnable.run();
+    }
 
 }

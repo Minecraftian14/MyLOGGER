@@ -110,7 +110,7 @@ class Logger_LogFileWriter extends Logger_LevelDependencyAdder {
 
         @Override
         public StringsConsumer prtf(String... format) {
-            return msg -> builder.append(new RawDecoration(null,format).decorate(msg));
+            return msg -> builder.append(new RawDecoration(null, format).decorate(msg));
         }
 
         @Override

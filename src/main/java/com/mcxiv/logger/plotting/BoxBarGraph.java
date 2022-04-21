@@ -173,8 +173,8 @@ class BoxBarGraph implements Plot.BarGraph {
                     packet.prtf("::    : :", colors[s], ":: : :").consume("", bar, xLabels[s]);
             }
 
-            if (dh>=xLabels.length){
-                packet.prtf("::      :%"+longestXLabel+"s:").consume("");
+            if (dh >= xLabels.length) {
+                packet.prtf("::      :%" + longestXLabel + "s:").consume("");
             }
 
             packet.raw(" ");

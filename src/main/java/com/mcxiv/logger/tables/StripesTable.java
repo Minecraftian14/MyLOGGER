@@ -91,7 +91,7 @@ class StripesTable extends TableAdaptor {
 
     @Override
     public void create(FLog mainLog) {
-        if(level!=null&&!level.accepted())return;
+        if (level != null && !level.accepted()) return;
 
         Packet packet = mainLog.newPacket();
 
@@ -103,7 +103,7 @@ class StripesTable extends TableAdaptor {
         if (rowFormat2 == null) rowFormat2 = ROW_FORMAT2;
 
         if (title != null)
-            packet.prtf(":: :n%-" + (getWidth()-2) + "s" + titleFormat + ": ::").consume(title);
+            packet.prtf(":: :n%-" + (getWidth() - 2) + "s" + titleFormat + ": ::").consume(title);
 
         for (int i = 0; i < header.length; i++)
             packet.prtf(":: :%-" + rowWidth.get(i) + "s" + (i % 2 == 0 ? headFormat1 : headFormat2) + ": ::").consume(header[i]);
