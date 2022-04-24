@@ -26,7 +26,7 @@ A simple _logging_ tool to make **console outputs** look prettier...
 allprojects {
     repositories {
         // ... other sources
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://jitpack.io/#in.mcxiv' }
     }
 }
 
