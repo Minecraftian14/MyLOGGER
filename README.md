@@ -15,7 +15,7 @@ A simple _logging_ tool to make **console outputs** look prettier...
 
 <br />
 
-[![](https://jitpack.io/v/Minecraftian14/MyLOGGER.svg)]([https://jitpack.io/#Minecraftian14/MyLOGGER](https://jitpack.io/#in.mcxiv/MyLOGGER)
+[![](https://jitpack.io/v/Minecraftian14/MyLOGGER.svg)](https://jitpack.io/#in.mcxiv/MyLOGGER)
 [![](https://img.shields.io/discord/872811194170347520?color=%237289da&logoColor=%23424549)](https://discord.gg/Ar6Zuj2m82)
 
 ## Setup
