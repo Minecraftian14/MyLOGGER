@@ -9,7 +9,7 @@ Let's first clear up what all these Terms are really about...
 This is a Class Object which acts as a function on String to give another String. Basically this is the place where I
 define "how a given string is to be manipulated to get the required formatting effect".
 
-Note that this works only on one String input. As an example, consider a simple for mat where we have to prepend "
+Note that this works only on one String input. As an example, consider a simple format where we have to prepend "
 Hello " before the given String. The respective
 `Decorate` will be:
 
